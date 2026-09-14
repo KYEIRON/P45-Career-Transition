@@ -1,94 +1,245 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f4b43">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title>Project 45 — Career Transition OS</title>
-<link rel="manifest" href="manifest.webmanifest">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f8f7">
+<title>Project 45 — Career Transition OS V8</title>
 <style>
-:root{--ink:#172433;--muted:#6b7583;--line:#e5e8eb;--bg:#f5f6f7;--card:#fff;--green:#0f4b43;--green2:#21685d;--soft:#e5f0ed;--blue:#e9f1f6;--peach:#f8eadf;--lav:#efecf8;--rose:#f7e9ed;--shadow:0 8px 24px rgba(20,32,44,.045)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:13px Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-button,input{font:inherit}.app{display:grid;grid-template-columns:238px 1fr;min-height:100vh}.side{background:#fff;border-right:1px solid var(--line);padding:22px 14px;position:sticky;top:0;height:100vh}.brand{padding:4px 10px 22px}.brand b{font:19px Georgia,serif}.brand span{display:block;color:var(--muted);font-size:10px;margin-top:3px;text-transform:uppercase;letter-spacing:.08em}.nav-title{font-size:9px;color:#9aa1aa;letter-spacing:.12em;text-transform:uppercase;margin:14px 10px 7px}.nav button{display:flex;gap:10px;align-items:center;width:100%;border:0;background:transparent;padding:9px 10px;border-radius:7px;color:#4e5968;cursor:pointer;text-align:left;font-size:11px}.nav button:hover,.nav button.active{background:#eef3f1;color:var(--green);font-weight:650}.nav i{width:17px;text-align:center;font-style:normal}
-.main{min-width:0}.top{height:62px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:5}.search{width:min(360px,48vw);border:1px solid var(--line);background:#fafbfb;border-radius:7px;padding:8px 11px;outline:0;font-size:11px}.search:focus{border-color:#b7cbc6;background:#fff}.top-actions{display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:8px 11px;cursor:pointer;color:#4d5866;font-size:11px}.btn.primary{background:var(--green);border-color:var(--green);color:#fff}.avatar{width:29px;height:29px;border-radius:50%;background:var(--soft);color:var(--green);display:grid;place-items:center;font-weight:700;font-size:10px}
-.content{max-width:1280px;margin:auto;padding:27px 30px 50px}.hero{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:22px}.eyebrow{font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:var(--green);font-weight:700}.hero h1{font:400 31px Georgia,serif;margin:5px 0}.hero p{margin:0;color:var(--muted);font-size:11px}.phase{display:inline-flex;gap:7px;padding:7px 10px;background:var(--soft);color:var(--green);border-radius:20px;font-size:10px;font-weight:650}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:2px}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:9px;box-shadow:var(--shadow)}.kpi{padding:14px;display:flex;gap:11px;align-items:center;min-height:90px}.round{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto}.green{background:var(--soft);color:var(--green)}.blue{background:var(--blue);color:#35667b}.peach{background:var(--peach);color:#9b6339}.lav{background:var(--lav);color:#685a96}.rose{background:var(--rose);color:#98606c}.kpi small{display:block;color:var(--muted);font-size:9px}.kpi strong{display:block;font:600 18px Georgia,serif}.kpi p{margin:3px 0 0;color:var(--muted);font-size:9px}.arrow{margin-left:auto;color:#9ba3ac}
-.cols{display:grid;grid-template-columns:1.35fr .9fr;gap:12px;margin-top:12px}.section{padding:15px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}.section h3{margin:0;font:600 15px Georgia,serif}.link{font-size:10px;color:var(--green);cursor:pointer;font-weight:650}.task{display:grid;grid-template-columns:20px 1fr auto;align-items:center;gap:8px;padding:9px 0;border-top:1px solid #f0f1f2;font-size:11px}.task:first-child,.note:first-child,.milestone:first-child{border-top:0}.task input,.milestone input{accent-color:var(--green)}.due{font-size:9px;color:var(--muted);white-space:nowrap}.due.today{color:#a4633a;font-weight:700}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:570px}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid #eef0f2;font-size:10px}th{color:#8a929c;font-size:8px;text-transform:uppercase;letter-spacing:.05em}.pill{display:inline-block;padding:4px 7px;border-radius:12px;font-size:8px;font-weight:700}.pill.green{background:var(--soft);color:var(--green)}.pill.blue{background:var(--blue);color:#35667b}.pill.peach{background:var(--peach);color:#8c5c39}.pill.lav{background:var(--lav);color:#67588f}
-.skill{display:grid;grid-template-columns:120px 1fr 34px;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #f0f1f2;font-size:10px}.skill:first-child{border-top:0}.bar{height:6px;background:#edf0f1;border-radius:10px;overflow:hidden}.bar i{display:block;height:100%;background:var(--green);border-radius:10px}.note,.milestone{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:8px;padding:9px 0;border-top:1px solid #f0f1f2;font-size:10px}.note small{display:block;color:var(--muted);font-size:8px;margin-top:2px}.destination{padding:17px;background:linear-gradient(135deg,#fff,#f3f7f5)}.dest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.dest-grid div{background:#fff;border:1px solid var(--line);border-radius:7px;padding:10px;font-size:9px;color:#55606c}.dest-grid b{display:block;color:var(--green);margin-bottom:3px;font-size:10px}
-.view{display:none}.view.active{display:block}.module-title{margin-bottom:16px}.back{border:0;background:transparent;padding:0;color:var(--green);font-size:10px;cursor:pointer;margin-bottom:14px}.module-title h1{font:400 28px Georgia,serif;margin:0 0 4px}.module-title p{margin:0;color:var(--muted);font-size:11px}.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.module-card{padding:17px;min-height:150px}.module-card h3{font:600 15px Georgia,serif;margin:13px 0 5px}.module-card p{font-size:10px;color:var(--muted);line-height:1.55}.mini{border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 9px;cursor:pointer;font-size:9px}.big-progress{display:flex;align-items:center;gap:9px;margin:12px 0}.big-progress .bar{flex:1}.empty{text-align:center;padding:28px;color:var(--muted);font-size:11px}
-.mobile-nav{display:none}
-@media(max-width:900px){.app{grid-template-columns:70px 1fr}.side{padding:18px 8px}.brand{padding:4px 5px 20px}.brand b{font-size:15px}.brand span,.nav-title{display:none}.nav button{justify-content:center;padding:10px}.nav button span{display:none}.content{padding:23px 20px 80px}.kpis{grid-template-columns:repeat(2,1fr)}.cols{grid-template-columns:1fr}.module-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:620px){.app{display:block}.side{display:none}.top{height:57px;padding:0 14px}.search{width:55vw}.top-actions .btn{display:none}.content{padding:18px 13px 75px}.hero{display:block}.hero h1{font-size:26px}.hero-right{margin-top:10px}.kpis{gap:8px}.kpi{padding:11px;min-height:80px}.kpi strong{font-size:15px}.kpi p{display:none}.round{width:30px;height:30px}.module-grid{grid-template-columns:1fr}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);z-index:9;justify-content:space-around;padding:5px}.mobile-nav button{border:0;background:transparent;color:#657083;font-size:8px;padding:5px}.mobile-nav button.active{color:var(--green);font-weight:700}.dest-grid{grid-template-columns:1fr 1fr}}
+:root{
+  --bg:#f5f7f6;--panel:#fff;--ink:#12202b;--muted:#657482;--line:#dfe5e2;
+  --soft:#eef4f1;--green:#0f6253;--green2:#dcece6;--blue:#356ca8;--gold:#b47b27;
+  --danger:#b74b4b;--shadow:0 8px 28px rgba(20,40,50,.06);--radius:12px;
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit} button{cursor:pointer}
+.app{display:flex;min-height:100vh}.sidebar{width:265px;background:#fff;border-right:1px solid var(--line);padding:28px 16px;position:fixed;inset:0 auto 0 0;overflow:auto}
+.brand{padding:0 12px 26px}.brand-title{font-family:Georgia,serif;font-size:25px}.brand-sub{font-size:11px;letter-spacing:.13em;color:var(--muted);margin-top:3px}
+.nav-group{margin:22px 0 8px;padding:0 12px;font-size:10px;letter-spacing:.16em;color:#82908d;text-transform:uppercase}
+.nav button{width:100%;border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:9px;color:#33434f;display:flex;gap:12px;align-items:center;font-size:14px}
+.nav button:hover,.nav button.active{background:#eaf2ef;color:#073f36;font-weight:650}.ico{width:17px;text-align:center;color:#4b6a64}
+.main{margin-left:265px;flex:1;min-width:0}.topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 32px;position:sticky;top:0;z-index:10}
+.search{flex:1;max-width:520px;position:relative}.search input{width:100%;padding:12px 16px 12px 40px;border:1px solid var(--line);border-radius:9px;outline:0;background:#fafbfb}.search span{position:absolute;left:15px;top:11px;color:#77858d}
+.top-actions{margin-left:auto;display:flex;gap:8px}.btn{border:1px solid var(--line);background:#fff;padding:9px 13px;border-radius:8px;color:#273842}.btn:hover{background:#f5f8f7}.btn.primary{background:#0f6253;color:white;border-color:#0f6253}.btn.small{font-size:12px;padding:7px 10px}
+.content{max-width:1450px;margin:auto;padding:34px 42px 60px}.eyebrow{font-size:11px;font-weight:750;letter-spacing:.18em;color:#0c5b50}.hero-title{font:46px Georgia,serif;margin:7px 0 5px}.hero-sub{color:var(--muted);font-size:14px;margin-bottom:28px}.page-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:22px}.page-head h1{font:34px Georgia,serif;margin:0}.page-head p{color:var(--muted);margin:7px 0 0}
+.grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:19px;box-shadow:var(--shadow)}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-num{font-size:28px;font-weight:750;margin:7px 0 3px}.stat-note{font-size:12px;color:var(--muted)}
+.two{grid-template-columns:1.7fr 1fr}.three{grid-template-columns:repeat(3,1fr)}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:19px;box-shadow:var(--shadow)}.card h2,.card h3{font-family:Georgia,serif;margin:0 0 14px}.card h2{font-size:20px}.card h3{font-size:17px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.link{border:0;background:transparent;color:#075c51;font-size:12px;font-weight:700;padding:0}
+.list{display:flex;flex-direction:column}.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #edf0ef}.row:first-child{border-top:0}.grow{flex:1;min-width:0}.row-title{font-size:13px;font-weight:650}.row-meta{font-size:11px;color:var(--muted);margin-top:3px}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#edf3f1;font-size:10px;font-weight:700;color:#285b51}.pill.blue{background:#e9f0f8;color:#315f8e}.pill.gold{background:#fbf0df;color:#8b5e20}.pill.red{background:#f8e9e9;color:#934343}.pill.purple{background:#eeeaf7;color:#67528f}
+.progress{height:7px;background:#e6ebea;border-radius:99px;overflow:hidden;margin-top:8px}.progress>i{display:block;height:100%;background:#176957;border-radius:99px}.muted{color:var(--muted)}
+.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:11px 8px;border-bottom:1px solid #edf0ef;font-size:12px}.table th{font-size:10px;color:#77858d;text-transform:uppercase;letter-spacing:.08em}.table tr:last-child td{border-bottom:0}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.quick{border:1px solid var(--line);background:#fbfcfb;border-radius:10px;padding:15px;text-align:left}.quick strong{display:block;font-size:13px;margin-top:8px}.quick span{font-size:11px;color:var(--muted)}
+.destination{background:linear-gradient(115deg,#edf6f2,#f9fbfa);border:1px solid #dbe9e4}.destination-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.destination-item{background:#fff9;border:1px solid #dfeae6;padding:14px;border-radius:9px}.destination-item strong{font-size:12px}.destination-item p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.section-gap{margin-top:16px}.empty{padding:25px;text-align:center;color:var(--muted);font-size:13px}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field label{display:block;font-size:11px;font-weight:700;color:#53636c;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff;outline:0}.field textarea{min-height:90px;resize:vertical}.modal{position:fixed;inset:0;background:rgba(10,20,25,.35);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}.modal.show{display:flex}.modal-box{background:#fff;width:min(620px,100%);max-height:90vh;overflow:auto;border-radius:14px;padding:22px;box-shadow:0 25px 70px rgba(0,0,0,.18)}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal-head h2{font:24px Georgia,serif;margin:0}.close{border:0;background:#f2f4f4;border-radius:50%;width:32px;height:32px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.check{width:17px;height:17px}.task-done{text-decoration:line-through;color:#82908d}.bar-row{margin:13px 0}.bar-label{display:flex;justify-content:space-between;font-size:12px}.tag{font-size:10px;padding:3px 7px;background:#f0f3f2;border-radius:6px;color:#53636c}
+.toast{position:fixed;right:22px;bottom:22px;background:#123d36;color:#fff;padding:11px 15px;border-radius:9px;box-shadow:var(--shadow);display:none;z-index:100;font-size:12px}.toast.show{display:block}
+@media(max-width:1050px){.sidebar{width:220px}.main{margin-left:220px}.stats{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.three{grid-template-columns:1fr}}
+@media(max-width:720px){.sidebar{position:fixed;transform:translateX(-100%);transition:.2s;width:270px;z-index:30;box-shadow:10px 0 30px #0001}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.topbar{padding:0 15px}.content{padding:24px 16px 50px}.hero-title{font-size:34px}.stats,.form-grid,.destination-grid,.quick-grid{grid-template-columns:1fr}.page-head{align-items:flex-start;flex-direction:column}.mobile-menu{display:block!important}.top-actions .hide-mobile{display:none}}
+.mobile-menu{display:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px}
 </style>
 </head>
 <body>
 <div class="app">
-<aside class="side"><div class="brand"><b>Project 45</b><span>Career Transition OS</span></div><nav class="nav">
-<div class="nav-title">Workspace</div>
-<button data-view="dashboard" class="active"><i>⌂</i><span>Dashboard</span></button>
-<button data-view="roles"><i>◎</i><span>Target Roles</span></button><button data-view="market"><i>▦</i><span>Job Market</span></button><button data-view="skills"><i>◇</i><span>Skills & Learning</span></button><button data-view="tasks"><i>✓</i><span>Projects & Tasks</span></button>
-<div class="nav-title">Knowledge</div><button data-view="research"><i>▤</i><span>Research & Notes</span></button><button data-view="resources"><i>▱</i><span>Resources</span></button><button data-view="decisions"><i>⚖</i><span>Decision Hub</span></button>
-<div class="nav-title">Direction</div><button data-view="landscape"><i>◌</i><span>Career Landscape</span></button><button data-view="goals"><i>⚑</i><span>Goals & Milestones</span></button><button data-view="plan"><i>→</i><span>90 Day Plan</span></button>
-</nav></aside>
-<main class="main"><header class="top"><input id="search" class="search" placeholder="Search Project 45…" aria-label="Search Project 45"><div class="top-actions"><button class="btn" onclick="addTask()">+ Task</button><button class="btn" onclick="addRole()">+ Role</button><div class="avatar">P45</div></div></header>
-<div class="content">
-<section id="dashboard" class="view active"><div class="hero"><div><div class="eyebrow">Project 45 · Career Transition</div><h1>Career Transition OS</h1><p>One calm workspace for the move toward a flexible, globally mobile and sustainable career.</p></div><div class="hero-right"><span class="phase"><span class="dot"></span> Discover & Validate</span></div></div>
-<div id="dashKpis" class="kpis"></div>
-<div class="cols"><div class="card section"><div class="section-head"><h3>Priority Actions</h3><span class="link" onclick="go('tasks')">View all →</span></div><div id="taskList"></div></div><div class="card section"><div class="section-head"><h3>Skills Progress</h3><span class="link" onclick="go('skills')">View all →</span></div><div id="skillList"></div></div></div>
-<div class="card section" style="margin-top:12px"><div class="section-head"><h3>Target Role Pipeline</h3><span class="link" onclick="go('roles')">Manage roles →</span></div><div class="table-wrap"><table><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Remote</th><th>Status</th></tr></thead><tbody id="roleTable"></tbody></table></div></div>
-<div class="cols"><div class="card section"><div class="section-head"><h3>Recent Research</h3><span class="link" onclick="go('research')">View all →</span></div><div id="recentNotes"></div></div><div class="card section"><div class="section-head"><h3>Key Milestones</h3><span class="link" onclick="go('goals')">View all →</span></div><div id="milestoneList"></div></div></div>
-<div class="card destination" style="margin-top:12px"><div style="display:flex;justify-content:space-between"><div><h3 style="margin:0;font:600 17px Georgia,serif">Project 45 Destination</h3><div id="destCount" style="font-size:9px;color:var(--muted);margin-top:3px"></div></div><span class="link" onclick="go('goals')">Open goals →</span></div><div class="dest-grid"><div><b>Flexible career</b>Work that supports a sustainable life.</div><div><b>Global opportunities</b>Access to strong international markets.</div><div><b>Technology + AI</b>Build future-ready capability around existing experience.</div></div></div>
-</section><div id="modules"></div></div></main></div>
-<div class="mobile-nav"><button data-view="dashboard">⌂<br>Home</button><button data-view="roles">◎<br>Roles</button><button data-view="tasks">✓<br>Tasks</button><button data-view="skills">◇<br>Skills</button><button data-view="goals">⚑<br>Goals</button></div>
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-title">Project 45</div><div class="brand-sub">CAREER TRANSITION OS</div></div>
+  <nav class="nav" id="nav"></nav>
+  <div class="nav-group">Quick Add</div>
+  <div class="nav">
+    <button onclick="openTaskModal()"><span class="ico">✓</span>New Task</button>
+    <button onclick="openRoleModal()"><span class="ico">◇</span>New Role</button>
+    <button onclick="openNoteModal()"><span class="ico">▤</span>New Note</button>
+  </div>
+</aside>
+<main class="main">
+<header class="topbar">
+  <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+  <div class="search"><span>⌕</span><input id="searchInput" placeholder="Search Project 45..." oninput="globalSearch(this.value)"></div>
+  <div class="top-actions"><button class="btn primary hide-mobile" onclick="openTaskModal()">+ Task</button><button class="btn hide-mobile" onclick="openRoleModal()">+ Role</button><button class="btn" onclick="showPage('dashboard')">P45</button></div>
+</header>
+<div class="content" id="content"></div>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modal-box" id="modalBox"></div></div>
+<div class="toast" id="toast"></div>
+
 <script>
-const KEY="project45-os-v7";
-const seed={tasks:[
-{id:1,title:"Research 5 target roles in the UK",due:"2026-09-14",priority:"High",status:"In progress"},{id:2,title:"Compare salaries and remote options",due:"2026-09-16",priority:"Medium",status:"Not started"},{id:3,title:"Identify key certifications",due:"2026-09-18",priority:"High",status:"Not started"},{id:4,title:"Update CV for target roles",due:"2026-09-20",priority:"Medium",status:"Not started"},{id:5,title:"Reach out to 3 connections",due:"2026-09-22",priority:"Medium",status:"Not started"}],
-roles:[{id:1,role:"Procurement Business Partner",market:"UK",salary:"£55–70k",remote:"Hybrid",status:"Researching"},{id:2,role:"Supply Chain Manager",market:"UAE",salary:"£70–90k",remote:"Yes",status:"Shortlist"},{id:3,role:"Technology Risk Analyst",market:"UK",salary:"£60–80k",remote:"Yes",status:"Researching"},{id:4,role:"AI Governance Specialist",market:"Global",salary:"£70–100k",remote:"Yes",status:"Explore"},{id:5,role:"Data & Analytics Manager",market:"UK",salary:"£65–85k",remote:"Hybrid",status:"Shortlist"}],
-skills:[{id:1,name:"AI & Automation",progress:70,next:"Build practical AI workflow examples"},{id:2,name:"Data & Analytics",progress:50,next:"Strengthen Power BI and analytics portfolio"},{id:3,name:"Technology Risk",progress:30,next:"Learn core technology risk frameworks"},{id:4,name:"Supply Chain Technology",progress:60,next:"Map ERP, planning and automation skills"},{id:5,name:"Leadership",progress:40,next:"Document leadership evidence"},{id:6,name:"Certifications",progress:20,next:"Select highest-value certification"}],
-notes:[{id:1,title:"UK Job Market Insights",date:"2026-09-14",type:"Market"},{id:2,title:"UAE Opportunities",date:"2026-09-12",type:"Market"},{id:3,title:"Skills Gap Analysis",date:"2026-09-10",type:"Skills"},{id:4,title:"Recruiter Conversation Summary",date:"2026-09-08",type:"Research"}],
-milestones:[{id:1,title:"Complete market research",due:"2026-09-20",done:false},{id:2,title:"Shortlist 3 target roles",due:"2026-09-30",done:false},{id:3,title:"Enrol in key course",due:"2026-10-15",done:false},{id:4,title:"Start applying",due:"2026-11-15",done:false},{id:5,title:"Review and refine",due:"2026-12-20",done:false}],
-decisions:[{id:1,title:"Prioritise flexible and globally mobile roles",date:"2026-09-14",status:"Active"},{id:2,title:"Build technology + AI capability alongside supply chain experience",date:"2026-09-14",status:"Active"}],
-resources:[{id:1,title:"Target role research",type:"Career"},{id:2,title:"Certification shortlist",type:"Learning"},{id:3,title:"CV master version",type:"Application"}]};
-let state=loadState();
-function loadState(){try{return Object.assign({},JSON.parse(JSON.stringify(seed)),JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){return JSON.parse(JSON.stringify(seed))}}
-function save(){localStorage.setItem(KEY,JSON.stringify(state));renderDashboard();let m=document.getElementById("moduleView");if(m)renderModule(m.dataset.key)}
-function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;","'":"&#039;"}[m]))}
-function uid(){return Date.now()+Math.floor(Math.random()*1000)}
-function fmtDate(d){return d?new Date(d+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"}):"—"}
-function statusClass(s){s=(s||"").toLowerCase();return s.includes("short")||s.includes("progress")||s==="active"?"green":s.includes("research")||s==="yes"?"blue":s.includes("explore")?"peach":"lav"}
-function go(view){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));document.getElementById("dashboard").classList.toggle("active",view==="dashboard");document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===view));if(view!=="dashboard")renderModule(view);window.scrollTo({top:0,behavior:"smooth"})}
-function renderDashboard(){let done=state.tasks.filter(t=>t.status==="Done").length,progress=Math.round(done/Math.max(state.tasks.length,1)*100);
-document.getElementById("dashKpis").innerHTML=[["◎","green","Current Phase","Discover & Validate","Explore opportunities and confirm best fit"],["▥","blue","90 Day Progress",progress+"%",done+" of "+state.tasks.length+" core actions complete"],["▣","peach","Target Roles",state.roles.length,"Active pathways"],["◇","lav","Skills in Progress",state.skills.filter(s=>s.progress>0&&s.progress<100).length,"Learning now"]].map(x=>`<div class="card kpi"><div class="round ${x[1]}">${x[0]}</div><div style="flex:1"><small>${x[2]}</small><strong>${x[3]}</strong><p>${x[4]}</p></div><span class="arrow">›</span></div>`).join("");
-let today=new Date().toISOString().slice(0,10);document.getElementById("taskList").innerHTML=state.tasks.slice().sort((a,b)=>a.due.localeCompare(b.due)).slice(0,6).map(t=>`<div class="task"><input type="checkbox" ${t.status==="Done"?"checked":""} onchange="toggleTask(${t.id})"><span>${esc(t.title)}</span><span class="due ${t.due===today?"today":""}">${t.due===today?"Today":fmtDate(t.due)}</span></div>`).join("")||'<div class="empty">No tasks yet.</div>';
-document.getElementById("roleTable").innerHTML=state.roles.slice(0,6).map(r=>`<tr><td><b>${esc(r.role)}</b></td><td>${esc(r.market)}</td><td>${esc(r.salary)}</td><td>${esc(r.remote)}</td><td><span class="pill ${statusClass(r.status)}">${esc(r.status)}</span></td></tr>`).join("");
-document.getElementById("skillList").innerHTML=state.skills.map(s=>`<div class="skill"><span>${esc(s.name)}</span><div class="bar"><i style="width:${s.progress}%"></i></div><span>${s.progress}%</span></div>`).join("");
-document.getElementById("recentNotes").innerHTML=state.notes.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5).map(n=>`<div class="note"><span>▤</span><span>${esc(n.title)}<small>${esc(n.type)}</small></span><span>${fmtDate(n.date)}</span></div>`).join("");
-document.getElementById("milestoneList").innerHTML=state.milestones.map(m=>`<div class="milestone"><span><input type="checkbox" ${m.done?"checked":""} onchange="toggleMilestone(${m.id})"></span><span>${esc(m.title)}</span><span>${fmtDate(m.due)}</span></div>`).join("");
-document.getElementById("destCount").textContent=state.milestones.filter(m=>m.done).length+" / "+state.milestones.length+" milestones"}
-function toggleTask(id){let t=state.tasks.find(x=>x.id===id);if(t){t.status=t.status==="Done"?"Not started":"Done";save()}}
-function toggleMilestone(id){let m=state.milestones.find(x=>x.id===id);if(m){m.done=!m.done;save()}}
-function addTask(){let title=prompt("Task name");if(!title)return;state.tasks.unshift({id:uid(),title,due:new Date().toISOString().slice(0,10),priority:"Medium",status:"Not started"});save();go("tasks")}
-function addRole(){let role=prompt("Target role");if(!role)return;state.roles.unshift({id:uid(),role,market:"UK",salary:"To research",remote:"To research",status:"Explore"});save();go("roles")}
-function addNote(){let title=prompt("Research or note title");if(!title)return;state.notes.unshift({id:uid(),title,date:new Date().toISOString().slice(0,10),type:"Research"});save();go("research")}
-function addMilestone(){let title=prompt("Milestone");if(!title)return;state.milestones.push({id:uid(),title,due:new Date().toISOString().slice(0,10),done:false});save();go("goals")}
-function addResource(){let title=prompt("Resource name");if(!title)return;state.resources.unshift({id:uid(),title,type:"Career"});save();go("resources")}
-function addDecision(){let title=prompt("Decision");if(!title)return;state.decisions.unshift({id:uid(),title,date:new Date().toISOString().slice(0,10),status:"Active"});save();go("decisions")}
-function cycleRole(id){let r=state.roles.find(x=>x.id===id),a=["Explore","Researching","Shortlist","Applied","Archived"];if(r){r.status=a[(a.indexOf(r.status)+1)%a.length];save()}}
-function advanceSkill(id){let s=state.skills.find(x=>x.id===id);if(s){s.progress=Math.min(100,s.progress+10);save()}}
-const info={landscape:["Career Landscape","Map the career families most aligned with Health, Flexibility, Global Mobility, Income and Career Security.",["AI & Automation","Cybersecurity","Cloud & Technology","Technology Risk","AI Governance","Data & Analytics","Supply Chain Technology"]],market:["Job Market","Keep evidence from the real market across the UK, Europe, UAE/GCC, North America and global remote.",["UK Market","USA & Canada","Europe","UAE / GCC","Singapore","Global Remote"]],plan:["90 Day Plan","A focused three-phase transition plan.",["MONTH 1 — DISCOVER","MONTH 2 — BUILD","MONTH 3 — TEST & APPLY"]]};
-function shell(title,desc,body=""){return `<div class="module-title"><button class="back" onclick="go('dashboard')">← Dashboard</button><h1>${esc(title)}</h1><p>${esc(desc)}</p></div>${body}`}
-function genericView(key){let d=info[key];return shell(d[0],d[1],`<div class="module-grid">${d[2].map((x,i)=>`<div class="card module-card"><div class="round ${["green","peach","rose","blue","lav"][i%5]}">${["◎","▣","▥","◇","⚑"][i%5]}</div><h3>${esc(x)}</h3><p>Capture only the evidence, opportunities, requirements and next actions that help a Project 45 decision.</p></div>`).join("")}</div>`)}
-function renderModule(key){let old=document.getElementById("moduleView");if(old)old.remove();let s=document.createElement("section");s.id="moduleView";s.className="view active";s.dataset.key=key;if(key==="roles")s.innerHTML=rolesView();else if(key==="skills")s.innerHTML=skillsView();else if(key==="tasks")s.innerHTML=tasksView();else if(key==="research")s.innerHTML=researchView();else if(key==="goals")s.innerHTML=goalsView();else if(key==="resources")s.innerHTML=resourcesView();else if(key==="decisions")s.innerHTML=decisionsView();else if(info[key])s.innerHTML=genericView(key);else s.innerHTML=searchView(key);document.getElementById("modules").appendChild(s)}
-function rolesView(){return shell("Target Roles","Build a focused pipeline and compare fit, flexibility, market and earning potential.",`<div class="card section"><div class="section-head"><h3>Role Pipeline</h3><button class="btn primary" onclick="addRole()">+ New role</button></div><div class="table-wrap"><table><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Remote</th><th>Status</th><th></th></tr></thead><tbody>${state.roles.map(r=>`<tr><td><b>${esc(r.role)}</b></td><td>${esc(r.market)}</td><td>${esc(r.salary)}</td><td>${esc(r.remote)}</td><td><span class="pill ${statusClass(r.status)}">${esc(r.status)}</span></td><td><button class="mini" onclick="cycleRole(${r.id})">Update</button></td></tr>`).join("")}</tbody></table></div></div>`)}
-function tasksView(){return shell("Projects & Tasks","Manage the actions that turn the career strategy into movement.",`<div class="card section"><div class="section-head"><h3>Action List</h3><button class="btn primary" onclick="addTask()">+ New task</button></div>${state.tasks.map(t=>`<div class="task"><input type="checkbox" ${t.status==="Done"?"checked":""} onchange="toggleTask(${t.id})"><span><b>${esc(t.title)}</b><small>${esc(t.priority)} priority · ${esc(t.status)}</small></span><span class="due">${fmtDate(t.due)}</span></div>`).join("")}</div>`)}
-function skillsView(){return shell("Skills & Learning","Close the gap between existing experience and the roles Project 45 is targeting.",`<div class="module-grid">${state.skills.map(s=>`<div class="card module-card"><h3>${esc(s.name)}</h3><div class="big-progress"><div class="bar"><i style="width:${s.progress}%"></i></div><b>${s.progress}%</b></div><p>${esc(s.next)}</p><button class="mini" onclick="advanceSkill(${s.id})">Log progress</button></div>`).join("")}</div>`)}
-function researchView(){return shell("Research & Notes","Capture market intelligence, recruiter conversations, skills evidence and decisions.",`<div class="card section"><div class="section-head"><h3>Research Library</h3><button class="btn primary" onclick="addNote()">+ New note</button></div>${state.notes.map(n=>`<div class="note"><span>▤</span><span><b>${esc(n.title)}</b><small>${esc(n.type)}</small></span><span>${fmtDate(n.date)}</span></div>`).join("")}</div>`)}
-function goalsView(){return shell("Goals & Milestones","Keep the Project 45 destination visible and measurable.",`<div class="card section"><div class="section-head"><h3>Milestones</h3><button class="btn primary" onclick="addMilestone()">+ New milestone</button></div>${state.milestones.map(m=>`<div class="milestone"><span><input type="checkbox" ${m.done?"checked":""} onchange="toggleMilestone(${m.id})"></span><span><b>${esc(m.title)}</b></span><span>${fmtDate(m.due)}</span></div>`).join("")}</div>`)}
-function resourcesView(){return shell("Resources","A controlled library for courses, certifications, templates and useful career resources.",`<div class="card section"><div class="section-head"><h3>Resource Library</h3><button class="btn primary" onclick="addResource()">+ New resource</button></div>${state.resources.map(r=>`<div class="note"><span>▱</span><span><b>${esc(r.title)}</b><small>${esc(r.type)}</small></span></div>`).join("")}</div>`)}
-function decisionsView(){return shell("Decision Hub","Make important choices deliberately and preserve the reasoning.",`<div class="card section"><div class="section-head"><h3>Active Decisions</h3><button class="btn primary" onclick="addDecision()">+ New decision</button></div>${state.decisions.map(d=>`<div class="note"><span>⚖</span><span><b>${esc(d.title)}</b><small>${esc(d.status)} · ${fmtDate(d.date)}</small></span></div>`).join("")}</div>`)}
-function searchView(q){let hits=[];[["Task",state.tasks],["Role",state.roles],["Skill",state.skills],["Note",state.notes],["Milestone",state.milestones],["Decision",state.decisions],["Resource",state.resources]].forEach(([type,a])=>a.forEach(x=>{if(JSON.stringify(x).toLowerCase().includes(q.toLowerCase()))hits.push({type,text:x.title||x.role||x.name})}));return shell("Search Results","Results across your Project 45 workspace.",`<div class="card section"><h3>${hits.length} result${hits.length===1?"":"s"}</h3>${hits.length?hits.map(h=>`<div class="note"><span>⌕</span><span><b>${esc(h.text)}</b><small>${h.type}</small></span></div>`).join(""):'<div class="empty">Nothing matched. Try a role, skill, task or note.</div>'}</div>`)}
-document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.view)));
-document.getElementById("search").addEventListener("keydown",e=>{if(e.key==="Enter"){let q=e.target.value.trim();if(q)renderModule(q);else go("dashboard")}});renderDashboard();if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
-</script></body></html>
+const NAV=[
+ ['dashboard','⌂','Dashboard','Workspace'],['roles','◇','Target Roles','Workspace'],['market','▦','Job Market','Workspace'],
+ ['skills','◉','Skills & Learning','Workspace'],['projects','✓','Projects & Tasks','Workspace'],
+ ['notes','▤','Research & Notes','Knowledge'],['resources','▱','Resources','Knowledge'],['decisions','⌘','Decision Hub','Knowledge'],
+ ['landscape','○','Career Landscape','Direction'],['goals','⚑','Goals & Milestones','Direction'],['plan','→','90 Day Plan','Direction']
+];
+
+const defaultState={
+ tasks:[
+  {id:1,title:'Research 5 target roles in the UK',due:'Today',priority:'High',status:'In progress'},
+  {id:2,title:'Compare salaries and remote options',due:'16 Sep',priority:'Medium',status:'Not started'},
+  {id:3,title:'Identify key certifications',due:'18 Sep',priority:'High',status:'Not started'},
+  {id:4,title:'Update CV for target roles',due:'20 Sep',priority:'Medium',status:'Not started'},
+  {id:5,title:'Reach out to 3 professional connections',due:'22 Sep',priority:'Medium',status:'Not started'}
+ ],
+ roles:[
+  {id:1,role:'Procurement Business Partner',market:'UK',salary:'£55–70k',remote:'Hybrid',status:'Researching',fit:86},
+  {id:2,role:'Supply Chain Manager',market:'UAE',salary:'£70–90k',remote:'Hybrid',status:'Shortlist',fit:82},
+  {id:3,role:'Technology Risk Analyst',market:'UK',salary:'£60–80k',remote:'Remote',status:'Researching',fit:73},
+  {id:4,role:'AI Governance Specialist',market:'Global',salary:'£70–100k',remote:'Remote',status:'Explore',fit:69},
+  {id:5,role:'Data & Analytics Manager',market:'UK',salary:'£65–85k',remote:'Hybrid',status:'Shortlist',fit:79}
+ ],
+ skills:[
+  {id:1,name:'AI & Automation',level:70,target:90,area:'Technology',next:'Build one practical AI workflow'},
+  {id:2,name:'Excel & Power Query',level:80,target:90,area:'Data',next:'Create a reusable demand planning model'},
+  {id:3,name:'Data Analytics',level:50,target:80,area:'Data',next:'Complete a business analytics project'},
+  {id:4,name:'Power BI',level:20,target:75,area:'Data',next:'Build first supply chain dashboard'},
+  {id:5,name:'Technology & Digital',level:30,target:70,area:'Technology',next:'Learn APIs and cloud fundamentals'},
+  {id:6,name:'Supply Chain Technology',level:60,target:85,area:'Business',next:'Map ERP and automation opportunities'},
+  {id:7,name:'Leadership',level:40,target:75,area:'Leadership',next:'Complete leadership development module'},
+  {id:8,name:'GitHub & Web Development',level:25,target:65,area:'Technology',next:'Extend Project 45 and document evidence'}
+ ],
+ projects:[
+  {id:1,name:'Project 45 Career Transition OS',type:'Technology',status:'Active',progress:45,desc:'Personal career operating system built and deployed with HTML and GitHub Pages.'},
+  {id:2,name:'Supply Chain Analytics Portfolio',type:'Data',status:'Planned',progress:10,desc:'Portfolio project demonstrating forecasting, inventory and dashboard capability.'},
+  {id:3,name:'AI for Supply Chain Workflow',type:'AI',status:'Planned',progress:0,desc:'Practical automation workflow connecting AI with supply chain decisions.'}
+ ],
+ notes:[
+  {id:1,title:'UK Job Market Insights',date:'14 Sep',type:'Market',body:'Focus on hybrid procurement, supply chain technology and data enabled roles.'},
+  {id:2,title:'UAE Opportunities',date:'12 Sep',type:'Market',body:'Explore international roles where supply chain experience plus technology capability is valued.'},
+  {id:3,title:'Skills Gap Analysis',date:'10 Sep',type:'Skills',body:'Priority gaps: Power BI, analytics, cloud fundamentals, automation and technology risk.'},
+  {id:4,title:'Recruiter Conversation Summary',date:'8 Sep',type:'Career',body:'Track recurring requirements and salary expectations from recruiter conversations.'}
+ ],
+ goals:[
+  {id:1,title:'Complete market research',date:'20 Sep',done:false},
+  {id:2,title:'Shortlist 3 target roles',date:'30 Sep',done:false},
+  {id:3,title:'Enrol in key course',date:'15 Oct',done:false},
+  {id:4,title:'Start applying',date:'Nov 2026',done:false},
+  {id:5,title:'Review and refine',date:'Dec 2026',done:false}
+ ],
+ resources:[
+  {id:1,name:'Microsoft Learn',type:'Learning',url:'https://learn.microsoft.com/'},
+  {id:2,name:'GitHub Skills',type:'Technology',url:'https://skills.github.com/'},
+  {id:3,name:'Power BI Learning',type:'Data',url:'https://learn.microsoft.com/power-bi/'},
+  {id:4,name:'IATA Training',type:'Career',url:'https://www.iata.org/en/training/'}
+ ],
+ evidence:[
+  {id:1,skill:'GitHub & Web Development',project:'Project 45 OS',evidence:'Live GitHub Pages deployment',status:'Verified'},
+  {id:2,skill:'AI & Automation',project:'AI workflow experiments',evidence:'Practical workflows documented',status:'In progress'},
+  {id:3,skill:'Supply Chain Technology',project:'ERP process mapping',evidence:'Business process and systems mapping',status:'Planned'}
+ ],
+ decisions:[
+  {id:1,title:'Primary career direction',decision:'Business technology + supply chain + AI',confidence:85},
+  {id:2,title:'Target geography',decision:'UK first, UAE / global opportunities alongside',confidence:78},
+  {id:3,title:'Learning strategy',decision:'Projects and evidence first, certificates second',confidence:92}
+ ]
+};
+
+let state=JSON.parse(localStorage.getItem('project45_v8'))||structuredClone(defaultState);
+let current='dashboard';
+
+function save(){localStorage.setItem('project45_v8',JSON.stringify(state))}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function avgSkill(){return Math.round(state.skills.reduce((a,s)=>a+s.level,0)/state.skills.length)}
+function progressBar(n){return `<div class="progress"><i style="width:${Math.max(0,Math.min(100,n))}%"></i></div>`}
+function pill(s){let c=/shortlist|active|verified|in progress/i.test(s)?'':/high|red/i.test(s)?' red':/explore/i.test(s)?' purple':/medium/i.test(s)?' gold':' blue';return `<span class="pill${c}">${esc(s)}</span>`}
+
+function buildNav(){
+ const nav=document.getElementById('nav');nav.innerHTML='';let last='';
+ NAV.forEach(([id,ico,label,group])=>{
+  if(group!==last){const g=document.createElement('div');g.className='nav-group';g.textContent=group;nav.appendChild(g);last=group}
+  const b=document.createElement('button');b.className=current===id?'active':'';b.innerHTML=`<span class="ico">${ico}</span>${label}`;b.onclick=()=>showPage(id);nav.appendChild(b)
+ })
+}
+function showPage(page){
+ current=page;buildNav();render();document.getElementById('sidebar').classList.remove('open');window.scrollTo({top:0,behavior:'smooth'})
+}
+function pageHead(title,sub,action=''){
+ return `<div class="page-head"><div><div class="eyebrow">PROJECT 45 · CAREER TRANSITION</div><h1>${title}</h1><p>${sub}</p></div>${action}</div>`
+}
+
+function render(){
+ const c=document.getElementById('content');
+ const pages={dashboard:dashboardPage,roles:rolesPage,market:marketPage,skills:skillsPage,projects:projectsPage,notes:notesPage,resources:resourcesPage,decisions:decisionsPage,landscape:landscapePage,goals:goalsPage,plan:planPage};
+ c.innerHTML=pages[current]();
+}
+function dashboardPage(){
+ const active=state.tasks.filter(t=>t.status!=='Done').length, completeGoals=state.goals.filter(g=>g.done).length;
+ return `
+ <div class="eyebrow">PROJECT 45 · CAREER TRANSITION</div>
+ <div class="hero-title">Career Transition OS</div>
+ <div class="hero-sub">One calm workspace for the move toward a flexible, globally mobile and sustainable career.</div>
+ <div class="grid stats">
+  <div class="stat"><div class="stat-top">Current Phase <span>◉</span></div><div class="stat-num" style="font-size:20px">Discover & Validate</div><div class="stat-note">Explore opportunities and confirm best fit</div></div>
+  <div class="stat"><div class="stat-top">90 Day Progress <span>▥</span></div><div class="stat-num">32%</div>${progressBar(32)}<div class="stat-note">29 days remaining</div></div>
+  <div class="stat"><div class="stat-top">Target Roles <span>◇</span></div><div class="stat-num">${state.roles.length}</div><div class="stat-note">Active roles in pipeline</div></div>
+  <div class="stat"><div class="stat-top">Skills in Progress <span>◈</span></div><div class="stat-num">${state.skills.filter(s=>s.level<s.target).length}</div><div class="stat-note">Learning now</div></div>
+ </div>
+ <div class="grid two section-gap">
+  <div class="card"><div class="card-head"><h2>Priority Actions</h2><button class="link" onclick="showPage('projects')">View all →</button></div>
+   ${state.tasks.slice(0,5).map(t=>`<div class="row"><input class="check" type="checkbox" ${t.status==='Done'?'checked':''} onchange="toggleTask(${t.id})"><div class="grow ${t.status==='Done'?'task-done':''}"><div class="row-title">${esc(t.title)}</div><div class="row-meta">${esc(t.due)} · ${pill(t.priority)}</div></div>${pill(t.status)}</div>`).join('')}
+  </div>
+  <div class="card"><div class="card-head"><h2>Skills Progress</h2><button class="link" onclick="showPage('skills')">View all →</button></div>
+   ${state.skills.slice(0,6).map(s=>`<div class="bar-row"><div class="bar-label"><span>${esc(s.name)}</span><b>${s.level}%</b></div>${progressBar(s.level)}</div>`).join('')}
+  </div>
+ </div>
+ <div class="card section-gap"><div class="card-head"><h2>Target Role Pipeline</h2><button class="link" onclick="showPage('roles')">Manage roles →</button></div>
+ <table class="table"><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Remote</th><th>Status</th></tr></thead><tbody>${state.roles.map(r=>`<tr><td><b>${esc(r.role)}</b></td><td>${esc(r.market)}</td><td>${esc(r.salary)}</td><td>${esc(r.remote)}</td><td>${pill(r.status)}</td></tr>`).join('')}</tbody></table></div>
+ <div class="grid two section-gap">
+  <div class="card"><div class="card-head"><h2>Recent Research</h2><button class="link" onclick="showPage('notes')">View all →</button></div>${state.notes.slice(0,4).map(n=>`<div class="row"><span>▤</span><div class="grow"><div class="row-title">${esc(n.title)}</div><div class="row-meta">${esc(n.type)}</div></div><span class="muted">${esc(n.date)}</span></div>`).join('')}</div>
+  <div class="card"><div class="card-head"><h2>Key Milestones</h2><button class="link" onclick="showPage('goals')">View all →</button></div>${state.goals.map(g=>`<div class="row"><input class="check" type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${g.id})"><div class="grow ${g.done?'task-done':''}">${esc(g.title)}</div><span class="muted">${esc(g.date)}</span></div>`).join('')}</div>
+ </div>
+ <div class="card destination section-gap"><div class="card-head"><h2>Project 45 Destination</h2><button class="link" onclick="showPage('goals')">Open goals →</button></div><div class="destination-grid">
+ <div class="destination-item"><strong>Flexible career</strong><p>Work that supports a sustainable life.</p></div><div class="destination-item"><strong>Global opportunities</strong><p>Access to strong international markets.</p></div><div class="destination-item"><strong>Technology + AI</strong><p>Build future-ready capability around existing experience.</p></div></div></div>
+ `;
+}
+function rolesPage(){return pageHead('Target Roles','Your shortlist of roles, markets, salary expectations and fit.','<button class="btn primary" onclick="openRoleModal()">+ Add role</button>')+
+ `<div class="card"><table class="table"><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Remote</th><th>Fit</th><th>Status</th><th></th></tr></thead><tbody>${state.roles.map(r=>`<tr><td><b>${esc(r.role)}</b></td><td>${esc(r.market)}</td><td>${esc(r.salary)}</td><td>${esc(r.remote)}</td><td>${r.fit}%</td><td>${pill(r.status)}</td><td><button class="btn small" onclick="deleteItem('roles',${r.id})">Delete</button></td></tr>`).join('')}</tbody></table></div>`}
+function marketPage(){return pageHead('Job Market','Research the markets where your experience and new technology skills can create leverage.')+
+ `<div class="grid three"><div class="card"><h3>UK</h3><div class="stat-num">Primary</div><p class="muted">Procurement, supply chain technology, data and hybrid business roles.</p><button class="btn small" onclick="addNote('UK Market Research')">Add research note</button></div><div class="card"><h3>UAE</h3><div class="stat-num">Growth</div><p class="muted">International supply chain and transformation opportunities.</p><button class="btn small" onclick="addNote('UAE Market Research')">Add research note</button></div><div class="card"><h3>Global</h3><div class="stat-num">Explore</div><p class="muted">Remote and globally mobile technology enabled roles.</p><button class="btn small" onclick="addNote('Global Market Research')">Add research note</button></div></div>
+ <div class="card section-gap"><h2>Market research checklist</h2>${['Salary benchmarks','Hybrid / remote availability','Required skills','Certification expectations','Employer demand','International mobility'].map((x,i)=>`<div class="row"><input class="check" type="checkbox" ${i<2?'checked':''}><div class="grow">${x}</div><span class="tag">${i<2?'Done':'Next'}</span></div>`).join('')}</div>`}
+function skillsPage(){return pageHead('IT & Digital Skills','Build technology capability around your existing business and supply chain experience. Every skill should produce evidence.','<button class="btn primary" onclick="openSkillModal()">+ Add skill</button>')+
+ `<div class="grid two"><div class="card"><h2>Skills Portfolio</h2>${state.skills.map(s=>`<div class="row"><div class="grow"><div class="row-title">${esc(s.name)} <span class="tag">${esc(s.area)}</span></div><div class="row-meta">Target ${s.target}% · Next: ${esc(s.next)}</div>${progressBar(s.level)}</div><b>${s.level}%</b></div>`).join('')}</div>
+ <div class="card"><h2>Evidence of Capability</h2>${state.evidence.map(e=>`<div class="row"><div class="grow"><div class="row-title">${esc(e.skill)}</div><div class="row-meta">${esc(e.project)} · ${esc(e.evidence)}</div></div>${pill(e.status)}</div>`).join('')}
+ <div class="row"><button class="btn small primary" onclick="addEvidence()">+ Add evidence</button></div></div></div>
+ <div class="card section-gap"><h2>Learning principle</h2><p class="muted">Course → practice → project → evidence. The goal is not to collect certificates. The goal is to demonstrate capability.</p></div>`}
+function projectsPage(){return pageHead('Projects & Tasks','Turn learning and career actions into visible evidence.','<button class="btn primary" onclick="openTaskModal()">+ Add task</button>')+
+ `<div class="grid two"><div class="card"><div class="card-head"><h2>Tasks</h2><button class="link" onclick="openTaskModal()">+ New</button></div>${state.tasks.map(t=>`<div class="row"><input class="check" type="checkbox" ${t.status==='Done'?'checked':''} onchange="toggleTask(${t.id})"><div class="grow ${t.status==='Done'?'task-done':''}"><div class="row-title">${esc(t.title)}</div><div class="row-meta">${esc(t.due)} · ${pill(t.priority)}</div></div>${pill(t.status)}<button class="btn small" onclick="deleteItem('tasks',${t.id})">×</button></div>`).join('')}</div>
+ <div class="card"><div class="card-head"><h2>Projects</h2><button class="link" onclick="addProject()">+ New</button></div>${state.projects.map(p=>`<div class="row"><div class="grow"><div class="row-title">${esc(p.name)}</div><div class="row-meta">${esc(p.type)} · ${esc(p.status)}</div>${progressBar(p.progress)}</div><b>${p.progress}%</b></div>`).join('')}</div></div>`}
+function notesPage(){return pageHead('Research & Notes','Capture market intelligence, recruiter conversations, learning notes and decisions.','<button class="btn primary" onclick="openNoteModal()">+ New note</button>')+
+ `<div class="grid two"><div class="card">${state.notes.map(n=>`<div class="row"><span>▤</span><div class="grow"><div class="row-title">${esc(n.title)}</div><div class="row-meta">${esc(n.type)} · ${esc(n.date)}</div><p class="muted" style="font-size:12px">${esc(n.body)}</p></div><button class="btn small" onclick="deleteItem('notes',${n.id})">Delete</button></div>`).join('')}</div><div class="card"><h2>Research prompts</h2>${['What is changing in the target market?','Which employers offer hybrid flexibility?','What skills appear repeatedly?','What salary range is realistic?','What would make this role a strong fit?'].map(x=>`<div class="row"><span>◇</span><div class="grow">${x}</div></div>`).join('')}</div></div>`}
+function resourcesPage(){return pageHead('Resources','A focused library for learning and career execution.')+`<div class="grid two">${state.resources.map(r=>`<div class="card"><div class="card-head"><div><h3>${esc(r.name)}</h3><span class="tag">${esc(r.type)}</span></div><a class="btn small" href="${esc(r.url)}" target="_blank" rel="noopener">Open ↗</a></div></div>`).join('')}</div>`}
+function decisionsPage(){return pageHead('Decision Hub','Keep important career decisions visible and evidence based.','<button class="btn primary" onclick="addDecision()">+ Decision</button>')+`<div class="grid three">${state.decisions.map(d=>`<div class="card"><h3>${esc(d.title)}</h3><p>${esc(d.decision)}</p><div class="bar-label"><span>Confidence</span><b>${d.confidence}%</b></div>${progressBar(d.confidence)}<div style="margin-top:12px"><button class="btn small" onclick="deleteItem('decisions',${d.id})">Delete</button></div></div>`).join('')}</div>`}
+function landscapePage(){return pageHead('Career Landscape','A simple map of where your existing experience connects with future opportunities.')+`<div class="grid three">
+ <div class="card"><h3>What you already have</h3><p class="muted">Supply chain operations, inventory, logistics, procurement, customs, supplier management and ERP experience.</p></div>
+ <div class="card"><h3>What you are adding</h3><p class="muted">AI, automation, analytics, Power BI, digital systems, GitHub, web skills and technology thinking.</p></div>
+ <div class="card"><h3>Where this leads</h3><p class="muted">Business technology, supply chain transformation, procurement technology, data enabled management and AI enabled operations.</p></div></div>
+ <div class="card section-gap"><h2>Career thesis</h2><p style="font:22px Georgia,serif">“Use proven business experience as the foundation, then add technology and AI to create a more flexible and globally mobile career.”</p></div>`}
+function goalsPage(){return pageHead('Goals & Milestones','The outcomes that move Project 45 forward.','<button class="btn primary" onclick="addGoal()">+ Goal</button>')+`<div class="card">${state.goals.map(g=>`<div class="row"><input class="check" type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${g.id})"><div class="grow ${g.done?'task-done':''}"><div class="row-title">${esc(g.title)}</div><div class="row-meta">${esc(g.date)}</div></div><button class="btn small" onclick="deleteItem('goals',${g.id})">Delete</button></div>`).join('')}</div>`}
+function planPage(){return pageHead('90 Day Plan','A practical sequence from discovery to application.','<button class="btn primary" onclick="toast(\'Plan saved locally\')">Save plan</button>')+
+ `<div class="grid three">${[['Explore','Understand opportunities','Weeks 1–3'],['Validate','Research and shortlist','Weeks 4–6'],['Build','Gain skills and credentials','Weeks 7–9'],['Apply','Start applying and networking','Weeks 10–12'],['Move','Transition into new role','Beyond 90 days']].map((x,i)=>`<div class="card"><span class="pill">${i+1}</span><h3 style="margin-top:12px">${x[0]}</h3><p>${x[1]}</p><span class="muted">${x[2]}</span></div>`).join('')}</div>
+ <div class="card section-gap"><h2>This week's focus</h2>${state.tasks.slice(0,3).map(t=>`<div class="row"><span>→</span><div class="grow">${esc(t.title)}</div>${pill(t.status)}</div>`).join('')}</div>`}
+
+function openModal(title,body){document.getElementById('modalBox').innerHTML=`<div class="modal-head"><h2>${title}</h2><button class="close" onclick="closeModal()">×</button></div>${body}`;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
+function openTaskModal(){openModal('New Task',`<form onsubmit="submitTask(event)"><div class="form-grid"><div class="field" style="grid-column:1/-1"><label>Task</label><input id="f_title" required></div><div class="field"><label>Due</label><input id="f_due" placeholder="e.g. 25 Sep"></div><div class="field"><label>Priority</label><select id="f_priority"><option>High</option><option selected>Medium</option><option>Low</option></select></div></div><div class="form-actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Create task</button></div></form>`)}
+function submitTask(e){e.preventDefault();state.tasks.unshift({id:Date.now(),title:f_title.value,due:f_due.value||'Next',priority:f_priority.value,status:'Not started'});save();closeModal();showPage('projects');toast('Task created')}
+function openRoleModal(){openModal('New Target Role',`<form onsubmit="submitRole(event)"><div class="form-grid"><div class="field" style="grid-column:1/-1"><label>Role</label><input id="r_role" required></div><div class="field"><label>Market</label><input id="r_market" placeholder="UK / UAE / Global"></div><div class="field"><label>Salary</label><input id="r_salary" placeholder="£60–80k"></div><div class="field"><label>Remote</label><select id="r_remote"><option>Hybrid</option><option>Remote</option><option>Office</option></select></div><div class="field"><label>Status</label><select id="r_status"><option>Explore</option><option>Researching</option><option>Shortlist</option></select></div></div><div class="form-actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Add role</button></div></form>`)}
+function submitRole(e){e.preventDefault();state.roles.push({id:Date.now(),role:r_role.value,market:r_market.value||'UK',salary:r_salary.value||'TBC',remote:r_remote.value,status:r_status.value,fit:50});save();closeModal();showPage('roles');toast('Role added')}
+function openNoteModal(){openModal('New Research Note',`<form onsubmit="submitNote(event)"><div class="field"><label>Title</label><input id="n_title" required></div><div class="form-grid" style="margin-top:12px"><div class="field"><label>Type</label><select id="n_type"><option>Market</option><option>Skills</option><option>Career</option><option>Learning</option></select></div><div class="field"><label>Date</label><input id="n_date" value="Today"></div></div><div class="field" style="margin-top:12px"><label>Note</label><textarea id="n_body" required></textarea></div><div class="form-actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Save note</button></div></form>`)}
+function submitNote(e){e.preventDefault();state.notes.unshift({id:Date.now(),title:n_title.value,date:n_date.value||'Today',type:n_type.value,body:n_body.value});save();closeModal();showPage('notes');toast('Note saved')}
+function openSkillModal(){openModal('Add Skill',`<form onsubmit="submitSkill(event)"><div class="form-grid"><div class="field" style="grid-column:1/-1"><label>Skill</label><input id="s_name" required></div><div class="field"><label>Current level %</label><input id="s_level" type="number" min="0" max="100" value="10"></div><div class="field"><label>Target %</label><input id="s_target" type="number" min="0" max="100" value="70"></div><div class="field"><label>Area</label><input id="s_area" value="Technology"></div><div class="field"><label>Next action</label><input id="s_next"></div></div><div class="form-actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Add skill</button></div></form>`)}
+function submitSkill(e){e.preventDefault();state.skills.push({id:Date.now(),name:s_name.value,level:+s_level.value,target:+s_target.value,area:s_area.value,next:s_next.value||'Define next action'});save();closeModal();showPage('skills');toast('Skill added')}
+function addEvidence(){state.evidence.push({id:Date.now(),skill:'New skill evidence',project:'Project 45',evidence:'Evidence to be added',status:'Planned'});save();render();toast('Evidence row added')}
+function addProject(){state.projects.push({id:Date.now(),name:'New Project',type:'Career',status:'Planned',progress:0,desc:''});save();render();toast('Project added')}
+function addGoal(){state.goals.push({id:Date.now(),title:'New milestone',date:'TBC',done:false});save();render();toast('Goal added')}
+function addDecision(){state.decisions.push({id:Date.now(),title:'New decision',decision:'Decision to define',confidence:50});save();render();toast('Decision added')}
+function addNote(title){state.notes.unshift({id:Date.now(),title,date:'Today',type:'Market',body:'Research note ready for your findings.'});save();showPage('notes');toast('Research note created')}
+function deleteItem(collection,id){state[collection]=state[collection].filter(x=>x.id!==id);save();render();toast('Removed')}
+function toggleTask(id){const t=state.tasks.find(x=>x.id===id);t.status=t.status==='Done'?'Not started':'Done';save();render()}
+function toggleGoal(id){const g=state.goals.find(x=>x.id===id);g.done=!g.done;save();render()}
+function globalSearch(q){q=q.trim().toLowerCase();if(!q){return}const matches=[];[['tasks','title'],['roles','role'],['skills','name'],['projects','name'],['notes','title'],['resources','name'],['goals','title']].forEach(([c,k])=>state[c].forEach(x=>{if(String(x[k]).toLowerCase().includes(q))matches.push(`${c}: ${x[k]}`)}));if(matches.length){toast(`${matches.length} match${matches.length===1?'':'es'} found`)}else toast('No matches found')}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+buildNav();render();
+</script>
+</body>
+</html>
