@@ -62,6 +62,8 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px 10p
     <button data-view="market"><span class="icon">▦</span>Job Market</button>
     <button data-view="skills"><span class="icon">✓</span>Skills & Learning</button>
     <button data-view="tasks"><span class="icon">◒</span>Projects & Tasks</button>
+    <div class="nav-label">Intelligence</div>
+    <button data-view="meris"><span class="icon">✦</span>Meris AI</button>
     <div class="nav-label">Knowledge</div>
     <button data-view="research"><span class="icon">▤</span>Research & Notes</button>
     <button data-view="resources"><span class="icon">▱</span>Resources</button>
@@ -140,6 +142,60 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px 10p
 <section class="view" id="view-tasks"><div class="page-title">Projects & Tasks</div><div class="page-sub">Convert strategy into small actions you can actually finish.</div>
 <div class="toolbar"><div class="filters"><select id="taskFilter"><option value="all">All tasks</option><option value="open">Open</option><option value="done">Completed</option><option value="high">High priority</option></select></div><button class="btn primary" data-modal="task">+ Add task</button></div>
 <div class="card section"><div id="tasksList"></div></div></section>
+
+
+<section class="view" id="view-meris">
+  <div class="page-title">Meris AI</div>
+  <div class="page-sub">Your intelligent career companion inside Project 45.</div>
+
+  <div class="card section" style="overflow:hidden">
+    <div style="background:linear-gradient(135deg,#103f42,#1b6967);border-radius:16px;padding:24px;color:#fff;position:relative;overflow:hidden">
+      <div style="position:relative;z-index:2;max-width:760px">
+        <div class="eyebrow" style="color:#d9ece8">PROJECT 45 · INTELLIGENCE</div>
+        <h2 style="font-family:Georgia,serif;font-size:32px;font-weight:500;margin:9px 0">Meet Meris.</h2>
+        <p style="color:rgba(255,255,255,.82);line-height:1.55;margin:0">
+          Ask questions about your career transition, skills, target roles, decisions and next actions.
+          Meris uses your Project 45 information as context.
+        </p>
+      </div>
+    </div>
+
+    <div style="padding-top:20px">
+      <div class="filters" style="margin-bottom:14px">
+        <button class="btn" data-meris-prompt="What should I focus on today?">Today</button>
+        <button class="btn" data-meris-prompt="Analyse my current skill gaps and tell me what I should learn next.">Skill gaps</button>
+        <button class="btn" data-meris-prompt="Review my target roles and identify the strongest career direction.">Target roles</button>
+        <button class="btn" data-meris-prompt="Create a practical plan for this week based on my Project 45 goals.">This week</button>
+      </div>
+
+      <div id="merisMessages" style="display:grid;gap:10px;max-height:440px;overflow:auto;padding:4px 2px 12px">
+        <div class="row">
+          <div class="avatar" style="flex:0 0 34px">M</div>
+          <div class="row-main">
+            <div class="row-title">Hello. I'm Meris.</div>
+            <div class="row-meta">I'm here to help you turn Project 45 into practical career progress. Choose a prompt above or ask me anything below.</div>
+          </div>
+        </div>
+      </div>
+
+      <form id="merisForm" style="display:flex;gap:9px;margin-top:8px">
+        <input id="merisInput" autocomplete="off" placeholder="Ask Meris about your career…" style="flex:1;border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none">
+        <button class="btn primary" type="submit">Ask Meris</button>
+      </form>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:11px">
+        <span class="muted" style="font-size:11px">Connection: <b id="merisMode">Demo mode</b></span>
+        <button class="linkbtn" id="merisContextBtn">View Project 45 context</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid three" style="margin-top:16px">
+    <div class="card section"><span class="badge">Career</span><h3>Direction</h3><p class="muted">Compare paths, target roles and opportunities using evidence from your OS.</p></div>
+    <div class="card section"><span class="badge blue">Learning</span><h3>Capability</h3><p class="muted">Turn your skills gap into focused learning actions and practical evidence.</p></div>
+    <div class="card section"><span class="badge gold">Action</span><h3>Momentum</h3><p class="muted">Translate strategy into the next useful action instead of more information.</p></div>
+  </div>
+</section>
 
 <section class="view" id="view-research"><div class="page-title">Research & Notes</div><div class="page-sub">Capture evidence, market observations and useful thinking without losing it.</div>
 <div class="toolbar"><div class="filters"><input id="researchSearch" placeholder="Search notes…"></div><button class="btn primary" data-modal="research">+ Add note</button></div>
@@ -330,6 +386,74 @@ document.getElementById('globalSearch').addEventListener('input',e=>{
  ];const hit=hits.find(x=>x[1]);if(hit)setView(hit[0]);
 });
 ['roleFilter','marketFilter','skillFilter','taskFilter','researchSearch'].forEach(id=>document.getElementById(id)?.addEventListener('input',renderAll));
+
+function merisContext(){
+  return {
+    targetRoles: state.roles,
+    skills: state.skills,
+    tasks: state.tasks,
+    research: state.research,
+    goals: state.goals,
+    ninetyDayPlan: {
+      phases:["Discover","Build","Move"],
+      taskCount:state.tasks.length
+    }
+  };
+}
+function merisAdd(role,text){
+  const box=document.getElementById('merisMessages');
+  if(!box)return;
+  const el=document.createElement('div');
+  el.className='row';
+  el.innerHTML=role==='user'
+    ? `<div class="row-main"><div class="row-title">You</div><div class="row-meta">${esc(text)}</div></div>`
+    : `<div class="avatar" style="flex:0 0 34px">M</div><div class="row-main"><div class="row-title">Meris</div><div class="row-meta">${esc(text).replace(/\n/g,'<br>')}</div></div>`;
+  box.appendChild(el);
+  box.scrollTop=box.scrollHeight;
+}
+function merisDemoAnswer(question){
+  const q=question.toLowerCase();
+  const open=state.tasks.filter(t=>t.status!=='Done');
+  const learning=state.skills.filter(s=>s.status!=='Complete').sort((a,b)=>b.progress-a.progress);
+  const priority=state.roles.filter(r=>r.status==='Priority');
+  if(q.includes('today')||q.includes('focus')){
+    return `Start with one high value action: ${open[0]?.title||'review your next career action'}. Then spend 30–45 minutes on ${learning[0]?.title||'your highest priority skill'}. Keep the day focused on evidence and momentum rather than adding more research.`;
+  }
+  if(q.includes('skill')){
+    const s=learning.slice(-3).map(x=>`${x.title} (${x.progress}%)`).join(', ');
+    return `Your current learning picture suggests focusing on practical digital capability around your existing operations experience. The lower progress areas currently include ${s||'new technology skills'}. Prioritise one skill, practise it on a real Project 45 problem, and save the result as evidence.`;
+  }
+  if(q.includes('role')||q.includes('career direction')){
+    const r=priority[0]||state.roles[0];
+    return r ? `Your strongest immediate direction is ${r.title}. It gives you a bridge from your existing experience while allowing you to build technology and AI capability. Keep one adjacent growth option open, but avoid spreading the transition across too many role families.` : 'Add two or three target roles and I can compare them for fit, flexibility, growth and evidence requirements.';
+  }
+  if(q.includes('week')){
+    const picks=open.slice(0,3).map((t,i)=>`${i+1}. ${t.title}`).join(' ');
+    return `This week's focus should be: ${picks||'choose your top three transition actions'}. Finish the most important action first, then create one piece of evidence that strengthens your career story.`;
+  }
+  return `In Demo mode, Meris can already use your Project 45 data to structure a useful response. I would start by looking at your target roles, skill gaps and open tasks together. Once the secure OpenAI connection is added, this same interface can send your question and Project 45 context to the live AI.`;
+}
+async function askMeris(question){
+  question=question.trim();if(!question)return;
+  merisAdd('user',question);
+  const answer=merisDemoAnswer(question);
+  merisAdd('meris',answer);
+}
+document.addEventListener('click',e=>{
+  const p=e.target.closest('[data-meris-prompt]');
+  if(p){document.getElementById('merisInput').value=p.dataset.merisPrompt;askMeris(p.dataset.merisPrompt)}
+  if(e.target.id==='merisContextBtn'){
+    const text=JSON.stringify(merisContext(),null,2);
+    const box=document.getElementById('merisMessages');
+    const el=document.createElement('div');el.className='row';
+    el.innerHTML=`<div class="row-main"><div class="row-title">Project 45 context</div><pre style="white-space:pre-wrap;font-size:11px;color:var(--muted);max-height:220px;overflow:auto">${esc(text)}</pre></div>`;
+    box.appendChild(el);box.scrollTop=box.scrollHeight;
+  }
+});
+document.getElementById('merisForm')?.addEventListener('submit',e=>{
+  e.preventDefault();const input=document.getElementById('merisInput');const q=input.value;input.value='';askMeris(q);
+});
+
 renderAll();
 </script>
 </body>
