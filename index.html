@@ -1,245 +1,336 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f7f8f7">
-<title>Project 45 — Career Transition OS V8</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f7f5">
+<meta name="description" content="Project 45 Career Transition OS">
+<title>Project 45 · Career Transition OS · V9</title>
 <style>
 :root{
-  --bg:#f5f7f6;--panel:#fff;--ink:#12202b;--muted:#657482;--line:#dfe5e2;
-  --soft:#eef4f1;--green:#0f6253;--green2:#dcece6;--blue:#356ca8;--gold:#b47b27;
-  --danger:#b74b4b;--shadow:0 8px 28px rgba(20,40,50,.06);--radius:12px;
+  --bg:#f5f6f4; --panel:#fff; --panel2:#f8faf9; --ink:#17212b; --muted:#68737d;
+  --line:#e4e8e5; --accent:#0f5f61; --accent2:#dceceb; --gold:#b88a3b;
+  --shadow:0 12px 36px rgba(20,34,43,.07); --radius:18px; --sidebar:250px;
 }
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,input,select,textarea{font:inherit} button{cursor:pointer}
-.app{display:flex;min-height:100vh}.sidebar{width:265px;background:#fff;border-right:1px solid var(--line);padding:28px 16px;position:fixed;inset:0 auto 0 0;overflow:auto}
-.brand{padding:0 12px 26px}.brand-title{font-family:Georgia,serif;font-size:25px}.brand-sub{font-size:11px;letter-spacing:.13em;color:var(--muted);margin-top:3px}
-.nav-group{margin:22px 0 8px;padding:0 12px;font-size:10px;letter-spacing:.16em;color:#82908d;text-transform:uppercase}
-.nav button{width:100%;border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:9px;color:#33434f;display:flex;gap:12px;align-items:center;font-size:14px}
-.nav button:hover,.nav button.active{background:#eaf2ef;color:#073f36;font-weight:650}.ico{width:17px;text-align:center;color:#4b6a64}
-.main{margin-left:265px;flex:1;min-width:0}.topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 32px;position:sticky;top:0;z-index:10}
-.search{flex:1;max-width:520px;position:relative}.search input{width:100%;padding:12px 16px 12px 40px;border:1px solid var(--line);border-radius:9px;outline:0;background:#fafbfb}.search span{position:absolute;left:15px;top:11px;color:#77858d}
-.top-actions{margin-left:auto;display:flex;gap:8px}.btn{border:1px solid var(--line);background:#fff;padding:9px 13px;border-radius:8px;color:#273842}.btn:hover{background:#f5f8f7}.btn.primary{background:#0f6253;color:white;border-color:#0f6253}.btn.small{font-size:12px;padding:7px 10px}
-.content{max-width:1450px;margin:auto;padding:34px 42px 60px}.eyebrow{font-size:11px;font-weight:750;letter-spacing:.18em;color:#0c5b50}.hero-title{font:46px Georgia,serif;margin:7px 0 5px}.hero-sub{color:var(--muted);font-size:14px;margin-bottom:28px}.page-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:22px}.page-head h1{font:34px Georgia,serif;margin:0}.page-head p{color:var(--muted);margin:7px 0 0}
-.grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:19px;box-shadow:var(--shadow)}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-num{font-size:28px;font-weight:750;margin:7px 0 3px}.stat-note{font-size:12px;color:var(--muted)}
-.two{grid-template-columns:1.7fr 1fr}.three{grid-template-columns:repeat(3,1fr)}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:19px;box-shadow:var(--shadow)}.card h2,.card h3{font-family:Georgia,serif;margin:0 0 14px}.card h2{font-size:20px}.card h3{font-size:17px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.link{border:0;background:transparent;color:#075c51;font-size:12px;font-weight:700;padding:0}
-.list{display:flex;flex-direction:column}.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #edf0ef}.row:first-child{border-top:0}.grow{flex:1;min-width:0}.row-title{font-size:13px;font-weight:650}.row-meta{font-size:11px;color:var(--muted);margin-top:3px}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#edf3f1;font-size:10px;font-weight:700;color:#285b51}.pill.blue{background:#e9f0f8;color:#315f8e}.pill.gold{background:#fbf0df;color:#8b5e20}.pill.red{background:#f8e9e9;color:#934343}.pill.purple{background:#eeeaf7;color:#67528f}
-.progress{height:7px;background:#e6ebea;border-radius:99px;overflow:hidden;margin-top:8px}.progress>i{display:block;height:100%;background:#176957;border-radius:99px}.muted{color:var(--muted)}
-.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:11px 8px;border-bottom:1px solid #edf0ef;font-size:12px}.table th{font-size:10px;color:#77858d;text-transform:uppercase;letter-spacing:.08em}.table tr:last-child td{border-bottom:0}
-.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.quick{border:1px solid var(--line);background:#fbfcfb;border-radius:10px;padding:15px;text-align:left}.quick strong{display:block;font-size:13px;margin-top:8px}.quick span{font-size:11px;color:var(--muted)}
-.destination{background:linear-gradient(115deg,#edf6f2,#f9fbfa);border:1px solid #dbe9e4}.destination-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.destination-item{background:#fff9;border:1px solid #dfeae6;padding:14px;border-radius:9px}.destination-item strong{font-size:12px}.destination-item p{font-size:11px;color:var(--muted);margin:5px 0 0}
-.section-gap{margin-top:16px}.empty{padding:25px;text-align:center;color:var(--muted);font-size:13px}
-.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field label{display:block;font-size:11px;font-weight:700;color:#53636c;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff;outline:0}.field textarea{min-height:90px;resize:vertical}.modal{position:fixed;inset:0;background:rgba(10,20,25,.35);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}.modal.show{display:flex}.modal-box{background:#fff;width:min(620px,100%);max-height:90vh;overflow:auto;border-radius:14px;padding:22px;box-shadow:0 25px 70px rgba(0,0,0,.18)}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal-head h2{font:24px Georgia,serif;margin:0}.close{border:0;background:#f2f4f4;border-radius:50%;width:32px;height:32px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
-.check{width:17px;height:17px}.task-done{text-decoration:line-through;color:#82908d}.bar-row{margin:13px 0}.bar-label{display:flex;justify-content:space-between;font-size:12px}.tag{font-size:10px;padding:3px 7px;background:#f0f3f2;border-radius:6px;color:#53636c}
-.toast{position:fixed;right:22px;bottom:22px;background:#123d36;color:#fff;padding:11px 15px;border-radius:9px;box-shadow:var(--shadow);display:none;z-index:100;font-size:12px}.toast.show{display:block}
-@media(max-width:1050px){.sidebar{width:220px}.main{margin-left:220px}.stats{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.three{grid-template-columns:1fr}}
-@media(max-width:720px){.sidebar{position:fixed;transform:translateX(-100%);transition:.2s;width:270px;z-index:30;box-shadow:10px 0 30px #0001}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.topbar{padding:0 15px}.content{padding:24px 16px 50px}.hero-title{font-size:34px}.stats,.form-grid,.destination-grid,.quick-grid{grid-template-columns:1fr}.page-head{align-items:flex-start;flex-direction:column}.mobile-menu{display:block!important}.top-actions .hide-mobile{display:none}}
-.mobile-menu{display:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar);background:#fff;border-right:1px solid var(--line);padding:24px 16px;z-index:20;overflow:auto}
+.brand{padding:4px 12px 26px}.brand-title{font-family:Georgia,serif;font-size:24px}.brand-sub{font-size:11px;letter-spacing:.12em;color:var(--muted);margin-top:3px}
+.nav-label{font-size:10px;letter-spacing:.16em;color:#99a29e;margin:18px 12px 8px;text-transform:uppercase}
+.nav button{width:100%;border:0;background:transparent;text-align:left;padding:10px 12px;border-radius:11px;color:#53606a;margin:2px 0;display:flex;gap:10px;align-items:center}
+.nav button:hover{background:#f2f6f4}.nav button.active{background:#eaf2f0;color:#0b5557;font-weight:700}
+.icon{width:18px;text-align:center;color:#0f5f61}
+.main{margin-left:var(--sidebar);width:calc(100% - var(--sidebar));min-width:0}
+.topbar{height:70px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 28px;position:sticky;top:0;z-index:15;backdrop-filter:blur(12px)}
+.search{flex:1;max-width:620px;position:relative}.search input{width:100%;padding:12px 15px 12px 40px;border:1px solid var(--line);border-radius:12px;background:#fafbfa;outline:none}.search input:focus{border-color:#9bc6c3;box-shadow:0 0 0 3px #e4f1ef}.search span{position:absolute;left:14px;top:10px;color:#89938f}
+.top-actions{margin-left:auto;display:flex;gap:8px}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 14px;font-weight:650}.btn:hover{background:#f5f7f6}.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.primary:hover{filter:brightness(.96)}
+.avatar{width:34px;height:34px;border-radius:50%;background:#dfeeea;color:#0f5f61;display:grid;place-items:center;font-weight:800;font-size:12px}
+.content{padding:26px 34px 50px;max-width:1500px;margin:auto}
+.hero{border-radius:24px;min-height:225px;padding:32px;position:relative;overflow:hidden;color:#fff;box-shadow:var(--shadow);background:
+linear-gradient(120deg,rgba(9,48,54,.98),rgba(18,88,89,.94) 48%,rgba(31,113,108,.86)),
+radial-gradient(circle at 80% 25%,rgba(255,255,255,.22),transparent 28%);}
+.hero:before{content:"";position:absolute;width:430px;height:430px;border:1px solid rgba(255,255,255,.16);border-radius:50%;right:-80px;top:-210px;box-shadow:0 0 0 55px rgba(255,255,255,.025),0 0 0 110px rgba(255,255,255,.018)}
+.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:38% 62% 54% 46%;right:170px;bottom:-95px;background:rgba(232,199,130,.14);transform:rotate(24deg)}
+.hero-content{position:relative;z-index:2;max-width:720px}.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.78;font-weight:750}.hero h1{font-family:Georgia,serif;font-size:42px;line-height:1.08;margin:10px 0 10px;font-weight:500}.hero p{margin:0;max-width:650px;color:rgba(255,255,255,.82);line-height:1.55}.hero-actions{margin-top:22px;display:flex;gap:9px;flex-wrap:wrap}.hero .btn{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25);backdrop-filter:blur(6px)}.hero .btn.primary{background:#fff;color:#145b5c;border-color:#fff}
+.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 5px 20px rgba(20,34,43,.025)}.stat{padding:19px}.stat-label{font-size:12px;color:var(--muted)}.stat-value{font-size:29px;font-weight:800;margin-top:5px}.stat-note{font-size:11px;color:#0f6965;margin-top:4px}
+.two{grid-template-columns:1.65fr 1fr;margin-top:16px}.three{grid-template-columns:repeat(3,1fr);margin-top:16px}.section{padding:20px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.section-title{font-family:Georgia,serif;font-size:20px}.linkbtn{border:0;background:none;color:#0f6465;font-weight:700;padding:4px}.list{display:grid;gap:9px}.row{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:13px;background:#fcfdfc}.row-main{flex:1;min-width:0}.row-title{font-weight:700}.row-meta{font-size:12px;color:var(--muted);margin-top:3px}.badge{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:#edf3f1;color:#356361;font-size:11px;font-weight:750;white-space:nowrap}.badge.gold{background:#f7f0e2;color:#87652a}.badge.blue{background:#e9f0f8;color:#3c5d80}.check{width:20px;height:20px;border:1px solid #cbd6d2;border-radius:6px;background:#fff}.check.done{background:#0f6965;border-color:#0f6965;color:#fff;display:grid;place-items:center}
+.progress{height:8px;background:#e9eeec;border-radius:99px;overflow:hidden;margin-top:9px}.progress span{display:block;height:100%;background:#0f6965;border-radius:99px}
+.view{display:none}.view.active{display:block}.page-title{font-family:Georgia,serif;font-size:32px;margin:0}.page-sub{color:var(--muted);margin:6px 0 22px}.toolbar{display:flex;gap:9px;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap}.filters{display:flex;gap:8px;flex-wrap:wrap}.filters select,.filters input{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 11px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);font-size:13px}th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#87918e}tbody tr:hover{background:#fafcfa}
+.kpi{font-size:24px;font-weight:800}.muted{color:var(--muted)}.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed #d8dfdc;border-radius:14px}
+.goal{padding:15px;border:1px solid var(--line);border-radius:14px}.goal-top{display:flex;justify-content:space-between;gap:12px}.goal h3{margin:0;font-size:15px}.goal p{font-size:12px;color:var(--muted);margin:6px 0 0}
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(9,22,26,.45);z-index:50;align-items:center;justify-content:center;padding:20px}.modal-backdrop.open{display:flex}.modal{background:#fff;width:min(620px,100%);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.2);padding:24px}.modal h2{font-family:Georgia,serif;margin:0 0 16px}.form{display:grid;gap:12px}.form label{font-size:12px;font-weight:700;color:#56625f}.form input,.form textarea,.form select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;outline:none}.form textarea{min-height:100px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px}
+.toast{position:fixed;right:22px;bottom:22px;background:#173f40;color:#fff;padding:12px 15px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:.22s;z-index:70}.toast.show{opacity:1;transform:translateY(0)}
+.mobile-menu{display:none}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+@media(max-width:760px){:root{--sidebar:0px}.sidebar{transform:translateX(-100%);transition:.22s;width:260px;box-shadow:10px 0 30px rgba(0,0,0,.08)}.sidebar.open{transform:none}.main{margin-left:0;width:100%}.topbar{padding:0 14px}.mobile-menu{display:block}.content{padding:16px}.hero{padding:24px;min-height:250px}.hero h1{font-size:34px}.stats{grid-template-columns:1fr 1fr}.top-actions .hide-mobile{display:none}}
+@media(max-width:480px){.stats{grid-template-columns:1fr}.row{align-items:flex-start}.row .badge{margin-left:auto}.hero-actions .btn{width:100%}}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="brand-title">Project 45</div><div class="brand-sub">CAREER TRANSITION OS</div></div>
-  <nav class="nav" id="nav"></nav>
-  <div class="nav-group">Quick Add</div>
-  <div class="nav">
-    <button onclick="openTaskModal()"><span class="ico">✓</span>New Task</button>
-    <button onclick="openRoleModal()"><span class="ico">◇</span>New Role</button>
-    <button onclick="openNoteModal()"><span class="ico">▤</span>New Note</button>
+  <div class="brand"><div class="brand-title">Project 45</div><div class="brand-sub">CAREER TRANSITION OS · V9</div></div>
+  <nav class="nav" id="nav">
+    <div class="nav-label">Workspace</div>
+    <button data-view="dashboard" class="active"><span class="icon">⌂</span>Dashboard</button>
+    <button data-view="roles"><span class="icon">◇</span>Target Roles</button>
+    <button data-view="market"><span class="icon">▦</span>Job Market</button>
+    <button data-view="skills"><span class="icon">✓</span>Skills & Learning</button>
+    <button data-view="tasks"><span class="icon">◒</span>Projects & Tasks</button>
+    <div class="nav-label">Knowledge</div>
+    <button data-view="research"><span class="icon">▤</span>Research & Notes</button>
+    <button data-view="resources"><span class="icon">▱</span>Resources</button>
+    <button data-view="decisions"><span class="icon">♧</span>Decision Hub</button>
+    <div class="nav-label">Direction</div>
+    <button data-view="landscape"><span class="icon">◌</span>Career Landscape</button>
+    <button data-view="goals"><span class="icon">⚑</span>Goals & Milestones</button>
+    <button data-view="plan"><span class="icon">→</span>90 Day Plan</button>
+  </nav>
+  <div style="margin:25px 12px 8px;padding-top:18px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);line-height:1.55">
+    Your career system. One calm place to plan, learn, decide and move.
   </div>
 </aside>
+
 <main class="main">
 <header class="topbar">
-  <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
-  <div class="search"><span>⌕</span><input id="searchInput" placeholder="Search Project 45..." oninput="globalSearch(this.value)"></div>
-  <div class="top-actions"><button class="btn primary hide-mobile" onclick="openTaskModal()">+ Task</button><button class="btn hide-mobile" onclick="openRoleModal()">+ Role</button><button class="btn" onclick="showPage('dashboard')">P45</button></div>
+  <button class="btn mobile-menu" id="menuBtn">☰</button>
+  <div class="search"><span>⌕</span><input id="globalSearch" placeholder="Search Project 45…"></div>
+  <div class="top-actions">
+    <button class="btn hide-mobile" id="exportBtn">Export</button>
+    <button class="btn primary" id="quickTask">+ Task</button>
+    <button class="btn hide-mobile" id="quickRole">+ Role</button>
+    <div class="avatar">P45</div>
+  </div>
 </header>
-<div class="content" id="content"></div>
+
+<div class="content">
+<section class="view active" id="view-dashboard">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Project 45 · Career Transition</div>
+      <h1>Build the career that gives you freedom.</h1>
+      <p>A calm command centre for moving from your current experience into a flexible, globally mobile and technology enabled career.</p>
+      <div class="hero-actions">
+        <button class="btn primary" data-view="skills">Discover & Validate</button>
+        <button class="btn" data-view="plan">Open 90 Day Plan</button>
+      </div>
+    </div>
+  </div>
+  <div class="grid stats">
+    <div class="card stat"><div class="stat-label">Priority actions</div><div class="stat-value" id="statTasks">0</div><div class="stat-note">items needing attention</div></div>
+    <div class="card stat"><div class="stat-label">Skills in progress</div><div class="stat-value" id="statSkills">0</div><div class="stat-note">active learning paths</div></div>
+    <div class="card stat"><div class="stat-label">Target roles</div><div class="stat-value" id="statRoles">0</div><div class="stat-note">being evaluated</div></div>
+    <div class="card stat"><div class="stat-label">90 day progress</div><div class="stat-value" id="statProgress">0%</div><div class="stat-note">towards your next move</div></div>
+  </div>
+  <div class="grid two">
+    <div class="card section"><div class="section-head"><div class="section-title">Priority Actions</div><button class="linkbtn" data-view="tasks">View all →</button></div><div class="list" id="dashTasks"></div></div>
+    <div class="card section"><div class="section-head"><div class="section-title">Skills Progress</div><button class="linkbtn" data-view="skills">View all →</button></div><div class="list" id="dashSkills"></div></div>
+  </div>
+  <div class="card section" style="margin-top:16px"><div class="section-head"><div class="section-title">Target Role Pipeline</div><button class="linkbtn" data-view="roles">Manage roles →</button></div><div id="dashRoles"></div></div>
+  <div class="grid two">
+    <div class="card section"><div class="section-head"><div class="section-title">Recent Research</div><button class="linkbtn" data-view="research">View all →</button></div><div class="list" id="dashResearch"></div></div>
+    <div class="card section"><div class="section-head"><div class="section-title">Key Milestones</div><button class="linkbtn" data-view="goals">View all →</button></div><div class="list" id="dashGoals"></div></div>
+  </div>
+  <div class="card section" style="margin-top:16px"><div class="section-head"><div class="section-title">Project 45 Destination</div><button class="linkbtn" data-view="goals">Open goals →</button></div>
+    <div class="grid three">
+      <div class="goal"><h3>Flexible career</h3><p>Work that supports a sustainable life.</p></div>
+      <div class="goal"><h3>Global opportunities</h3><p>Access to strong international markets.</p></div>
+      <div class="goal"><h3>Technology + AI</h3><p>Build future ready capability around existing experience.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-roles"><div class="page-title">Target Roles</div><div class="page-sub">Turn career ideas into a focused pipeline of roles worth pursuing.</div>
+<div class="toolbar"><div class="filters"><select id="roleFilter"><option value="all">All roles</option><option value="priority">Priority</option><option value="research">Research</option><option value="applying">Applying</option></select></div><button class="btn primary" data-modal="role">+ Add target role</button></div>
+<div class="card section"><div id="rolesList"></div></div></section>
+
+<section class="view" id="view-market"><div class="page-title">Job Market</div><div class="page-sub">Track opportunities, applications and what the market is teaching you.</div>
+<div class="toolbar"><div class="filters"><select id="marketFilter"><option value="all">All opportunities</option><option value="saved">Saved</option><option value="applied">Applied</option><option value="interview">Interview</option></select></div><button class="btn primary" data-modal="opportunity">+ Add opportunity</button></div>
+<div class="card section"><div id="marketList"></div></div></section>
+
+<section class="view" id="view-skills"><div class="page-title">Skills & Learning</div><div class="page-sub">Build the skills that make your next career move more valuable and resilient.</div>
+<div class="toolbar"><div class="filters"><select id="skillFilter"><option value="all">All skills</option><option value="learning">Learning</option><option value="practising">Practising</option><option value="complete">Complete</option></select></div><button class="btn primary" data-modal="skill">+ Add skill</button></div>
+<div class="grid three" id="skillsGrid"></div></section>
+
+<section class="view" id="view-tasks"><div class="page-title">Projects & Tasks</div><div class="page-sub">Convert strategy into small actions you can actually finish.</div>
+<div class="toolbar"><div class="filters"><select id="taskFilter"><option value="all">All tasks</option><option value="open">Open</option><option value="done">Completed</option><option value="high">High priority</option></select></div><button class="btn primary" data-modal="task">+ Add task</button></div>
+<div class="card section"><div id="tasksList"></div></div></section>
+
+<section class="view" id="view-research"><div class="page-title">Research & Notes</div><div class="page-sub">Capture evidence, market observations and useful thinking without losing it.</div>
+<div class="toolbar"><div class="filters"><input id="researchSearch" placeholder="Search notes…"></div><button class="btn primary" data-modal="research">+ Add note</button></div>
+<div class="card section"><div id="researchList"></div></div></section>
+
+<section class="view" id="view-resources"><div class="page-title">Resources</div><div class="page-sub">Keep your best courses, tools, references and learning sources in one place.</div>
+<div class="toolbar"><span class="muted">Your personal career library</span><button class="btn primary" data-modal="resource">+ Add resource</button></div>
+<div class="grid three" id="resourcesGrid"></div></section>
+
+<section class="view" id="view-decisions"><div class="page-title">Decision Hub</div><div class="page-sub">Compare career paths deliberately instead of making decisions from scattered information.</div>
+<div class="toolbar"><span class="muted">Use evidence, fit and upside together.</span><button class="btn primary" data-modal="decision">+ Add decision</button></div>
+<div class="card section"><div id="decisionsList"></div></div></section>
+
+<section class="view" id="view-landscape"><div class="page-title">Career Landscape</div><div class="page-sub">A simple view of where your current experience can take you next.</div>
+<div class="grid three">
+  <div class="card section"><div class="eyebrow" style="color:#0f5f61">Core advantage</div><h2 style="font-family:Georgia,serif">Supply Chain & Operations</h2><p class="muted">Inventory, demand planning, logistics, procurement, customs and operational coordination.</p><div class="progress"><span style="width:88%"></span></div><small class="muted">Strong existing capability</small></div>
+  <div class="card section"><div class="eyebrow" style="color:#0f5f61">Growth bridge</div><h2 style="font-family:Georgia,serif">Data & Digital</h2><p class="muted">Excel, Business Central, analytics, automation and practical AI for operations.</p><div class="progress"><span style="width:42%"></span></div><small class="muted">Build deliberately</small></div>
+  <div class="card section"><div class="eyebrow" style="color:#0f5f61">Future option</div><h2 style="font-family:Georgia,serif">Technology + AI</h2><p class="muted">AI enabled workflows, product thinking and technology leadership built around real business knowledge.</p><div class="progress"><span style="width:24%"></span></div><small class="muted">Explore & validate</small></div>
+</div>
+<div class="card section" style="margin-top:16px"><div class="section-title">Potential directions</div><div class="grid three" style="margin-top:14px">
+  <div class="row"><div class="row-main"><div class="row-title">Procurement Business Partner</div><div class="row-meta">Strong fit · transferable experience · international</div></div><span class="badge">High fit</span></div>
+  <div class="row"><div class="row-main"><div class="row-title">Supply Chain Technology Specialist</div><div class="row-meta">Operations + systems + data</div></div><span class="badge blue">Growth</span></div>
+  <div class="row"><div class="row-main"><div class="row-title">AI Operations / Automation</div><div class="row-meta">Emerging path · validate through projects</div></div><span class="badge gold">Explore</span></div>
+</div></div></section>
+
+<section class="view" id="view-goals"><div class="page-title">Goals & Milestones</div><div class="page-sub">Keep the long term Project 45 destination visible while working on today's next step.</div>
+<div class="toolbar"><span class="muted">Direction → capability → evidence → opportunity</span><button class="btn primary" data-modal="goal">+ Add goal</button></div>
+<div class="grid three" id="goalsGrid"></div></section>
+
+<section class="view" id="view-plan"><div class="page-title">90 Day Plan</div><div class="page-sub">A practical sequence for the next three months.</div>
+<div class="grid three">
+  <div class="card section"><div class="badge">Days 1–30</div><h2 style="font-family:Georgia,serif">Discover</h2><p class="muted">Choose target roles, map skill gaps, research the market and start one high value learning path.</p><div class="progress"><span style="width:70%"></span></div></div>
+  <div class="card section"><div class="badge blue">Days 31–60</div><h2 style="font-family:Georgia,serif">Build</h2><p class="muted">Create evidence: projects, portfolio material, stronger CV positioning and targeted applications.</p><div class="progress"><span style="width:35%"></span></div></div>
+  <div class="card section"><div class="badge gold">Days 61–90</div><h2 style="font-family:Georgia,serif">Move</h2><p class="muted">Increase applications, networking, interviews and market validation. Double down on what is working.</p><div class="progress"><span style="width:15%"></span></div></div>
+</div>
+<div class="card section" style="margin-top:16px"><div class="section-head"><div class="section-title">Plan checklist</div><button class="btn" id="seedPlan">Add starter actions</button></div><div id="planList"></div></div></section>
+</div>
 </main>
 </div>
 
-<div class="modal" id="modal"><div class="modal-box" id="modalBox"></div></div>
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><h2 id="modalTitle">Add</h2><form class="form" id="modalForm"></form></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-const NAV=[
- ['dashboard','⌂','Dashboard','Workspace'],['roles','◇','Target Roles','Workspace'],['market','▦','Job Market','Workspace'],
- ['skills','◉','Skills & Learning','Workspace'],['projects','✓','Projects & Tasks','Workspace'],
- ['notes','▤','Research & Notes','Knowledge'],['resources','▱','Resources','Knowledge'],['decisions','⌘','Decision Hub','Knowledge'],
- ['landscape','○','Career Landscape','Direction'],['goals','⚑','Goals & Milestones','Direction'],['plan','→','90 Day Plan','Direction']
-];
-
+const KEY='p45_v9_state';
 const defaultState={
  tasks:[
-  {id:1,title:'Research 5 target roles in the UK',due:'Today',priority:'High',status:'In progress'},
-  {id:2,title:'Compare salaries and remote options',due:'16 Sep',priority:'Medium',status:'Not started'},
-  {id:3,title:'Identify key certifications',due:'18 Sep',priority:'High',status:'Not started'},
-  {id:4,title:'Update CV for target roles',due:'20 Sep',priority:'Medium',status:'Not started'},
-  {id:5,title:'Reach out to 3 professional connections',due:'22 Sep',priority:'Medium',status:'Not started'}
+  {id:1,title:'Define top 3 target roles',priority:'High',status:'Open',due:'This week'},
+  {id:2,title:'Complete first practical AI workflow lesson',priority:'High',status:'Open',due:'This week'},
+  {id:3,title:'Update CV positioning around supply chain + technology',priority:'Medium',status:'Open',due:'Next week'}
  ],
  roles:[
-  {id:1,role:'Procurement Business Partner',market:'UK',salary:'£55–70k',remote:'Hybrid',status:'Researching',fit:86},
-  {id:2,role:'Supply Chain Manager',market:'UAE',salary:'£70–90k',remote:'Hybrid',status:'Shortlist',fit:82},
-  {id:3,role:'Technology Risk Analyst',market:'UK',salary:'£60–80k',remote:'Remote',status:'Researching',fit:73},
-  {id:4,role:'AI Governance Specialist',market:'Global',salary:'£70–100k',remote:'Remote',status:'Explore',fit:69},
-  {id:5,role:'Data & Analytics Manager',market:'UK',salary:'£65–85k',remote:'Hybrid',status:'Shortlist',fit:79}
+  {id:1,title:'Procurement Business Partner',market:'UK / Hybrid',salary:'£45k–£65k',status:'Priority'},
+  {id:2,title:'Supply Chain Technology Specialist',market:'UK / Global',salary:'£50k–£75k',status:'Research'},
+  {id:3,title:'AI Operations / Automation',market:'Global / Remote',salary:'Explore',status:'Research'}
+ ],
+ opportunities:[
+  {id:1,title:'Procurement Business Partner',company:'Target market research',status:'Saved',location:'Hybrid / UK'},
+  {id:2,title:'Supply Chain Systems Analyst',company:'Market research',status:'Saved',location:'Hybrid / UK'}
  ],
  skills:[
-  {id:1,name:'AI & Automation',level:70,target:90,area:'Technology',next:'Build one practical AI workflow'},
-  {id:2,name:'Excel & Power Query',level:80,target:90,area:'Data',next:'Create a reusable demand planning model'},
-  {id:3,name:'Data Analytics',level:50,target:80,area:'Data',next:'Complete a business analytics project'},
-  {id:4,name:'Power BI',level:20,target:75,area:'Data',next:'Build first supply chain dashboard'},
-  {id:5,name:'Technology & Digital',level:30,target:70,area:'Technology',next:'Learn APIs and cloud fundamentals'},
-  {id:6,name:'Supply Chain Technology',level:60,target:85,area:'Business',next:'Map ERP and automation opportunities'},
-  {id:7,name:'Leadership',level:40,target:75,area:'Leadership',next:'Complete leadership development module'},
-  {id:8,name:'GitHub & Web Development',level:25,target:65,area:'Technology',next:'Extend Project 45 and document evidence'}
+  {id:1,title:'Advanced Excel & Power Query',category:'Data',progress:72,status:'Practising'},
+  {id:2,title:'Power BI',category:'Analytics',progress:35,status:'Learning'},
+  {id:3,title:'AI for Business Operations',category:'AI',progress:28,status:'Learning'},
+  {id:4,title:'Dynamics 365 Business Central',category:'Systems',progress:55,status:'Practising'},
+  {id:5,title:'Procurement Strategy',category:'Leadership',progress:48,status:'Learning'}
  ],
- projects:[
-  {id:1,name:'Project 45 Career Transition OS',type:'Technology',status:'Active',progress:45,desc:'Personal career operating system built and deployed with HTML and GitHub Pages.'},
-  {id:2,name:'Supply Chain Analytics Portfolio',type:'Data',status:'Planned',progress:10,desc:'Portfolio project demonstrating forecasting, inventory and dashboard capability.'},
-  {id:3,name:'AI for Supply Chain Workflow',type:'AI',status:'Planned',progress:0,desc:'Practical automation workflow connecting AI with supply chain decisions.'}
- ],
- notes:[
-  {id:1,title:'UK Job Market Insights',date:'14 Sep',type:'Market',body:'Focus on hybrid procurement, supply chain technology and data enabled roles.'},
-  {id:2,title:'UAE Opportunities',date:'12 Sep',type:'Market',body:'Explore international roles where supply chain experience plus technology capability is valued.'},
-  {id:3,title:'Skills Gap Analysis',date:'10 Sep',type:'Skills',body:'Priority gaps: Power BI, analytics, cloud fundamentals, automation and technology risk.'},
-  {id:4,title:'Recruiter Conversation Summary',date:'8 Sep',type:'Career',body:'Track recurring requirements and salary expectations from recruiter conversations.'}
- ],
- goals:[
-  {id:1,title:'Complete market research',date:'20 Sep',done:false},
-  {id:2,title:'Shortlist 3 target roles',date:'30 Sep',done:false},
-  {id:3,title:'Enrol in key course',date:'15 Oct',done:false},
-  {id:4,title:'Start applying',date:'Nov 2026',done:false},
-  {id:5,title:'Review and refine',date:'Dec 2026',done:false}
+ research:[
+  {id:1,title:'Hybrid procurement roles',text:'Research salary levels, responsibilities and common requirements.',tag:'Career Market'},
+  {id:2,title:'AI in supply chain',text:'Identify practical use cases where operations experience becomes an advantage.',tag:'Technology'}
  ],
  resources:[
-  {id:1,name:'Microsoft Learn',type:'Learning',url:'https://learn.microsoft.com/'},
-  {id:2,name:'GitHub Skills',type:'Technology',url:'https://skills.github.com/'},
-  {id:3,name:'Power BI Learning',type:'Data',url:'https://learn.microsoft.com/power-bi/'},
-  {id:4,name:'IATA Training',type:'Career',url:'https://www.iata.org/en/training/'}
- ],
- evidence:[
-  {id:1,skill:'GitHub & Web Development',project:'Project 45 OS',evidence:'Live GitHub Pages deployment',status:'Verified'},
-  {id:2,skill:'AI & Automation',project:'AI workflow experiments',evidence:'Practical workflows documented',status:'In progress'},
-  {id:3,skill:'Supply Chain Technology',project:'ERP process mapping',evidence:'Business process and systems mapping',status:'Planned'}
+  {id:1,title:'Microsoft Learn',type:'Learning',url:'https://learn.microsoft.com/'},
+  {id:2,title:'IATA Training',type:'Career',url:'https://www.iata.org/en/training/'},
+  {id:3,title:'Power BI Learning',type:'Analytics',url:'https://learn.microsoft.com/power-bi/'}
  ],
  decisions:[
-  {id:1,title:'Primary career direction',decision:'Business technology + supply chain + AI',confidence:85},
-  {id:2,title:'Target geography',decision:'UK first, UAE / global opportunities alongside',confidence:78},
-  {id:3,title:'Learning strategy',decision:'Projects and evidence first, certificates second',confidence:92}
+  {id:1,title:'Procurement Business Partner',fit:9,upside:8,flex:8,note:'Strongest immediate bridge from existing experience.'},
+  {id:2,title:'Supply Chain Technology',fit:8,upside:9,flex:9,note:'Excellent longer term option if digital skills increase.'}
+ ],
+ goals:[
+  {id:1,title:'Move into a flexible, higher value career',area:'Career',progress:35},
+  {id:2,title:'Build future ready technology + AI capability',area:'Skills',progress:30},
+  {id:3,title:'Reach Project 45 financial freedom objective',area:'Life',progress:20}
  ]
 };
+let state=load();
+let modalType=null;
 
-let state=JSON.parse(localStorage.getItem('project45_v8'))||structuredClone(defaultState);
-let current='dashboard';
-
-function save(){localStorage.setItem('project45_v8',JSON.stringify(state))}
+function load(){try{return {...defaultState,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return structuredClone(defaultState)}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state)); renderAll()}
+function uid(arr){return arr.length?Math.max(...arr.map(x=>Number(x.id)||0))+1:1}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function avgSkill(){return Math.round(state.skills.reduce((a,s)=>a+s.level,0)/state.skills.length)}
-function progressBar(n){return `<div class="progress"><i style="width:${Math.max(0,Math.min(100,n))}%"></i></div>`}
-function pill(s){let c=/shortlist|active|verified|in progress/i.test(s)?'':/high|red/i.test(s)?' red':/explore/i.test(s)?' purple':/medium/i.test(s)?' gold':' blue';return `<span class="pill${c}">${esc(s)}</span>`}
-
-function buildNav(){
- const nav=document.getElementById('nav');nav.innerHTML='';let last='';
- NAV.forEach(([id,ico,label,group])=>{
-  if(group!==last){const g=document.createElement('div');g.className='nav-group';g.textContent=group;nav.appendChild(g);last=group}
-  const b=document.createElement('button');b.className=current===id?'active':'';b.innerHTML=`<span class="ico">${ico}</span>${label}`;b.onclick=()=>showPage(id);nav.appendChild(b)
- })
+function setView(view){
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ document.getElementById('view-'+view)?.classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+ window.scrollTo({top:0,behavior:'smooth'}); document.getElementById('sidebar').classList.remove('open'); renderAll();
 }
-function showPage(page){
- current=page;buildNav();render();document.getElementById('sidebar').classList.remove('open');window.scrollTo({top:0,behavior:'smooth'})
+document.addEventListener('click',e=>{
+ const v=e.target.closest('[data-view]'); if(v){setView(v.dataset.view);return}
+ const m=e.target.closest('[data-modal]'); if(m){openModal(m.dataset.modal);return}
+ if(e.target.id==='menuBtn') document.getElementById('sidebar').classList.toggle('open');
+ if(e.target.id==='quickTask') openModal('task');
+ if(e.target.id==='quickRole') openModal('role');
+ if(e.target.id==='exportBtn') exportData();
+ if(e.target.id==='seedPlan') seedPlan();
+ const task=e.target.closest('[data-task-id]'); if(task){toggleTask(Number(task.dataset.taskId))}
+ const del=e.target.closest('[data-delete]'); if(del){deleteItem(del.dataset.delete,Number(del.dataset.id))}
+ const cycle=e.target.closest('[data-cycle-skill]'); if(cycle){cycleSkill(Number(cycle.dataset.cycleSkill))}
+});
+function toggleTask(id){const t=state.tasks.find(x=>x.id===id);if(t){t.status=t.status==='Done'?'Open':'Done';save();toast(t.status==='Done'?'Task completed':'Task reopened')}}
+function cycleSkill(id){const s=state.skills.find(x=>x.id===id);if(!s)return;s.progress=Math.min(100,s.progress+10);s.status=s.progress>=100?'Complete':s.progress>=50?'Practising':'Learning';save();toast('Skill progress updated')}
+function deleteItem(type,id){const map={task:'tasks',role:'roles',opportunity:'opportunities',skill:'skills',research:'research',resource:'resources',decision:'decisions',goal:'goals'};const arr=state[map[type]];if(!arr)return;state[map[type]]=arr.filter(x=>x.id!==id);save();toast('Removed')}
+function fieldsFor(type){
+ const configs={
+ task:[['title','Task title','text',''],['priority','Priority','select','High|Medium|Low'],['due','Due','text','']],
+ role:[['title','Role title','text',''],['market','Market / location','text',''],['salary','Salary target','text',''],['status','Status','select','Priority|Research|Applying']],
+ opportunity:[['title','Opportunity / role','text',''],['company','Company','text',''],['location','Location','text',''],['status','select','Status','Saved|Applied|Interview|Closed']],
+ skill:[['title','Skill','text',''],['category','Category','text',''],['progress','Starting progress (%)','number','0']],
+ research:[['title','Note title','text',''],['tag','Area','text',''],['text','Note','textarea','']],
+ resource:[['title','Resource name','text',''],['type','Type','text',''],['url','URL','url','']],
+ decision:[['title','Option','text',''],['fit','Fit / 10','number',''],['upside','Upside / 10','number',''],['flex','Flexibility / 10','number',''],['note','Why it matters','textarea','']],
+ goal:[['title','Goal','text',''],['area','Area','text',''],['progress','Progress (%)','number','0']]
+ };
+ return configs[type]||[];
 }
-function pageHead(title,sub,action=''){
- return `<div class="page-head"><div><div class="eyebrow">PROJECT 45 · CAREER TRANSITION</div><h1>${title}</h1><p>${sub}</p></div>${action}</div>`
+function openModal(type){
+ modalType=type; const titles={task:'Add a task',role:'Add a target role',opportunity:'Add a job opportunity',skill:'Add a skill',research:'Add a research note',resource:'Add a resource',decision:'Add a career decision',goal:'Add a goal'};
+ document.getElementById('modalTitle').textContent=titles[type]||'Add';
+ const form=document.getElementById('modalForm'); form.innerHTML='';
+ fieldsFor(type).forEach(f=>{
+  const [name,label,typeOr,value]=f; const wrap=document.createElement('div');
+  const lab=document.createElement('label');lab.textContent=label;wrap.appendChild(lab);
+  let el;
+  if(typeOr==='select'){el=document.createElement('select');(value.split('|')).forEach(o=>{const op=document.createElement('option');op.value=o;op.textContent=o;el.appendChild(op)})}
+  else {el=document.createElement(typeOr==='textarea'?'textarea':'input');el.type=typeOr==='textarea'?'':typeOr;el.placeholder=label}
+  el.name=name;el.value=typeOr==='select'?el.value:value;wrap.appendChild(el);form.appendChild(wrap)
+ });
+ const actions=document.createElement('div');actions.className='modal-actions';actions.innerHTML='<button type="button" class="btn" id="cancelModal">Cancel</button><button class="btn primary" type="submit">Save</button>';form.appendChild(actions);
+ document.getElementById('modalBackdrop').classList.add('open');
 }
-
-function render(){
- const c=document.getElementById('content');
- const pages={dashboard:dashboardPage,roles:rolesPage,market:marketPage,skills:skillsPage,projects:projectsPage,notes:notesPage,resources:resourcesPage,decisions:decisionsPage,landscape:landscapePage,goals:goalsPage,plan:planPage};
- c.innerHTML=pages[current]();
+document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop'||e.target.id==='cancelModal')e.currentTarget.classList.remove('open')});
+document.getElementById('modalForm').addEventListener('submit',e=>{
+ e.preventDefault();const fd=new FormData(e.target);const d=Object.fromEntries(fd.entries());const id=uid(state[({task:'tasks',role:'roles',opportunity:'opportunities',skill:'skills',research:'research',resource:'resources',decision:'decisions',goal:'goals'})[modalType]]);
+ if(modalType==='task')state.tasks.push({id,...d,status:'Open'});
+ if(modalType==='role')state.roles.push({id,...d});
+ if(modalType==='opportunity')state.opportunities.push({id,...d});
+ if(modalType==='skill')state.skills.push({id,...d,progress:Number(d.progress)||0,status:(Number(d.progress)||0)>=100?'Complete':(Number(d.progress)||0)>=50?'Practising':'Learning'});
+ if(modalType==='research')state.research.push({id,...d});
+ if(modalType==='resource')state.resources.push({id,...d});
+ if(modalType==='decision')state.decisions.push({id,...d,fit:Number(d.fit)||0,upside:Number(d.upside)||0,flex:Number(d.flex)||0});
+ if(modalType==='goal')state.goals.push({id,...d,progress:Number(d.progress)||0});
+ document.getElementById('modalBackdrop').classList.remove('open');save();toast('Saved successfully');
+});
+function removeBtn(type,id){return `<button class="linkbtn" data-delete="${type}" data-id="${id}" title="Remove">Remove</button>`}
+function renderDashboard(){
+ const open=state.tasks.filter(t=>t.status!=='Done');document.getElementById('statTasks').textContent=open.length;document.getElementById('statSkills').textContent=state.skills.filter(s=>s.status!=='Complete').length;document.getElementById('statRoles').textContent=state.roles.length;
+ const progress=state.tasks.length?Math.round(state.tasks.filter(t=>t.status==='Done').length/state.tasks.length*100):0;document.getElementById('statProgress').textContent=progress+'%';
+ document.getElementById('dashTasks').innerHTML=open.slice(0,4).map(t=>`<div class="row"><button class="check" data-task-id="${t.id}"></button><div class="row-main"><div class="row-title">${esc(t.title)}</div><div class="row-meta">${esc(t.due||'No due date')}</div></div><span class="badge ${t.priority==='High'?'gold':''}">${esc(t.priority)}</span></div>`).join('')||'<div class="empty">No priority actions. Nice work.</div>';
+ document.getElementById('dashSkills').innerHTML=state.skills.slice(0,4).map(s=>`<div><div style="display:flex;justify-content:space-between"><b style="font-size:13px">${esc(s.title)}</b><span class="muted" style="font-size:11px">${s.progress}%</span></div><div class="progress"><span style="width:${s.progress}%"></span></div></div>`).join('');
+ document.getElementById('dashRoles').innerHTML=state.roles.length?`<table><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Status</th></tr></thead><tbody>${state.roles.slice(0,5).map(r=>`<tr><td><b>${esc(r.title)}</b></td><td>${esc(r.market)}</td><td>${esc(r.salary)}</td><td><span class="badge">${esc(r.status)}</span></td></tr>`).join('')}</tbody></table>`:'<div class="empty">Add your first target role.</div>';
+ document.getElementById('dashResearch').innerHTML=state.research.slice(-4).reverse().map(r=>`<div class="row"><div class="row-main"><div class="row-title">${esc(r.title)}</div><div class="row-meta">${esc(r.text)}</div></div><span class="badge">${esc(r.tag)}</span></div>`).join('')||'<div class="empty">No research yet.</div>';
+ document.getElementById('dashGoals').innerHTML=state.goals.slice(0,3).map(g=>`<div><div style="display:flex;justify-content:space-between"><b style="font-size:13px">${esc(g.title)}</b><span class="muted">${g.progress}%</span></div><div class="progress"><span style="width:${g.progress}%"></span></div></div>`).join('');
 }
-function dashboardPage(){
- const active=state.tasks.filter(t=>t.status!=='Done').length, completeGoals=state.goals.filter(g=>g.done).length;
- return `
- <div class="eyebrow">PROJECT 45 · CAREER TRANSITION</div>
- <div class="hero-title">Career Transition OS</div>
- <div class="hero-sub">One calm workspace for the move toward a flexible, globally mobile and sustainable career.</div>
- <div class="grid stats">
-  <div class="stat"><div class="stat-top">Current Phase <span>◉</span></div><div class="stat-num" style="font-size:20px">Discover & Validate</div><div class="stat-note">Explore opportunities and confirm best fit</div></div>
-  <div class="stat"><div class="stat-top">90 Day Progress <span>▥</span></div><div class="stat-num">32%</div>${progressBar(32)}<div class="stat-note">29 days remaining</div></div>
-  <div class="stat"><div class="stat-top">Target Roles <span>◇</span></div><div class="stat-num">${state.roles.length}</div><div class="stat-note">Active roles in pipeline</div></div>
-  <div class="stat"><div class="stat-top">Skills in Progress <span>◈</span></div><div class="stat-num">${state.skills.filter(s=>s.level<s.target).length}</div><div class="stat-note">Learning now</div></div>
- </div>
- <div class="grid two section-gap">
-  <div class="card"><div class="card-head"><h2>Priority Actions</h2><button class="link" onclick="showPage('projects')">View all →</button></div>
-   ${state.tasks.slice(0,5).map(t=>`<div class="row"><input class="check" type="checkbox" ${t.status==='Done'?'checked':''} onchange="toggleTask(${t.id})"><div class="grow ${t.status==='Done'?'task-done':''}"><div class="row-title">${esc(t.title)}</div><div class="row-meta">${esc(t.due)} · ${pill(t.priority)}</div></div>${pill(t.status)}</div>`).join('')}
-  </div>
-  <div class="card"><div class="card-head"><h2>Skills Progress</h2><button class="link" onclick="showPage('skills')">View all →</button></div>
-   ${state.skills.slice(0,6).map(s=>`<div class="bar-row"><div class="bar-label"><span>${esc(s.name)}</span><b>${s.level}%</b></div>${progressBar(s.level)}</div>`).join('')}
-  </div>
- </div>
- <div class="card section-gap"><div class="card-head"><h2>Target Role Pipeline</h2><button class="link" onclick="showPage('roles')">Manage roles →</button></div>
- <table class="table"><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Remote</th><th>Status</th></tr></thead><tbody>${state.roles.map(r=>`<tr><td><b>${esc(r.role)}</b></td><td>${esc(r.market)}</td><td>${esc(r.salary)}</td><td>${esc(r.remote)}</td><td>${pill(r.status)}</td></tr>`).join('')}</tbody></table></div>
- <div class="grid two section-gap">
-  <div class="card"><div class="card-head"><h2>Recent Research</h2><button class="link" onclick="showPage('notes')">View all →</button></div>${state.notes.slice(0,4).map(n=>`<div class="row"><span>▤</span><div class="grow"><div class="row-title">${esc(n.title)}</div><div class="row-meta">${esc(n.type)}</div></div><span class="muted">${esc(n.date)}</span></div>`).join('')}</div>
-  <div class="card"><div class="card-head"><h2>Key Milestones</h2><button class="link" onclick="showPage('goals')">View all →</button></div>${state.goals.map(g=>`<div class="row"><input class="check" type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${g.id})"><div class="grow ${g.done?'task-done':''}">${esc(g.title)}</div><span class="muted">${esc(g.date)}</span></div>`).join('')}</div>
- </div>
- <div class="card destination section-gap"><div class="card-head"><h2>Project 45 Destination</h2><button class="link" onclick="showPage('goals')">Open goals →</button></div><div class="destination-grid">
- <div class="destination-item"><strong>Flexible career</strong><p>Work that supports a sustainable life.</p></div><div class="destination-item"><strong>Global opportunities</strong><p>Access to strong international markets.</p></div><div class="destination-item"><strong>Technology + AI</strong><p>Build future-ready capability around existing experience.</p></div></div></div>
- `;
-}
-function rolesPage(){return pageHead('Target Roles','Your shortlist of roles, markets, salary expectations and fit.','<button class="btn primary" onclick="openRoleModal()">+ Add role</button>')+
- `<div class="card"><table class="table"><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Remote</th><th>Fit</th><th>Status</th><th></th></tr></thead><tbody>${state.roles.map(r=>`<tr><td><b>${esc(r.role)}</b></td><td>${esc(r.market)}</td><td>${esc(r.salary)}</td><td>${esc(r.remote)}</td><td>${r.fit}%</td><td>${pill(r.status)}</td><td><button class="btn small" onclick="deleteItem('roles',${r.id})">Delete</button></td></tr>`).join('')}</tbody></table></div>`}
-function marketPage(){return pageHead('Job Market','Research the markets where your experience and new technology skills can create leverage.')+
- `<div class="grid three"><div class="card"><h3>UK</h3><div class="stat-num">Primary</div><p class="muted">Procurement, supply chain technology, data and hybrid business roles.</p><button class="btn small" onclick="addNote('UK Market Research')">Add research note</button></div><div class="card"><h3>UAE</h3><div class="stat-num">Growth</div><p class="muted">International supply chain and transformation opportunities.</p><button class="btn small" onclick="addNote('UAE Market Research')">Add research note</button></div><div class="card"><h3>Global</h3><div class="stat-num">Explore</div><p class="muted">Remote and globally mobile technology enabled roles.</p><button class="btn small" onclick="addNote('Global Market Research')">Add research note</button></div></div>
- <div class="card section-gap"><h2>Market research checklist</h2>${['Salary benchmarks','Hybrid / remote availability','Required skills','Certification expectations','Employer demand','International mobility'].map((x,i)=>`<div class="row"><input class="check" type="checkbox" ${i<2?'checked':''}><div class="grow">${x}</div><span class="tag">${i<2?'Done':'Next'}</span></div>`).join('')}</div>`}
-function skillsPage(){return pageHead('IT & Digital Skills','Build technology capability around your existing business and supply chain experience. Every skill should produce evidence.','<button class="btn primary" onclick="openSkillModal()">+ Add skill</button>')+
- `<div class="grid two"><div class="card"><h2>Skills Portfolio</h2>${state.skills.map(s=>`<div class="row"><div class="grow"><div class="row-title">${esc(s.name)} <span class="tag">${esc(s.area)}</span></div><div class="row-meta">Target ${s.target}% · Next: ${esc(s.next)}</div>${progressBar(s.level)}</div><b>${s.level}%</b></div>`).join('')}</div>
- <div class="card"><h2>Evidence of Capability</h2>${state.evidence.map(e=>`<div class="row"><div class="grow"><div class="row-title">${esc(e.skill)}</div><div class="row-meta">${esc(e.project)} · ${esc(e.evidence)}</div></div>${pill(e.status)}</div>`).join('')}
- <div class="row"><button class="btn small primary" onclick="addEvidence()">+ Add evidence</button></div></div></div>
- <div class="card section-gap"><h2>Learning principle</h2><p class="muted">Course → practice → project → evidence. The goal is not to collect certificates. The goal is to demonstrate capability.</p></div>`}
-function projectsPage(){return pageHead('Projects & Tasks','Turn learning and career actions into visible evidence.','<button class="btn primary" onclick="openTaskModal()">+ Add task</button>')+
- `<div class="grid two"><div class="card"><div class="card-head"><h2>Tasks</h2><button class="link" onclick="openTaskModal()">+ New</button></div>${state.tasks.map(t=>`<div class="row"><input class="check" type="checkbox" ${t.status==='Done'?'checked':''} onchange="toggleTask(${t.id})"><div class="grow ${t.status==='Done'?'task-done':''}"><div class="row-title">${esc(t.title)}</div><div class="row-meta">${esc(t.due)} · ${pill(t.priority)}</div></div>${pill(t.status)}<button class="btn small" onclick="deleteItem('tasks',${t.id})">×</button></div>`).join('')}</div>
- <div class="card"><div class="card-head"><h2>Projects</h2><button class="link" onclick="addProject()">+ New</button></div>${state.projects.map(p=>`<div class="row"><div class="grow"><div class="row-title">${esc(p.name)}</div><div class="row-meta">${esc(p.type)} · ${esc(p.status)}</div>${progressBar(p.progress)}</div><b>${p.progress}%</b></div>`).join('')}</div></div>`}
-function notesPage(){return pageHead('Research & Notes','Capture market intelligence, recruiter conversations, learning notes and decisions.','<button class="btn primary" onclick="openNoteModal()">+ New note</button>')+
- `<div class="grid two"><div class="card">${state.notes.map(n=>`<div class="row"><span>▤</span><div class="grow"><div class="row-title">${esc(n.title)}</div><div class="row-meta">${esc(n.type)} · ${esc(n.date)}</div><p class="muted" style="font-size:12px">${esc(n.body)}</p></div><button class="btn small" onclick="deleteItem('notes',${n.id})">Delete</button></div>`).join('')}</div><div class="card"><h2>Research prompts</h2>${['What is changing in the target market?','Which employers offer hybrid flexibility?','What skills appear repeatedly?','What salary range is realistic?','What would make this role a strong fit?'].map(x=>`<div class="row"><span>◇</span><div class="grow">${x}</div></div>`).join('')}</div></div>`}
-function resourcesPage(){return pageHead('Resources','A focused library for learning and career execution.')+`<div class="grid two">${state.resources.map(r=>`<div class="card"><div class="card-head"><div><h3>${esc(r.name)}</h3><span class="tag">${esc(r.type)}</span></div><a class="btn small" href="${esc(r.url)}" target="_blank" rel="noopener">Open ↗</a></div></div>`).join('')}</div>`}
-function decisionsPage(){return pageHead('Decision Hub','Keep important career decisions visible and evidence based.','<button class="btn primary" onclick="addDecision()">+ Decision</button>')+`<div class="grid three">${state.decisions.map(d=>`<div class="card"><h3>${esc(d.title)}</h3><p>${esc(d.decision)}</p><div class="bar-label"><span>Confidence</span><b>${d.confidence}%</b></div>${progressBar(d.confidence)}<div style="margin-top:12px"><button class="btn small" onclick="deleteItem('decisions',${d.id})">Delete</button></div></div>`).join('')}</div>`}
-function landscapePage(){return pageHead('Career Landscape','A simple map of where your existing experience connects with future opportunities.')+`<div class="grid three">
- <div class="card"><h3>What you already have</h3><p class="muted">Supply chain operations, inventory, logistics, procurement, customs, supplier management and ERP experience.</p></div>
- <div class="card"><h3>What you are adding</h3><p class="muted">AI, automation, analytics, Power BI, digital systems, GitHub, web skills and technology thinking.</p></div>
- <div class="card"><h3>Where this leads</h3><p class="muted">Business technology, supply chain transformation, procurement technology, data enabled management and AI enabled operations.</p></div></div>
- <div class="card section-gap"><h2>Career thesis</h2><p style="font:22px Georgia,serif">“Use proven business experience as the foundation, then add technology and AI to create a more flexible and globally mobile career.”</p></div>`}
-function goalsPage(){return pageHead('Goals & Milestones','The outcomes that move Project 45 forward.','<button class="btn primary" onclick="addGoal()">+ Goal</button>')+`<div class="card">${state.goals.map(g=>`<div class="row"><input class="check" type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${g.id})"><div class="grow ${g.done?'task-done':''}"><div class="row-title">${esc(g.title)}</div><div class="row-meta">${esc(g.date)}</div></div><button class="btn small" onclick="deleteItem('goals',${g.id})">Delete</button></div>`).join('')}</div>`}
-function planPage(){return pageHead('90 Day Plan','A practical sequence from discovery to application.','<button class="btn primary" onclick="toast(\'Plan saved locally\')">Save plan</button>')+
- `<div class="grid three">${[['Explore','Understand opportunities','Weeks 1–3'],['Validate','Research and shortlist','Weeks 4–6'],['Build','Gain skills and credentials','Weeks 7–9'],['Apply','Start applying and networking','Weeks 10–12'],['Move','Transition into new role','Beyond 90 days']].map((x,i)=>`<div class="card"><span class="pill">${i+1}</span><h3 style="margin-top:12px">${x[0]}</h3><p>${x[1]}</p><span class="muted">${x[2]}</span></div>`).join('')}</div>
- <div class="card section-gap"><h2>This week's focus</h2>${state.tasks.slice(0,3).map(t=>`<div class="row"><span>→</span><div class="grow">${esc(t.title)}</div>${pill(t.status)}</div>`).join('')}</div>`}
-
-function openModal(title,body){document.getElementById('modalBox').innerHTML=`<div class="modal-head"><h2>${title}</h2><button class="close" onclick="closeModal()">×</button></div>${body}`;document.getElementById('modal').classList.add('show')}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
-function openTaskModal(){openModal('New Task',`<form onsubmit="submitTask(event)"><div class="form-grid"><div class="field" style="grid-column:1/-1"><label>Task</label><input id="f_title" required></div><div class="field"><label>Due</label><input id="f_due" placeholder="e.g. 25 Sep"></div><div class="field"><label>Priority</label><select id="f_priority"><option>High</option><option selected>Medium</option><option>Low</option></select></div></div><div class="form-actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Create task</button></div></form>`)}
-function submitTask(e){e.preventDefault();state.tasks.unshift({id:Date.now(),title:f_title.value,due:f_due.value||'Next',priority:f_priority.value,status:'Not started'});save();closeModal();showPage('projects');toast('Task created')}
-function openRoleModal(){openModal('New Target Role',`<form onsubmit="submitRole(event)"><div class="form-grid"><div class="field" style="grid-column:1/-1"><label>Role</label><input id="r_role" required></div><div class="field"><label>Market</label><input id="r_market" placeholder="UK / UAE / Global"></div><div class="field"><label>Salary</label><input id="r_salary" placeholder="£60–80k"></div><div class="field"><label>Remote</label><select id="r_remote"><option>Hybrid</option><option>Remote</option><option>Office</option></select></div><div class="field"><label>Status</label><select id="r_status"><option>Explore</option><option>Researching</option><option>Shortlist</option></select></div></div><div class="form-actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Add role</button></div></form>`)}
-function submitRole(e){e.preventDefault();state.roles.push({id:Date.now(),role:r_role.value,market:r_market.value||'UK',salary:r_salary.value||'TBC',remote:r_remote.value,status:r_status.value,fit:50});save();closeModal();showPage('roles');toast('Role added')}
-function openNoteModal(){openModal('New Research Note',`<form onsubmit="submitNote(event)"><div class="field"><label>Title</label><input id="n_title" required></div><div class="form-grid" style="margin-top:12px"><div class="field"><label>Type</label><select id="n_type"><option>Market</option><option>Skills</option><option>Career</option><option>Learning</option></select></div><div class="field"><label>Date</label><input id="n_date" value="Today"></div></div><div class="field" style="margin-top:12px"><label>Note</label><textarea id="n_body" required></textarea></div><div class="form-actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Save note</button></div></form>`)}
-function submitNote(e){e.preventDefault();state.notes.unshift({id:Date.now(),title:n_title.value,date:n_date.value||'Today',type:n_type.value,body:n_body.value});save();closeModal();showPage('notes');toast('Note saved')}
-function openSkillModal(){openModal('Add Skill',`<form onsubmit="submitSkill(event)"><div class="form-grid"><div class="field" style="grid-column:1/-1"><label>Skill</label><input id="s_name" required></div><div class="field"><label>Current level %</label><input id="s_level" type="number" min="0" max="100" value="10"></div><div class="field"><label>Target %</label><input id="s_target" type="number" min="0" max="100" value="70"></div><div class="field"><label>Area</label><input id="s_area" value="Technology"></div><div class="field"><label>Next action</label><input id="s_next"></div></div><div class="form-actions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Add skill</button></div></form>`)}
-function submitSkill(e){e.preventDefault();state.skills.push({id:Date.now(),name:s_name.value,level:+s_level.value,target:+s_target.value,area:s_area.value,next:s_next.value||'Define next action'});save();closeModal();showPage('skills');toast('Skill added')}
-function addEvidence(){state.evidence.push({id:Date.now(),skill:'New skill evidence',project:'Project 45',evidence:'Evidence to be added',status:'Planned'});save();render();toast('Evidence row added')}
-function addProject(){state.projects.push({id:Date.now(),name:'New Project',type:'Career',status:'Planned',progress:0,desc:''});save();render();toast('Project added')}
-function addGoal(){state.goals.push({id:Date.now(),title:'New milestone',date:'TBC',done:false});save();render();toast('Goal added')}
-function addDecision(){state.decisions.push({id:Date.now(),title:'New decision',decision:'Decision to define',confidence:50});save();render();toast('Decision added')}
-function addNote(title){state.notes.unshift({id:Date.now(),title,date:'Today',type:'Market',body:'Research note ready for your findings.'});save();showPage('notes');toast('Research note created')}
-function deleteItem(collection,id){state[collection]=state[collection].filter(x=>x.id!==id);save();render();toast('Removed')}
-function toggleTask(id){const t=state.tasks.find(x=>x.id===id);t.status=t.status==='Done'?'Not started':'Done';save();render()}
-function toggleGoal(id){const g=state.goals.find(x=>x.id===id);g.done=!g.done;save();render()}
-function globalSearch(q){q=q.trim().toLowerCase();if(!q){return}const matches=[];[['tasks','title'],['roles','role'],['skills','name'],['projects','name'],['notes','title'],['resources','name'],['goals','title']].forEach(([c,k])=>state[c].forEach(x=>{if(String(x[k]).toLowerCase().includes(q))matches.push(`${c}: ${x[k]}`)}));if(matches.length){toast(`${matches.length} match${matches.length===1?'':'es'} found`)}else toast('No matches found')}
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
-buildNav();render();
+function renderRoles(){const f=document.getElementById('roleFilter')?.value||'all';let a=state.roles;if(f!=='all')a=a.filter(x=>f==='priority'?x.status==='Priority':f==='research'?x.status==='Research':x.status==='Applying');document.getElementById('rolesList').innerHTML=a.map(r=>`<div class="row"><div class="row-main"><div class="row-title">${esc(r.title)}</div><div class="row-meta">${esc(r.market)} · ${esc(r.salary)}</div></div><span class="badge">${esc(r.status)}</span>${removeBtn('role',r.id)}</div>`).join('')||'<div class="empty">No roles match this filter.</div>'}
+function renderMarket(){const f=document.getElementById('marketFilter')?.value||'all';let a=state.opportunities;if(f!=='all')a=a.filter(x=>x.status.toLowerCase()===f);document.getElementById('marketList').innerHTML=a.map(o=>`<div class="row"><div class="row-main"><div class="row-title">${esc(o.title)}</div><div class="row-meta">${esc(o.company)} · ${esc(o.location)}</div></div><span class="badge">${esc(o.status)}</span>${removeBtn('opportunity',o.id)}</div>`).join('')||'<div class="empty">No opportunities yet.</div>'}
+function renderSkills(){const f=document.getElementById('skillFilter')?.value||'all';let a=state.skills;if(f!=='all')a=a.filter(x=>x.status.toLowerCase()===f);document.getElementById('skillsGrid').innerHTML=a.map(s=>`<div class="card section"><div style="display:flex;justify-content:space-between;gap:8px"><span class="badge">${esc(s.category)}</span><span class="muted">${s.progress}%</span></div><h3 style="margin:14px 0 5px">${esc(s.title)}</h3><div class="muted" style="font-size:12px">${esc(s.status)}</div><div class="progress"><span style="width:${s.progress}%"></span></div><div style="display:flex;justify-content:space-between;margin-top:12px"><button class="linkbtn" data-cycle-skill="${s.id}">+10% progress</button>${removeBtn('skill',s.id)}</div></div>`).join('')||'<div class="empty">No skills match this filter.</div>'}
+function renderTasks(){const f=document.getElementById('taskFilter')?.value||'all';let a=state.tasks;if(f==='open')a=a.filter(x=>x.status!=='Done');if(f==='done')a=a.filter(x=>x.status==='Done');if(f==='high')a=a.filter(x=>x.priority==='High'&&x.status!=='Done');document.getElementById('tasksList').innerHTML=a.map(t=>`<div class="row"><button class="check ${t.status==='Done'?'done':''}" data-task-id="${t.id}">${t.status==='Done'?'✓':''}</button><div class="row-main"><div class="row-title" style="${t.status==='Done'?'text-decoration:line-through;opacity:.55':''}">${esc(t.title)}</div><div class="row-meta">${esc(t.due||'')} · ${esc(t.priority)} priority</div></div><span class="badge ${t.priority==='High'?'gold':''}">${esc(t.status)}</span>${removeBtn('task',t.id)}</div>`).join('')||'<div class="empty">No tasks match this filter.</div>'}
+function renderResearch(){const q=(document.getElementById('researchSearch')?.value||'').toLowerCase();let a=state.research.filter(x=>(x.title+x.text+x.tag).toLowerCase().includes(q));document.getElementById('researchList').innerHTML=a.map(r=>`<div class="row"><div class="row-main"><div class="row-title">${esc(r.title)}</div><div class="row-meta">${esc(r.text)}</div></div><span class="badge">${esc(r.tag)}</span>${removeBtn('research',r.id)}</div>`).join('')||'<div class="empty">No notes found.</div>'}
+function renderResources(){document.getElementById('resourcesGrid').innerHTML=state.resources.map(r=>`<div class="card section"><span class="badge">${esc(r.type)}</span><h3>${esc(r.title)}</h3><p class="muted" style="font-size:12px;word-break:break-all">${esc(r.url)}</p><div style="display:flex;gap:8px"><a class="btn" href="${safeUrl(r.url)}" target="_blank" rel="noopener">Open</a>${removeBtn('resource',r.id)}</div></div>`).join('')||'<div class="empty">No resources yet.</div>'}
+function renderDecisions(){document.getElementById('decisionsList').innerHTML=state.decisions.map(d=>{const score=Math.round((Number(d.fit)+Number(d.upside)+Number(d.flex))/3*10);return `<div class="row" style="margin-bottom:10px"><div class="row-main"><div class="row-title">${esc(d.title)}</div><div class="row-meta">${esc(d.note||'')}</div><div class="progress"><span style="width:${score}%"></span></div></div><span class="badge">${score}% fit</span>${removeBtn('decision',d.id)}</div>`}).join('')||'<div class="empty">No decisions yet.</div>'}
+function renderGoals(){document.getElementById('goalsGrid').innerHTML=state.goals.map(g=>`<div class="card section"><div class="goal-top"><div><span class="badge">${esc(g.area)}</span><h3 style="margin:13px 0 0">${esc(g.title)}</h3></div><b>${g.progress}%</b></div><div class="progress"><span style="width:${g.progress}%"></span></div><div style="margin-top:13px">${removeBtn('goal',g.id)}</div></div>`).join('')||'<div class="empty">Add a goal to give the system direction.</div>'}
+function renderPlan(){const a=state.tasks.slice(0,8);document.getElementById('planList').innerHTML=a.map(t=>`<div class="row" style="margin-bottom:8px"><button class="check ${t.status==='Done'?'done':''}" data-task-id="${t.id}">${t.status==='Done'?'✓':''}</button><div class="row-main"><div class="row-title">${esc(t.title)}</div><div class="row-meta">${esc(t.priority)} priority</div></div></div>`).join('')||'<div class="empty">Add starter actions to populate your plan.</div>'}
+function renderAll(){renderDashboard();renderRoles();renderMarket();renderSkills();renderTasks();renderResearch();renderResources();renderDecisions();renderGoals();renderPlan()}
+function seedPlan(){const titles=['Choose 3 target roles and score them','Complete one AI for operations learning module','Research 10 relevant hybrid vacancies','Update CV headline and core achievements','Create one practical portfolio project','Have 2 networking conversations'];titles.forEach(title=>state.tasks.push({id:uid(state.tasks),title,priority:'Medium',status:'Open',due:'90 day plan'}));save();toast('Starter actions added')}
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function safeUrl(u){try{const x=new URL(u);return ['http:','https:'].includes(x.protocol)?x.href:'#'}catch{return '#'}}
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Project_45_Career_Transition_V9_Backup.json';a.click();URL.revokeObjectURL(a.href);toast('Backup exported')}
+document.getElementById('globalSearch').addEventListener('input',e=>{
+ const q=e.target.value.trim().toLowerCase();if(!q)return;
+ const hits=[
+  ['roles',state.roles.some(x=>(x.title+x.market).toLowerCase().includes(q))],
+  ['market',state.opportunities.some(x=>(x.title+x.company).toLowerCase().includes(q))],
+  ['skills',state.skills.some(x=>(x.title+x.category).toLowerCase().includes(q))],
+  ['tasks',state.tasks.some(x=>x.title.toLowerCase().includes(q))],
+  ['research',state.research.some(x=>(x.title+x.text).toLowerCase().includes(q))]
+ ];const hit=hits.find(x=>x[1]);if(hit)setView(hit[0]);
+});
+['roleFilter','marketFilter','skillFilter','taskFilter','researchSearch'].forEach(id=>document.getElementById(id)?.addEventListener('input',renderAll));
+renderAll();
 </script>
 </body>
 </html>
