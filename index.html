@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0f4b43">
-<title>Project 45 — Career Transition OS V5</title>
+<title>Project 45 — Career Transition OS</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{
@@ -40,7 +40,6 @@ table{width:100%;border-collapse:collapse;font-size:10px}th,td{padding:7px 5px;b
 .view{display:none}.view.active{display:block}.module-title{padding:24px 4px 12px}.module-title h1{font-family:Georgia,serif;font-size:34px;margin:0 0 5px}.module-title p{margin:0;color:var(--muted);font-size:13px}.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.module-card{padding:16px;min-height:150px}.module-card h3{margin:0 0 8px;font-size:15px}.module-card p{color:var(--muted);font-size:12px;line-height:1.5}.back{border:0;background:#e8eeef;padding:7px 11px;border-radius:6px;cursor:pointer;font-size:11px;margin-bottom:10px}
 @media(max-width:1050px){.sidebar{width:175px}.main{margin-left:175px}.grid-mid{grid-template-columns:1fr 1fr}.grid-mid>.card:last-child{grid-column:1/-1}.quickgrid{grid-template-columns:repeat(2,1fr)}.grid-bottom{grid-template-columns:1fr 1fr}.destination{grid-column:1/-1}.hero h1{font-size:45px}}
 @media(max-width:760px){.sidebar{position:fixed;width:100%;height:58px;bottom:0;top:auto;border-right:0;border-top:1px solid var(--line);padding:5px 6px}.brand,.quote,.sep,.label,.quick{display:none}.nav{display:flex;justify-content:space-around}.nav button{font-size:10px;padding:7px}.nav button:nth-child(n+6){display:none}.nav .ico{display:block;margin:auto;font-size:17px}.main{margin-left:0;padding-bottom:55px}.topbar{padding:0 12px}.search{max-width:60%;width:100%}.top-actions span{display:none}.page{padding:0 10px}.hero{height:145px}.hero h1{font-size:34px;top:49px;left:18px}.hero p{left:19px;top:93px;font-size:14px}.hero .eyebrow{left:18px;top:20px}.hero .motto{display:none}.kpis{grid-template-columns:1fr 1fr}.grid-top,.grid-mid,.grid-bottom{grid-template-columns:1fr}.grid-mid>.card:last-child,.destination{grid-column:auto}.quickgrid{grid-template-columns:1fr 1fr}.module-grid{grid-template-columns:1fr}.steps{gap:0}.step p{display:none}}
-dialog{border:0;border-radius:10px;padding:0;width:min(430px,calc(100vw - 28px));box-shadow:0 16px 44px rgba(18,32,51,.25)}dialog::backdrop{background:rgba(18,32,51,.32)}.dialog-body{padding:20px}.dialog-body h2{font-family:Georgia,serif;font-weight:500;margin:0 0 15px}.field{display:grid;gap:5px;margin:0 0 11px}.field label{font-size:12px;font-weight:600}.field input,.field select{border:1px solid var(--line);border-radius:6px;padding:9px;font:inherit}.dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px}.dialog-actions button{border:0;border-radius:6px;padding:8px 12px;font-size:12px}.dialog-actions .save{background:#155f54;color:#fff}.dialog-actions .cancel{background:#eef1f2;color:var(--ink)}.module-list{display:grid;gap:0;padding:0 16px}.module-row{padding:11px 0;border-bottom:1px solid #edf0f2;font-size:12px;display:flex;justify-content:space-between;gap:12px}.module-row:last-child{border:0}.module-row small{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -63,8 +62,8 @@ dialog{border:0;border-radius:10px;padding:0;width:min(430px,calc(100vw - 28px))
   <div class="sep"></div><div class="label">Quick Add</div>
   <div class="quick">
     <button onclick="addTask()"><span class="ico">✓</span>New Task</button>
-    <button onclick="openEntry('role')"><span class="ico">◉</span>New Role</button>
-    <button onclick="openEntry('note')"><span class="ico">▤</span>New Note</button>
+    <button onclick="go('roles')"><span class="ico">◉</span>New Role</button>
+    <button onclick="go('research')"><span class="ico">▤</span>New Note</button>
   </div>
   <div class="quote">“A healthier, more flexible and globally mobile career with purpose and financial freedom.”<small>PROJECT 45</small></div>
 </aside>
@@ -116,7 +115,7 @@ dialog{border:0;border-radius:10px;padding:0;width:min(430px,calc(100vw - 28px))
       <div id="taskList"></div>
     </div>
     <div class="card section"><div class="section-head"><h3>Target Roles</h3><span class="link" onclick="go('roles')">View all →</span></div>
-      <table><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Status</th></tr></thead><tbody id="roleList">
+      <table><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Status</th></tr></thead><tbody>
         <tr><td>Procurement Business Partner</td><td>UK</td><td>£55–70k</td><td><span class="pill blue">Researching</span></td></tr>
         <tr><td>Supply Chain Manager</td><td>UAE</td><td>£70–90k</td><td><span class="pill green">Shortlist</span></td></tr>
         <tr><td>Technology Risk Analyst</td><td>UK</td><td>£60–80k</td><td><span class="pill blue">Researching</span></td></tr>
@@ -136,17 +135,17 @@ dialog{border:0;border-radius:10px;padding:0;width:min(430px,calc(100vw - 28px))
 
   <div class="grid-bottom">
     <div class="card section"><div class="section-head"><h3>Recent Notes</h3><span class="link" onclick="go('research')">View all →</span></div>
-      <div id="noteList"><div class="note"><span>▤</span><span>UK Job Market Insights</span><span>14 Sep</span></div>
+      <div class="note"><span>▤</span><span>UK Job Market Insights</span><span>14 Sep</span></div>
       <div class="note"><span>▤</span><span>UAE Opportunities</span><span>12 Sep</span></div>
       <div class="note"><span>▤</span><span>Skills Gap Analysis</span><span>10 Sep</span></div>
-      <div class="note"><span>▤</span><span>Recruiter Conversation Summary</span><span>8 Sep</span></div></div>
+      <div class="note"><span>▤</span><span>Recruiter Conversation Summary</span><span>8 Sep</span></div>
     </div>
     <div class="card section"><div class="section-head"><h3>Key Milestones</h3><span class="link" onclick="go('goals')">View all →</span></div>
-      <div id="milestoneList"><div class="milestone"><span>□</span><span>Complete market research</span><span>20 Sep</span></div>
+      <div class="milestone"><span>□</span><span>Complete market research</span><span>20 Sep</span></div>
       <div class="milestone"><span>□</span><span>Shortlist 3 target roles</span><span>30 Sep</span></div>
       <div class="milestone"><span>□</span><span>Enrol in key course</span><span>15 Oct</span></div>
       <div class="milestone"><span>□</span><span>Start applying</span><span>Nov 2026</span></div>
-      <div class="milestone"><span>□</span><span>Review and refine</span><span>Dec 2026</span></div></div>
+      <div class="milestone"><span>□</span><span>Review and refine</span><span>Dec 2026</span></div>
     </div>
     <div class="card destination"><h3 style="margin:0;font-family:Georgia,serif;font-size:17px">Project 45 Destination</h3>
       <div class="dest-list"><span>Flexible career</span><span>Global opportunities</span><span>Sustainable workload</span><span>Technology + AI</span><span>Financial freedom</span></div>
@@ -160,12 +159,7 @@ dialog{border:0;border-radius:10px;padding:0;width:min(430px,calc(100vw - 28px))
 </main>
 </div>
 
-<dialog id="entryDialog"><form method="dialog" class="dialog-body" id="entryForm"><h2 id="entryTitle">New Task</h2><div id="entryFields"></div><div class="dialog-actions"><button class="cancel" value="cancel">Cancel</button><button class="save" value="save">Save</button></div></form></dialog>
 <script>
-const STORAGE='project45-v5-calm-working';
-const defaults={tasks:[['Research 5 target roles in the UK','Today','today',false],['Compare salaries and remote options','16 Sep','',false],['Identify key certifications','18 Sep','',false],['Update CV for target roles','20 Sep','',false],['Reach out to 3 connections','22 Sep','',false]],roles:[['Procurement Business Partner','UK','£55–70k','Researching'],['Supply Chain Manager','UAE','£70–90k','Shortlist'],['Technology Risk Analyst','UK','£60–80k','Researching'],['AI Governance Specialist','Global','£70–100k','Explore'],['Data & Analytics Manager','UK','£65–85k','Shortlist']],notes:[['UK Job Market Insights','14 Sep'],['UAE Opportunities','12 Sep'],['Skills Gap Analysis','10 Sep'],['Recruiter Conversation Summary','8 Sep']],milestones:[['Complete market research','20 Sep',false],['Shortlist 3 target roles','30 Sep',false],['Enrol in key course','15 Oct',false],['Start applying','Nov 2026',false],['Review and refine','Dec 2026',false]]};
-let state;try{state={...defaults,...JSON.parse(localStorage.getItem(STORAGE))}}catch{state=structuredClone(defaults)}
-function persist(){localStorage.setItem(STORAGE,JSON.stringify(state));renderDashboard()}
 const moduleData={
  landscape:["Career Landscape","Explore the sectors and pathways that can create a stronger Project 45 career.","AI & Automation","Cybersecurity","Cloud & Technology","Technology Risk","AI Governance","Data & Analytics","Supply Chain Technology"],
  roles:["Target Roles","Build a focused pipeline of roles, compare requirements and score fit.","Procurement Business Partner","Supply Chain Manager","Technology Risk Analyst","AI Governance Specialist","Data & Analytics Manager"],
@@ -189,29 +183,21 @@ function renderModule(key){
  const d=moduleData[key]; if(!d)return;
  const old=document.getElementById("moduleView"); if(old)old.remove();
  const section=document.createElement("section"); section.id="moduleView"; section.className="view active";
- const types={roles:'role',tasks:'task',research:'note',goals:'milestone'};
- const add=types[key]?`<button class="back" onclick="openEntry('${types[key]}')">+ Add ${types[key]}</button>`:'';
- let list='';
- if(key==='roles')list=`<div class="card module-card" style="grid-column:1/-1"><h3>Role pipeline</h3><div class="module-list">${state.roles.map(r=>`<div class="module-row"><b>${r[0]}</b><span>${r[1]} · ${r[2]} · ${r[3]}</span></div>`).join('')}</div></div>`;
- if(key==='tasks')list=`<div class="card module-card" style="grid-column:1/-1"><h3>All actions</h3><div class="module-list">${state.tasks.map((t,i)=>`<label class="module-row"><span><input type="checkbox" ${t[3]?'checked':''} onchange="toggleTask(${i})"> &nbsp;${t[0]}</span><small>${t[1]}</small></label>`).join('')}</div></div>`;
- if(key==='research')list=`<div class="card module-card" style="grid-column:1/-1"><h3>Notes library</h3><div class="module-list">${state.notes.map(n=>`<div class="module-row"><span>▤ &nbsp;${n[0]}</span><small>${n[1]}</small></div>`).join('')}</div></div>`;
- if(key==='goals')list=`<div class="card module-card" style="grid-column:1/-1"><h3>Key milestones</h3><div class="module-list">${state.milestones.map((m,i)=>`<label class="module-row"><span><input type="checkbox" ${m[2]?'checked':''} onchange="toggleMilestone(${i})"> &nbsp;${m[0]}</span><small>${m[1]}</small></label>`).join('')}</div></div>`;
- section.innerHTML=`<div class="module-title"><button class="back" onclick="go('dashboard')">← Dashboard</button>${add}<h1>${d[0]}</h1><p>${d[1]}</p></div><div class="module-grid">${list||d.slice(2).map(x=>`<div class="card module-card"><h3>${x}</h3><p>${key==="skills"?"Track current level, evidence, learning action and next review.":"Keep this area focused, current and linked to the Project 45 destination."}</p></div>`).join("")}</div>`;
+ section.innerHTML=`<div class="module-title"><button class="back" onclick="go('dashboard')">← Dashboard</button><h1>${d[0]}</h1><p>${d[1]}</p></div><div class="module-grid">${d.slice(2).map((x,i)=>`<div class="card module-card"><h3>${x}</h3><p>${key==="roles"?"Research requirements, salary, flexibility, location and fit score.":key==="skills"?"Track current level, evidence, learning action and next review.":"Keep this area focused, current and linked to the Project 45 destination."}</p></div>`).join("")}</div>`;
  document.getElementById("modules").appendChild(section);
 }
-function renderDashboard(){
- document.getElementById('taskList').innerHTML=state.tasks.slice(0,5).map((t,i)=>`<label class="task"><input type="checkbox" ${t[3]?'checked':''} onchange="toggleTask(${i})"><span>${t[0]}</span><span class="due ${t[2]}">${t[1]}</span></label>`).join('');
- document.getElementById('roleList').innerHTML=state.roles.slice(0,5).map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="pill ${r[3]==='Shortlist'?'green':r[3]==='Explore'?'purple':'blue'}">${r[3]}</span></td></tr>`).join('');
- document.getElementById('noteList').innerHTML=state.notes.slice(0,4).map(n=>`<div class="note"><span>▤</span><span>${n[0]}</span><span>${n[1]}</span></div>`).join('');
- document.getElementById('milestoneList').innerHTML=state.milestones.map((m,i)=>`<label class="milestone"><input type="checkbox" ${m[2]?'checked':''} onchange="toggleMilestone(${i})"><span>${m[0]}</span><span>${m[1]}</span></label>`).join('');
+function addTask(){
+ const list=document.getElementById("taskList"); const row=document.createElement("div"); row.className="task"; row.innerHTML=`<input type="checkbox"><span contenteditable="true">New Project 45 task</span><span class="due">Today</span>`; list.prepend(row);
 }
-function toggleTask(i){state.tasks[i][3]=!state.tasks[i][3];persist()}function toggleMilestone(i){state.milestones[i][2]=!state.milestones[i][2];persist()}
-function addTask(){openEntry('task')}
-function openEntry(type){const fields={task:[['Task','name'],['Due date','date']],role:[['Role title','name'],['Market','market'],['Salary range','salary'],['Status','status']],note:[['Note title','name'],['Date','date']],milestone:[['Milestone','name'],['Target date','date']]}[type];window.entryType=type;document.getElementById('entryTitle').textContent='New '+type;document.getElementById('entryFields').innerHTML=fields.map(f=>`<div class="field"><label>${f[0]}</label>${f[1]==='status'?'<select name="status"><option>Researching</option><option>Shortlist</option><option>Explore</option></select>':`<input name="${f[1]}" required>`}</div>`).join('');document.getElementById('entryDialog').showModal()}
-document.getElementById('entryForm').addEventListener('submit',e=>{if(e.submitter.value==='cancel')return;const d=Object.fromEntries(new FormData(e.target));if(window.entryType==='task')state.tasks.unshift([d.name,d.date,'',false]);if(window.entryType==='role')state.roles.unshift([d.name,d.market,d.salary,d.status]);if(window.entryType==='note')state.notes.unshift([d.name,d.date]);if(window.entryType==='milestone')state.milestones.unshift([d.name,d.date,false]);persist()});
+function loadTasks(){
+ const tasks=[
+ ["Research 5 target roles in the UK","Today","today"],["Compare salaries and remote options","16 Sep",""],["Identify key certifications","18 Sep",""],["Update CV for target roles","20 Sep",""],["Reach out to 3 connections","22 Sep",""]
+ ];
+ document.getElementById("taskList").innerHTML=tasks.map(t=>`<div class="task"><input type="checkbox"><span>${t[0]}</span><span class="due ${t[2]}">${t[1]}</span></div>`).join("");
+}
 document.querySelectorAll("#nav button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.view)));
-document.getElementById("search").addEventListener("keydown",e=>{if(e.key==="Enter"){const q=e.target.value.toLowerCase();const found=Object.keys(moduleData).find(k=>moduleData[k][0].toLowerCase().includes(q));if(found)go(found);}});
-renderDashboard();
+document.getElementById("search").addEventListener("keydown",e=>{if(e.key==="Enter"){alert("Search is ready for the next data-connected version.");}});
+loadTasks();
 </script>
 </body>
 </html>
