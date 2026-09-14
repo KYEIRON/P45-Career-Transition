@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f7f5">
+<meta name="description" content="Project 45 Career Transition OS">
+<title>Project 45 · Career Transition OS · V9</title>
+<style>
+:root{
+  --bg:#f5f6f4; --panel:#fff; --panel2:#f8faf9; --ink:#17212b; --muted:#68737d;
+  --line:#e4e8e5; --accent:#0f5f61; --accent2:#dceceb; --gold:#b88a3b;
+  --shadow:0 12px 36px rgba(20,34,43,.07); --radius:18px; --sidebar:250px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar);background:#fff;border-right:1px solid var(--line);padding:24px 16px;z-index:20;overflow:auto}
+.brand{padding:4px 12px 26px}.brand-title{font-family:Georgia,serif;font-size:24px}.brand-sub{font-size:11px;letter-spacing:.12em;color:var(--muted);margin-top:3px}
+.nav-label{font-size:10px;letter-spacing:.16em;color:#99a29e;margin:18px 12px 8px;text-transform:uppercase}
+.nav button{width:100%;border:0;background:transparent;text-align:left;padding:10px 12px;border-radius:11px;color:#53606a;margin:2px 0;display:flex;gap:10px;align-items:center}
+.nav button:hover{background:#f2f6f4}.nav button.active{background:#eaf2f0;color:#0b5557;font-weight:700}
+.icon{width:18px;text-align:center;color:#0f5f61}
+.main{margin-left:var(--sidebar);width:calc(100% - var(--sidebar));min-width:0}
+.topbar{height:70px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 28px;position:sticky;top:0;z-index:15;backdrop-filter:blur(12px)}
+.search{flex:1;max-width:620px;position:relative}.search input{width:100%;padding:12px 15px 12px 40px;border:1px solid var(--line);border-radius:12px;background:#fafbfa;outline:none}.search input:focus{border-color:#9bc6c3;box-shadow:0 0 0 3px #e4f1ef}.search span{position:absolute;left:14px;top:10px;color:#89938f}
+.top-actions{margin-left:auto;display:flex;gap:8px}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 14px;font-weight:650}.btn:hover{background:#f5f7f6}.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.primary:hover{filter:brightness(.96)}
+.avatar{width:34px;height:34px;border-radius:50%;background:#dfeeea;color:#0f5f61;display:grid;place-items:center;font-weight:800;font-size:12px}
+.content{padding:26px 34px 50px;max-width:1500px;margin:auto}
+.hero{border-radius:24px;min-height:225px;padding:32px;position:relative;overflow:hidden;color:#fff;box-shadow:var(--shadow);background:
+linear-gradient(120deg,rgba(9,48,54,.98),rgba(18,88,89,.94) 48%,rgba(31,113,108,.86)),
+radial-gradient(circle at 80% 25%,rgba(255,255,255,.22),transparent 28%);}
+.hero:before{content:"";position:absolute;width:430px;height:430px;border:1px solid rgba(255,255,255,.16);border-radius:50%;right:-80px;top:-210px;box-shadow:0 0 0 55px rgba(255,255,255,.025),0 0 0 110px rgba(255,255,255,.018)}
+.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:38% 62% 54% 46%;right:170px;bottom:-95px;background:rgba(232,199,130,.14);transform:rotate(24deg)}
+.hero-content{position:relative;z-index:2;max-width:720px}.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.78;font-weight:750}.hero h1{font-family:Georgia,serif;font-size:42px;line-height:1.08;margin:10px 0 10px;font-weight:500}.hero p{margin:0;max-width:650px;color:rgba(255,255,255,.82);line-height:1.55}.hero-actions{margin-top:22px;display:flex;gap:9px;flex-wrap:wrap}.hero .btn{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25);backdrop-filter:blur(6px)}.hero .btn.primary{background:#fff;color:#145b5c;border-color:#fff}
+.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 5px 20px rgba(20,34,43,.025)}.stat{padding:19px}.stat-label{font-size:12px;color:var(--muted)}.stat-value{font-size:29px;font-weight:800;margin-top:5px}.stat-note{font-size:11px;color:#0f6965;margin-top:4px}
+.two{grid-template-columns:1.65fr 1fr;margin-top:16px}.three{grid-template-columns:repeat(3,1fr);margin-top:16px}.section{padding:20px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.section-title{font-family:Georgia,serif;font-size:20px}.linkbtn{border:0;background:none;color:#0f6465;font-weight:700;padding:4px}.list{display:grid;gap:9px}.row{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:13px;background:#fcfdfc}.row-main{flex:1;min-width:0}.row-title{font-weight:700}.row-meta{font-size:12px;color:var(--muted);margin-top:3px}.badge{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:#edf3f1;color:#356361;font-size:11px;font-weight:750;white-space:nowrap}.badge.gold{background:#f7f0e2;color:#87652a}.badge.blue{background:#e9f0f8;color:#3c5d80}.check{width:20px;height:20px;border:1px solid #cbd6d2;border-radius:6px;background:#fff}.check.done{background:#0f6965;border-color:#0f6965;color:#fff;display:grid;place-items:center}
+.progress{height:8px;background:#e9eeec;border-radius:99px;overflow:hidden;margin-top:9px}.progress span{display:block;height:100%;background:#0f6965;border-radius:99px}
+.view{display:none}.view.active{display:block}.page-title{font-family:Georgia,serif;font-size:32px;margin:0}.page-sub{color:var(--muted);margin:6px 0 22px}.toolbar{display:flex;gap:9px;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap}.filters{display:flex;gap:8px;flex-wrap:wrap}.filters select,.filters input{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 11px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);font-size:13px}th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#87918e}tbody tr:hover{background:#fafcfa}
+.kpi{font-size:24px;font-weight:800}.muted{color:var(--muted)}.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed #d8dfdc;border-radius:14px}
+.goal{padding:15px;border:1px solid var(--line);border-radius:14px}.goal-top{display:flex;justify-content:space-between;gap:12px}.goal h3{margin:0;font-size:15px}.goal p{font-size:12px;color:var(--muted);margin:6px 0 0}
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(9,22,26,.45);z-index:50;align-items:center;justify-content:center;padding:20px}.modal-backdrop.open{display:flex}.modal{background:#fff;width:min(620px,100%);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.2);padding:24px}.modal h2{font-family:Georgia,serif;margin:0 0 16px}.form{display:grid;gap:12px}.form label{font-size:12px;font-weight:700;color:#56625f}.form input,.form textarea,.form select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;outline:none}.form textarea{min-height:100px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px}
+.toast{position:fixed;right:22px;bottom:22px;background:#173f40;color:#fff;padding:12px 15px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:.22s;z-index:70}.toast.show{opacity:1;transform:translateY(0)}
+.mobile-menu{display:none}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+@media(max-width:760px){:root{--sidebar:0px}.sidebar{transform:translateX(-100%);transition:.22s;width:260px;box-shadow:10px 0 30px rgba(0,0,0,.08)}.sidebar.open{transform:none}.main{margin-left:0;width:100%}.topbar{padding:0 14px}.mobile-menu{display:block}.content{padding:16px}.hero{padding:24px;min-height:250px}.hero h1{font-size:34px}.stats{grid-template-columns:1fr 1fr}.top-actions .hide-mobile{display:none}}
+@media(max-width:480px){.stats{grid-template-columns:1fr}.row{align-items:flex-start}.row .badge{margin-left:auto}.hero-actions .btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-title">Project 45</div><div class="brand-sub">CAREER TRANSITION OS · V9</div></div>
+  <nav class="nav" id="nav">
+    <div class="nav-label">Workspace</div>
+    <button data-view="dashboard" class="active"><span class="icon">⌂</span>Dashboard</button>
+    <button data-view="roles"><span class="icon">◇</span>Target Roles</button>
+    <button data-view="market"><span class="icon">▦</span>Job Market</button>
+    <button data-view="skills"><span class="icon">✓</span>Skills & Learning</button>
+    <button data-view="tasks"><span class="icon">◒</span>Projects & Tasks</button>
+    <div class="nav-label">Intelligence</div>
+    <button data-view="meris"><span class="icon">✦</span>Meris AI</button>
+    <div class="nav-label">Knowledge</div>
+    <button data-view="research"><span class="icon">▤</span>Research & Notes</button>
+    <button data-view="resources"><span class="icon">▱</span>Resources</button>
+    <button data-view="decisions"><span class="icon">♧</span>Decision Hub</button>
+    <div class="nav-label">Direction</div>
+    <button data-view="landscape"><span class="icon">◌</span>Career Landscape</button>
+    <button data-view="goals"><span class="icon">⚑</span>Goals & Milestones</button>
+    <button data-view="plan"><span class="icon">→</span>90 Day Plan</button>
+  </nav>
+  <div style="margin:25px 12px 8px;padding-top:18px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);line-height:1.55">
+    Your career system. One calm place to plan, learn, decide and move.
+  </div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <button class="btn mobile-menu" id="menuBtn">☰</button>
+  <div class="search"><span>⌕</span><input id="globalSearch" placeholder="Search Project 45…"></div>
+  <div class="top-actions">
+    <button class="btn hide-mobile" id="exportBtn">Export</button>
+    <button class="btn primary" id="quickTask">+ Task</button>
+    <button class="btn hide-mobile" id="quickRole">+ Role</button>
+    <div class="avatar">P45</div>
+  </div>
+</header>
+
+<div class="content">
+<section class="view active" id="view-dashboard">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Project 45 · Career Transition</div>
+      <h1>Build the career that gives you freedom.</h1>
+      <p>A calm command centre for moving from your current experience into a flexible, globally mobile and technology enabled career.</p>
+      <div class="hero-actions">
+        <button class="btn primary" data-view="skills">Discover & Validate</button>
+        <button class="btn" data-view="plan">Open 90 Day Plan</button>
+      </div>
+    </div>
+  </div>
+  <div class="grid stats">
+    <div class="card stat"><div class="stat-label">Priority actions</div><div class="stat-value" id="statTasks">0</div><div class="stat-note">items needing attention</div></div>
+    <div class="card stat"><div class="stat-label">Skills in progress</div><div class="stat-value" id="statSkills">0</div><div class="stat-note">active learning paths</div></div>
+    <div class="card stat"><div class="stat-label">Target roles</div><div class="stat-value" id="statRoles">0</div><div class="stat-note">being evaluated</div></div>
+    <div class="card stat"><div class="stat-label">90 day progress</div><div class="stat-value" id="statProgress">0%</div><div class="stat-note">towards your next move</div></div>
+  </div>
+  <div class="grid two">
+    <div class="card section"><div class="section-head"><div class="section-title">Priority Actions</div><button class="linkbtn" data-view="tasks">View all →</button></div><div class="list" id="dashTasks"></div></div>
+    <div class="card section"><div class="section-head"><div class="section-title">Skills Progress</div><button class="linkbtn" data-view="skills">View all →</button></div><div class="list" id="dashSkills"></div></div>
+  </div>
+  <div class="card section" style="margin-top:16px"><div class="section-head"><div class="section-title">Target Role Pipeline</div><button class="linkbtn" data-view="roles">Manage roles →</button></div><div id="dashRoles"></div></div>
+  <div class="grid two">
+    <div class="card section"><div class="section-head"><div class="section-title">Recent Research</div><button class="linkbtn" data-view="research">View all →</button></div><div class="list" id="dashResearch"></div></div>
+    <div class="card section"><div class="section-head"><div class="section-title">Key Milestones</div><button class="linkbtn" data-view="goals">View all →</button></div><div class="list" id="dashGoals"></div></div>
+  </div>
+  <div class="card section" style="margin-top:16px"><div class="section-head"><div class="section-title">Project 45 Destination</div><button class="linkbtn" data-view="goals">Open goals →</button></div>
+    <div class="grid three">
+      <div class="goal"><h3>Flexible career</h3><p>Work that supports a sustainable life.</p></div>
+      <div class="goal"><h3>Global opportunities</h3><p>Access to strong international markets.</p></div>
+      <div class="goal"><h3>Technology + AI</h3><p>Build future ready capability around existing experience.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-roles"><div class="page-title">Target Roles</div><div class="page-sub">Turn career ideas into a focused pipeline of roles worth pursuing.</div>
+<div class="toolbar"><div class="filters"><select id="roleFilter"><option value="all">All roles</option><option value="priority">Priority</option><option value="research">Research</option><option value="applying">Applying</option></select></div><button class="btn primary" data-modal="role">+ Add target role</button></div>
+<div class="card section"><div id="rolesList"></div></div></section>
+
+<section class="view" id="view-market"><div class="page-title">Job Market</div><div class="page-sub">Track opportunities, applications and what the market is teaching you.</div>
+<div class="toolbar"><div class="filters"><select id="marketFilter"><option value="all">All opportunities</option><option value="saved">Saved</option><option value="applied">Applied</option><option value="interview">Interview</option></select></div><button class="btn primary" data-modal="opportunity">+ Add opportunity</button></div>
+<div class="card section"><div id="marketList"></div></div></section>
+
+<section class="view" id="view-skills"><div class="page-title">Skills & Learning</div><div class="page-sub">Build the skills that make your next career move more valuable and resilient.</div>
+<div class="toolbar"><div class="filters"><select id="skillFilter"><option value="all">All skills</option><option value="learning">Learning</option><option value="practising">Practising</option><option value="complete">Complete</option></select></div><button class="btn primary" data-modal="skill">+ Add skill</button></div>
+<div class="grid three" id="skillsGrid"></div></section>
+
+<section class="view" id="view-tasks"><div class="page-title">Projects & Tasks</div><div class="page-sub">Convert strategy into small actions you can actually finish.</div>
+<div class="toolbar"><div class="filters"><select id="taskFilter"><option value="all">All tasks</option><option value="open">Open</option><option value="done">Completed</option><option value="high">High priority</option></select></div><button class="btn primary" data-modal="task">+ Add task</button></div>
+<div class="card section"><div id="tasksList"></div></div></section>
+
+
+<section class="view" id="view-meris">
+  <div class="page-title">Meris AI</div>
+  <div class="page-sub">Your intelligent career companion inside Project 45.</div>
+
+  <div class="card section" style="overflow:hidden">
+    <div style="background:linear-gradient(135deg,#103f42,#1b6967);border-radius:16px;padding:24px;color:#fff;position:relative;overflow:hidden">
+      <div style="position:relative;z-index:2;max-width:760px">
+        <div class="eyebrow" style="color:#d9ece8">PROJECT 45 · INTELLIGENCE</div>
+        <h2 style="font-family:Georgia,serif;font-size:32px;font-weight:500;margin:9px 0">Meet Meris.</h2>
+        <p style="color:rgba(255,255,255,.82);line-height:1.55;margin:0">
+          Ask questions about your career transition, skills, target roles, decisions and next actions.
+          Meris uses your Project 45 information as context.
+        </p>
+      </div>
+    </div>
+
+    <div style="padding-top:20px">
+      <div class="filters" style="margin-bottom:14px">
+        <button class="btn" data-meris-prompt="What should I focus on today?">Today</button>
+        <button class="btn" data-meris-prompt="Analyse my current skill gaps and tell me what I should learn next.">Skill gaps</button>
+        <button class="btn" data-meris-prompt="Review my target roles and identify the strongest career direction.">Target roles</button>
+        <button class="btn" data-meris-prompt="Create a practical plan for this week based on my Project 45 goals.">This week</button>
+      </div>
+
+      <div id="merisMessages" style="display:grid;gap:10px;max-height:440px;overflow:auto;padding:4px 2px 12px">
+        <div class="row">
+          <div class="avatar" style="flex:0 0 34px">M</div>
+          <div class="row-main">
+            <div class="row-title">Hello. I'm Meris.</div>
+            <div class="row-meta">I'm here to help you turn Project 45 into practical career progress. Choose a prompt above or ask me anything below.</div>
+          </div>
+        </div>
+      </div>
+
+      <form id="merisForm" style="display:flex;gap:9px;margin-top:8px">
+        <input id="merisInput" autocomplete="off" placeholder="Ask Meris about your career…" style="flex:1;border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none">
+        <button class="btn primary" type="submit">Ask Meris</button>
+      </form>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:11px">
+        <span class="muted" style="font-size:11px">Connection: <b id="merisMode">Demo mode</b></span>
+        <button class="linkbtn" id="merisContextBtn">View Project 45 context</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid three" style="margin-top:16px">
+    <div class="card section"><span class="badge">Career</span><h3>Direction</h3><p class="muted">Compare paths, target roles and opportunities using evidence from your OS.</p></div>
+    <div class="card section"><span class="badge blue">Learning</span><h3>Capability</h3><p class="muted">Turn your skills gap into focused learning actions and practical evidence.</p></div>
+    <div class="card section"><span class="badge gold">Action</span><h3>Momentum</h3><p class="muted">Translate strategy into the next useful action instead of more information.</p></div>
+  </div>
+</section>
+
+<section class="view" id="view-research"><div class="page-title">Research & Notes</div><div class="page-sub">Capture evidence, market observations and useful thinking without losing it.</div>
+<div class="toolbar"><div class="filters"><input id="researchSearch" placeholder="Search notes…"></div><button class="btn primary" data-modal="research">+ Add note</button></div>
+<div class="card section"><div id="researchList"></div></div></section>
+
+<section class="view" id="view-resources"><div class="page-title">Resources</div><div class="page-sub">Keep your best courses, tools, references and learning sources in one place.</div>
+<div class="toolbar"><span class="muted">Your personal career library</span><button class="btn primary" data-modal="resource">+ Add resource</button></div>
+<div class="grid three" id="resourcesGrid"></div></section>
+
+<section class="view" id="view-decisions"><div class="page-title">Decision Hub</div><div class="page-sub">Compare career paths deliberately instead of making decisions from scattered information.</div>
+<div class="toolbar"><span class="muted">Use evidence, fit and upside together.</span><button class="btn primary" data-modal="decision">+ Add decision</button></div>
+<div class="card section"><div id="decisionsList"></div></div></section>
+
+<section class="view" id="view-landscape"><div class="page-title">Career Landscape</div><div class="page-sub">A simple view of where your current experience can take you next.</div>
+<div class="grid three">
+  <div class="card section"><div class="eyebrow" style="color:#0f5f61">Core advantage</div><h2 style="font-family:Georgia,serif">Supply Chain & Operations</h2><p class="muted">Inventory, demand planning, logistics, procurement, customs and operational coordination.</p><div class="progress"><span style="width:88%"></span></div><small class="muted">Strong existing capability</small></div>
+  <div class="card section"><div class="eyebrow" style="color:#0f5f61">Growth bridge</div><h2 style="font-family:Georgia,serif">Data & Digital</h2><p class="muted">Excel, Business Central, analytics, automation and practical AI for operations.</p><div class="progress"><span style="width:42%"></span></div><small class="muted">Build deliberately</small></div>
+  <div class="card section"><div class="eyebrow" style="color:#0f5f61">Future option</div><h2 style="font-family:Georgia,serif">Technology + AI</h2><p class="muted">AI enabled workflows, product thinking and technology leadership built around real business knowledge.</p><div class="progress"><span style="width:24%"></span></div><small class="muted">Explore & validate</small></div>
+</div>
+<div class="card section" style="margin-top:16px"><div class="section-title">Potential directions</div><div class="grid three" style="margin-top:14px">
+  <div class="row"><div class="row-main"><div class="row-title">Procurement Business Partner</div><div class="row-meta">Strong fit · transferable experience · international</div></div><span class="badge">High fit</span></div>
+  <div class="row"><div class="row-main"><div class="row-title">Supply Chain Technology Specialist</div><div class="row-meta">Operations + systems + data</div></div><span class="badge blue">Growth</span></div>
+  <div class="row"><div class="row-main"><div class="row-title">AI Operations / Automation</div><div class="row-meta">Emerging path · validate through projects</div></div><span class="badge gold">Explore</span></div>
+</div></div></section>
+
+<section class="view" id="view-goals"><div class="page-title">Goals & Milestones</div><div class="page-sub">Keep the long term Project 45 destination visible while working on today's next step.</div>
+<div class="toolbar"><span class="muted">Direction → capability → evidence → opportunity</span><button class="btn primary" data-modal="goal">+ Add goal</button></div>
+<div class="grid three" id="goalsGrid"></div></section>
+
+<section class="view" id="view-plan"><div class="page-title">90 Day Plan</div><div class="page-sub">A practical sequence for the next three months.</div>
+<div class="grid three">
+  <div class="card section"><div class="badge">Days 1–30</div><h2 style="font-family:Georgia,serif">Discover</h2><p class="muted">Choose target roles, map skill gaps, research the market and start one high value learning path.</p><div class="progress"><span style="width:70%"></span></div></div>
+  <div class="card section"><div class="badge blue">Days 31–60</div><h2 style="font-family:Georgia,serif">Build</h2><p class="muted">Create evidence: projects, portfolio material, stronger CV positioning and targeted applications.</p><div class="progress"><span style="width:35%"></span></div></div>
+  <div class="card section"><div class="badge gold">Days 61–90</div><h2 style="font-family:Georgia,serif">Move</h2><p class="muted">Increase applications, networking, interviews and market validation. Double down on what is working.</p><div class="progress"><span style="width:15%"></span></div></div>
+</div>
+<div class="card section" style="margin-top:16px"><div class="section-head"><div class="section-title">Plan checklist</div><button class="btn" id="seedPlan">Add starter actions</button></div><div id="planList"></div></div></section>
+</div>
+</main>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><h2 id="modalTitle">Add</h2><form class="form" id="modalForm"></form></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY='p45_v9_state';
+const defaultState={
+ tasks:[
+  {id:1,title:'Define top 3 target roles',priority:'High',status:'Open',due:'This week'},
+  {id:2,title:'Complete first practical AI workflow lesson',priority:'High',status:'Open',due:'This week'},
+  {id:3,title:'Update CV positioning around supply chain + technology',priority:'Medium',status:'Open',due:'Next week'}
+ ],
+ roles:[
+  {id:1,title:'Procurement Business Partner',market:'UK / Hybrid',salary:'£45k–£65k',status:'Priority'},
+  {id:2,title:'Supply Chain Technology Specialist',market:'UK / Global',salary:'£50k–£75k',status:'Research'},
+  {id:3,title:'AI Operations / Automation',market:'Global / Remote',salary:'Explore',status:'Research'}
+ ],
+ opportunities:[
+  {id:1,title:'Procurement Business Partner',company:'Target market research',status:'Saved',location:'Hybrid / UK'},
+  {id:2,title:'Supply Chain Systems Analyst',company:'Market research',status:'Saved',location:'Hybrid / UK'}
+ ],
+ skills:[
+  {id:1,title:'Advanced Excel & Power Query',category:'Data',progress:72,status:'Practising'},
+  {id:2,title:'Power BI',category:'Analytics',progress:35,status:'Learning'},
+  {id:3,title:'AI for Business Operations',category:'AI',progress:28,status:'Learning'},
+  {id:4,title:'Dynamics 365 Business Central',category:'Systems',progress:55,status:'Practising'},
+  {id:5,title:'Procurement Strategy',category:'Leadership',progress:48,status:'Learning'}
+ ],
+ research:[
+  {id:1,title:'Hybrid procurement roles',text:'Research salary levels, responsibilities and common requirements.',tag:'Career Market'},
+  {id:2,title:'AI in supply chain',text:'Identify practical use cases where operations experience becomes an advantage.',tag:'Technology'}
+ ],
+ resources:[
+  {id:1,title:'Microsoft Learn',type:'Learning',url:'https://learn.microsoft.com/'},
+  {id:2,title:'IATA Training',type:'Career',url:'https://www.iata.org/en/training/'},
+  {id:3,title:'Power BI Learning',type:'Analytics',url:'https://learn.microsoft.com/power-bi/'}
+ ],
+ decisions:[
+  {id:1,title:'Procurement Business Partner',fit:9,upside:8,flex:8,note:'Strongest immediate bridge from existing experience.'},
+  {id:2,title:'Supply Chain Technology',fit:8,upside:9,flex:9,note:'Excellent longer term option if digital skills increase.'}
+ ],
+ goals:[
+  {id:1,title:'Move into a flexible, higher value career',area:'Career',progress:35},
+  {id:2,title:'Build future ready technology + AI capability',area:'Skills',progress:30},
+  {id:3,title:'Reach Project 45 financial freedom objective',area:'Life',progress:20}
+ ]
+};
+let state=load();
+let modalType=null;
+
+function load(){try{return {...defaultState,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return structuredClone(defaultState)}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state)); renderAll()}
+function uid(arr){return arr.length?Math.max(...arr.map(x=>Number(x.id)||0))+1:1}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+function setView(view){
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ document.getElementById('view-'+view)?.classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+ window.scrollTo({top:0,behavior:'smooth'}); document.getElementById('sidebar').classList.remove('open'); renderAll();
+}
+document.addEventListener('click',e=>{
+ const v=e.target.closest('[data-view]'); if(v){setView(v.dataset.view);return}
+ const m=e.target.closest('[data-modal]'); if(m){openModal(m.dataset.modal);return}
+ if(e.target.id==='menuBtn') document.getElementById('sidebar').classList.toggle('open');
+ if(e.target.id==='quickTask') openModal('task');
+ if(e.target.id==='quickRole') openModal('role');
+ if(e.target.id==='exportBtn') exportData();
+ if(e.target.id==='seedPlan') seedPlan();
+ const task=e.target.closest('[data-task-id]'); if(task){toggleTask(Number(task.dataset.taskId))}
+ const del=e.target.closest('[data-delete]'); if(del){deleteItem(del.dataset.delete,Number(del.dataset.id))}
+ const cycle=e.target.closest('[data-cycle-skill]'); if(cycle){cycleSkill(Number(cycle.dataset.cycleSkill))}
+});
+function toggleTask(id){const t=state.tasks.find(x=>x.id===id);if(t){t.status=t.status==='Done'?'Open':'Done';save();toast(t.status==='Done'?'Task completed':'Task reopened')}}
+function cycleSkill(id){const s=state.skills.find(x=>x.id===id);if(!s)return;s.progress=Math.min(100,s.progress+10);s.status=s.progress>=100?'Complete':s.progress>=50?'Practising':'Learning';save();toast('Skill progress updated')}
+function deleteItem(type,id){const map={task:'tasks',role:'roles',opportunity:'opportunities',skill:'skills',research:'research',resource:'resources',decision:'decisions',goal:'goals'};const arr=state[map[type]];if(!arr)return;state[map[type]]=arr.filter(x=>x.id!==id);save();toast('Removed')}
+function fieldsFor(type){
+ const configs={
+ task:[['title','Task title','text',''],['priority','Priority','select','High|Medium|Low'],['due','Due','text','']],
+ role:[['title','Role title','text',''],['market','Market / location','text',''],['salary','Salary target','text',''],['status','Status','select','Priority|Research|Applying']],
+ opportunity:[['title','Opportunity / role','text',''],['company','Company','text',''],['location','Location','text',''],['status','select','Status','Saved|Applied|Interview|Closed']],
+ skill:[['title','Skill','text',''],['category','Category','text',''],['progress','Starting progress (%)','number','0']],
+ research:[['title','Note title','text',''],['tag','Area','text',''],['text','Note','textarea','']],
+ resource:[['title','Resource name','text',''],['type','Type','text',''],['url','URL','url','']],
+ decision:[['title','Option','text',''],['fit','Fit / 10','number',''],['upside','Upside / 10','number',''],['flex','Flexibility / 10','number',''],['note','Why it matters','textarea','']],
+ goal:[['title','Goal','text',''],['area','Area','text',''],['progress','Progress (%)','number','0']]
+ };
+ return configs[type]||[];
+}
+function openModal(type){
+ modalType=type; const titles={task:'Add a task',role:'Add a target role',opportunity:'Add a job opportunity',skill:'Add a skill',research:'Add a research note',resource:'Add a resource',decision:'Add a career decision',goal:'Add a goal'};
+ document.getElementById('modalTitle').textContent=titles[type]||'Add';
+ const form=document.getElementById('modalForm'); form.innerHTML='';
+ fieldsFor(type).forEach(f=>{
+  const [name,label,typeOr,value]=f; const wrap=document.createElement('div');
+  const lab=document.createElement('label');lab.textContent=label;wrap.appendChild(lab);
+  let el;
+  if(typeOr==='select'){el=document.createElement('select');(value.split('|')).forEach(o=>{const op=document.createElement('option');op.value=o;op.textContent=o;el.appendChild(op)})}
+  else {el=document.createElement(typeOr==='textarea'?'textarea':'input');el.type=typeOr==='textarea'?'':typeOr;el.placeholder=label}
+  el.name=name;el.value=typeOr==='select'?el.value:value;wrap.appendChild(el);form.appendChild(wrap)
+ });
+ const actions=document.createElement('div');actions.className='modal-actions';actions.innerHTML='<button type="button" class="btn" id="cancelModal">Cancel</button><button class="btn primary" type="submit">Save</button>';form.appendChild(actions);
+ document.getElementById('modalBackdrop').classList.add('open');
+}
+document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop'||e.target.id==='cancelModal')e.currentTarget.classList.remove('open')});
+document.getElementById('modalForm').addEventListener('submit',e=>{
+ e.preventDefault();const fd=new FormData(e.target);const d=Object.fromEntries(fd.entries());const id=uid(state[({task:'tasks',role:'roles',opportunity:'opportunities',skill:'skills',research:'research',resource:'resources',decision:'decisions',goal:'goals'})[modalType]]);
+ if(modalType==='task')state.tasks.push({id,...d,status:'Open'});
+ if(modalType==='role')state.roles.push({id,...d});
+ if(modalType==='opportunity')state.opportunities.push({id,...d});
+ if(modalType==='skill')state.skills.push({id,...d,progress:Number(d.progress)||0,status:(Number(d.progress)||0)>=100?'Complete':(Number(d.progress)||0)>=50?'Practising':'Learning'});
+ if(modalType==='research')state.research.push({id,...d});
+ if(modalType==='resource')state.resources.push({id,...d});
+ if(modalType==='decision')state.decisions.push({id,...d,fit:Number(d.fit)||0,upside:Number(d.upside)||0,flex:Number(d.flex)||0});
+ if(modalType==='goal')state.goals.push({id,...d,progress:Number(d.progress)||0});
+ document.getElementById('modalBackdrop').classList.remove('open');save();toast('Saved successfully');
+});
+function removeBtn(type,id){return `<button class="linkbtn" data-delete="${type}" data-id="${id}" title="Remove">Remove</button>`}
+function renderDashboard(){
+ const open=state.tasks.filter(t=>t.status!=='Done');document.getElementById('statTasks').textContent=open.length;document.getElementById('statSkills').textContent=state.skills.filter(s=>s.status!=='Complete').length;document.getElementById('statRoles').textContent=state.roles.length;
+ const progress=state.tasks.length?Math.round(state.tasks.filter(t=>t.status==='Done').length/state.tasks.length*100):0;document.getElementById('statProgress').textContent=progress+'%';
+ document.getElementById('dashTasks').innerHTML=open.slice(0,4).map(t=>`<div class="row"><button class="check" data-task-id="${t.id}"></button><div class="row-main"><div class="row-title">${esc(t.title)}</div><div class="row-meta">${esc(t.due||'No due date')}</div></div><span class="badge ${t.priority==='High'?'gold':''}">${esc(t.priority)}</span></div>`).join('')||'<div class="empty">No priority actions. Nice work.</div>';
+ document.getElementById('dashSkills').innerHTML=state.skills.slice(0,4).map(s=>`<div><div style="display:flex;justify-content:space-between"><b style="font-size:13px">${esc(s.title)}</b><span class="muted" style="font-size:11px">${s.progress}%</span></div><div class="progress"><span style="width:${s.progress}%"></span></div></div>`).join('');
+ document.getElementById('dashRoles').innerHTML=state.roles.length?`<table><thead><tr><th>Role</th><th>Market</th><th>Salary</th><th>Status</th></tr></thead><tbody>${state.roles.slice(0,5).map(r=>`<tr><td><b>${esc(r.title)}</b></td><td>${esc(r.market)}</td><td>${esc(r.salary)}</td><td><span class="badge">${esc(r.status)}</span></td></tr>`).join('')}</tbody></table>`:'<div class="empty">Add your first target role.</div>';
+ document.getElementById('dashResearch').innerHTML=state.research.slice(-4).reverse().map(r=>`<div class="row"><div class="row-main"><div class="row-title">${esc(r.title)}</div><div class="row-meta">${esc(r.text)}</div></div><span class="badge">${esc(r.tag)}</span></div>`).join('')||'<div class="empty">No research yet.</div>';
+ document.getElementById('dashGoals').innerHTML=state.goals.slice(0,3).map(g=>`<div><div style="display:flex;justify-content:space-between"><b style="font-size:13px">${esc(g.title)}</b><span class="muted">${g.progress}%</span></div><div class="progress"><span style="width:${g.progress}%"></span></div></div>`).join('');
+}
+function renderRoles(){const f=document.getElementById('roleFilter')?.value||'all';let a=state.roles;if(f!=='all')a=a.filter(x=>f==='priority'?x.status==='Priority':f==='research'?x.status==='Research':x.status==='Applying');document.getElementById('rolesList').innerHTML=a.map(r=>`<div class="row"><div class="row-main"><div class="row-title">${esc(r.title)}</div><div class="row-meta">${esc(r.market)} · ${esc(r.salary)}</div></div><span class="badge">${esc(r.status)}</span>${removeBtn('role',r.id)}</div>`).join('')||'<div class="empty">No roles match this filter.</div>'}
+function renderMarket(){const f=document.getElementById('marketFilter')?.value||'all';let a=state.opportunities;if(f!=='all')a=a.filter(x=>x.status.toLowerCase()===f);document.getElementById('marketList').innerHTML=a.map(o=>`<div class="row"><div class="row-main"><div class="row-title">${esc(o.title)}</div><div class="row-meta">${esc(o.company)} · ${esc(o.location)}</div></div><span class="badge">${esc(o.status)}</span>${removeBtn('opportunity',o.id)}</div>`).join('')||'<div class="empty">No opportunities yet.</div>'}
+function renderSkills(){const f=document.getElementById('skillFilter')?.value||'all';let a=state.skills;if(f!=='all')a=a.filter(x=>x.status.toLowerCase()===f);document.getElementById('skillsGrid').innerHTML=a.map(s=>`<div class="card section"><div style="display:flex;justify-content:space-between;gap:8px"><span class="badge">${esc(s.category)}</span><span class="muted">${s.progress}%</span></div><h3 style="margin:14px 0 5px">${esc(s.title)}</h3><div class="muted" style="font-size:12px">${esc(s.status)}</div><div class="progress"><span style="width:${s.progress}%"></span></div><div style="display:flex;justify-content:space-between;margin-top:12px"><button class="linkbtn" data-cycle-skill="${s.id}">+10% progress</button>${removeBtn('skill',s.id)}</div></div>`).join('')||'<div class="empty">No skills match this filter.</div>'}
+function renderTasks(){const f=document.getElementById('taskFilter')?.value||'all';let a=state.tasks;if(f==='open')a=a.filter(x=>x.status!=='Done');if(f==='done')a=a.filter(x=>x.status==='Done');if(f==='high')a=a.filter(x=>x.priority==='High'&&x.status!=='Done');document.getElementById('tasksList').innerHTML=a.map(t=>`<div class="row"><button class="check ${t.status==='Done'?'done':''}" data-task-id="${t.id}">${t.status==='Done'?'✓':''}</button><div class="row-main"><div class="row-title" style="${t.status==='Done'?'text-decoration:line-through;opacity:.55':''}">${esc(t.title)}</div><div class="row-meta">${esc(t.due||'')} · ${esc(t.priority)} priority</div></div><span class="badge ${t.priority==='High'?'gold':''}">${esc(t.status)}</span>${removeBtn('task',t.id)}</div>`).join('')||'<div class="empty">No tasks match this filter.</div>'}
+function renderResearch(){const q=(document.getElementById('researchSearch')?.value||'').toLowerCase();let a=state.research.filter(x=>(x.title+x.text+x.tag).toLowerCase().includes(q));document.getElementById('researchList').innerHTML=a.map(r=>`<div class="row"><div class="row-main"><div class="row-title">${esc(r.title)}</div><div class="row-meta">${esc(r.text)}</div></div><span class="badge">${esc(r.tag)}</span>${removeBtn('research',r.id)}</div>`).join('')||'<div class="empty">No notes found.</div>'}
+function renderResources(){document.getElementById('resourcesGrid').innerHTML=state.resources.map(r=>`<div class="card section"><span class="badge">${esc(r.type)}</span><h3>${esc(r.title)}</h3><p class="muted" style="font-size:12px;word-break:break-all">${esc(r.url)}</p><div style="display:flex;gap:8px"><a class="btn" href="${safeUrl(r.url)}" target="_blank" rel="noopener">Open</a>${removeBtn('resource',r.id)}</div></div>`).join('')||'<div class="empty">No resources yet.</div>'}
+function renderDecisions(){document.getElementById('decisionsList').innerHTML=state.decisions.map(d=>{const score=Math.round((Number(d.fit)+Number(d.upside)+Number(d.flex))/3*10);return `<div class="row" style="margin-bottom:10px"><div class="row-main"><div class="row-title">${esc(d.title)}</div><div class="row-meta">${esc(d.note||'')}</div><div class="progress"><span style="width:${score}%"></span></div></div><span class="badge">${score}% fit</span>${removeBtn('decision',d.id)}</div>`}).join('')||'<div class="empty">No decisions yet.</div>'}
+function renderGoals(){document.getElementById('goalsGrid').innerHTML=state.goals.map(g=>`<div class="card section"><div class="goal-top"><div><span class="badge">${esc(g.area)}</span><h3 style="margin:13px 0 0">${esc(g.title)}</h3></div><b>${g.progress}%</b></div><div class="progress"><span style="width:${g.progress}%"></span></div><div style="margin-top:13px">${removeBtn('goal',g.id)}</div></div>`).join('')||'<div class="empty">Add a goal to give the system direction.</div>'}
+function renderPlan(){const a=state.tasks.slice(0,8);document.getElementById('planList').innerHTML=a.map(t=>`<div class="row" style="margin-bottom:8px"><button class="check ${t.status==='Done'?'done':''}" data-task-id="${t.id}">${t.status==='Done'?'✓':''}</button><div class="row-main"><div class="row-title">${esc(t.title)}</div><div class="row-meta">${esc(t.priority)} priority</div></div></div>`).join('')||'<div class="empty">Add starter actions to populate your plan.</div>'}
+function renderAll(){renderDashboard();renderRoles();renderMarket();renderSkills();renderTasks();renderResearch();renderResources();renderDecisions();renderGoals();renderPlan()}
+function seedPlan(){const titles=['Choose 3 target roles and score them','Complete one AI for operations learning module','Research 10 relevant hybrid vacancies','Update CV headline and core achievements','Create one practical portfolio project','Have 2 networking conversations'];titles.forEach(title=>state.tasks.push({id:uid(state.tasks),title,priority:'Medium',status:'Open',due:'90 day plan'}));save();toast('Starter actions added')}
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function safeUrl(u){try{const x=new URL(u);return ['http:','https:'].includes(x.protocol)?x.href:'#'}catch{return '#'}}
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Project_45_Career_Transition_V9_Backup.json';a.click();URL.revokeObjectURL(a.href);toast('Backup exported')}
+document.getElementById('globalSearch').addEventListener('input',e=>{
+ const q=e.target.value.trim().toLowerCase();if(!q)return;
+ const hits=[
+  ['roles',state.roles.some(x=>(x.title+x.market).toLowerCase().includes(q))],
+  ['market',state.opportunities.some(x=>(x.title+x.company).toLowerCase().includes(q))],
+  ['skills',state.skills.some(x=>(x.title+x.category).toLowerCase().includes(q))],
+  ['tasks',state.tasks.some(x=>x.title.toLowerCase().includes(q))],
+  ['research',state.research.some(x=>(x.title+x.text).toLowerCase().includes(q))]
+ ];const hit=hits.find(x=>x[1]);if(hit)setView(hit[0]);
+});
+['roleFilter','marketFilter','skillFilter','taskFilter','researchSearch'].forEach(id=>document.getElementById(id)?.addEventListener('input',renderAll));
+
+function merisContext(){
+  return {
+    targetRoles: state.roles,
+    skills: state.skills,
+    tasks: state.tasks,
+    research: state.research,
+    goals: state.goals,
+    ninetyDayPlan: {
+      phases:["Discover","Build","Move"],
+      taskCount:state.tasks.length
+    }
+  };
+}
+function merisAdd(role,text){
+  const box=document.getElementById('merisMessages');
+  if(!box)return;
+  const el=document.createElement('div');
+  el.className='row';
+  el.innerHTML=role==='user'
+    ? `<div class="row-main"><div class="row-title">You</div><div class="row-meta">${esc(text)}</div></div>`
+    : `<div class="avatar" style="flex:0 0 34px">M</div><div class="row-main"><div class="row-title">Meris</div><div class="row-meta">${esc(text).replace(/\n/g,'<br>')}</div></div>`;
+  box.appendChild(el);
+  box.scrollTop=box.scrollHeight;
+}
+function merisDemoAnswer(question){
+  const q=question.toLowerCase();
+  const open=state.tasks.filter(t=>t.status!=='Done');
+  const learning=state.skills.filter(s=>s.status!=='Complete').sort((a,b)=>b.progress-a.progress);
+  const priority=state.roles.filter(r=>r.status==='Priority');
+  if(q.includes('today')||q.includes('focus')){
+    return `Start with one high value action: ${open[0]?.title||'review your next career action'}. Then spend 30–45 minutes on ${learning[0]?.title||'your highest priority skill'}. Keep the day focused on evidence and momentum rather than adding more research.`;
+  }
+  if(q.includes('skill')){
+    const s=learning.slice(-3).map(x=>`${x.title} (${x.progress}%)`).join(', ');
+    return `Your current learning picture suggests focusing on practical digital capability around your existing operations experience. The lower progress areas currently include ${s||'new technology skills'}. Prioritise one skill, practise it on a real Project 45 problem, and save the result as evidence.`;
+  }
+  if(q.includes('role')||q.includes('career direction')){
+    const r=priority[0]||state.roles[0];
+    return r ? `Your strongest immediate direction is ${r.title}. It gives you a bridge from your existing experience while allowing you to build technology and AI capability. Keep one adjacent growth option open, but avoid spreading the transition across too many role families.` : 'Add two or three target roles and I can compare them for fit, flexibility, growth and evidence requirements.';
+  }
+  if(q.includes('week')){
+    const picks=open.slice(0,3).map((t,i)=>`${i+1}. ${t.title}`).join(' ');
+    return `This week's focus should be: ${picks||'choose your top three transition actions'}. Finish the most important action first, then create one piece of evidence that strengthens your career story.`;
+  }
+  return `In Demo mode, Meris can already use your Project 45 data to structure a useful response. I would start by looking at your target roles, skill gaps and open tasks together. Once the secure OpenAI connection is added, this same interface can send your question and Project 45 context to the live AI.`;
+}
+async function askMeris(question){
+  question=question.trim();if(!question)return;
+  merisAdd('user',question);
+  const answer=merisDemoAnswer(question);
+  merisAdd('meris',answer);
+}
+document.addEventListener('click',e=>{
+  const p=e.target.closest('[data-meris-prompt]');
+  if(p){document.getElementById('merisInput').value=p.dataset.merisPrompt;askMeris(p.dataset.merisPrompt)}
+  if(e.target.id==='merisContextBtn'){
+    const text=JSON.stringify(merisContext(),null,2);
+    const box=document.getElementById('merisMessages');
+    const el=document.createElement('div');el.className='row';
+    el.innerHTML=`<div class="row-main"><div class="row-title">Project 45 context</div><pre style="white-space:pre-wrap;font-size:11px;color:var(--muted);max-height:220px;overflow:auto">${esc(text)}</pre></div>`;
+    box.appendChild(el);box.scrollTop=box.scrollHeight;
+  }
+});
+document.getElementById('merisForm')?.addEventListener('submit',e=>{
+  e.preventDefault();const input=document.getElementById('merisInput');const q=input.value;input.value='';askMeris(q);
+});
+
+renderAll();
+</script>
+</body>
+</html>
