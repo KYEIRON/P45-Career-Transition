@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6f7f5">
 <meta name="description" content="Project 45 Career Transition OS">
-<title>Project 45 · Career Transition OS · V9</title>
+<title>Project 45 · Career Transition OS · V12</title>
 <style>
 :root{
   --bg:#f5f6f4; --panel:#fff; --panel2:#f8faf9; --ink:#17212b; --muted:#68737d;
@@ -190,12 +190,13 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px 10p
       <div id="merisSettingsPanel" style="display:none;border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:12px;background:#fafcfb">
         <div style="font-weight:700;margin-bottom:7px">Secure AI connection</div>
         <div class="muted" style="font-size:11px;line-height:1.5;margin-bottom:9px">
-          Meris must use a server-side endpoint for live AI. Never put an OpenAI API key in this HTML file.
+          Meris uses a server-side endpoint for live AI. Never put an OpenAI API key in this HTML file. The endpoint should accept POST /api/meris and return { "output": "..." }.
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <input id="merisEndpoint" placeholder="https://your-secure-backend.example/api/meris"
                  style="flex:1;min-width:260px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none">
           <button class="btn primary" id="merisSaveEndpoint">Save connection</button>
+          <button class="btn" id="merisTestEndpoint">Test connection</button>
         </div>
         <div id="merisConnectionStatus" class="muted" style="font-size:11px;margin-top:8px"></div>
       </div>
@@ -506,6 +507,41 @@ Help the user make decisions, prioritise actions, build skills, evaluate roles, 
 Do not invent facts about the user's career or documents. If context is missing, say so.
 Keep advice practical and connected to Project 45's goal of a flexible, globally mobile and sustainable career.`;
 }
+async 
+async function merisTestEndpoint(){
+  const endpoint=(document.getElementById('merisEndpoint')?.value||localStorage.getItem(MERIS_STORE.endpoint)||'').trim().replace(/\/$/,'');
+  const status=document.getElementById('merisConnectionStatus');
+  if(!endpoint){
+    if(status)status.textContent='Enter your secure Meris backend endpoint first.';
+    merisSetStatus('No endpoint configured');
+    return;
+  }
+  if(status)status.textContent='Testing secure connection…';
+  merisSetStatus('Testing…');
+  try{
+    const r=await fetch(endpoint,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        healthcheck:true,
+        message:'Connection test',
+        conversation:[],
+        system:'Reply with exactly: Meris connection OK.',
+        context:{}
+      })
+    });
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(data.error||`Backend returned ${r.status}`);
+    const answer=data.output||data.response||data.message||'';
+    if(!answer)throw new Error('The backend responded but returned no output.');
+    if(status)status.textContent='Connection successful. Meris is ready.';
+    merisSetStatus('Connected to Meris AI');
+  }catch(err){
+    if(status)status.textContent=`Connection failed: ${err.message}`;
+    merisSetStatus('Connection error');
+  }
+}
+
 async function merisAsk(question){
   const q=question.trim();
   if(!q)return;
@@ -588,11 +624,15 @@ document.addEventListener('click',e=>{
     if(input)input.value=localStorage.getItem(MERIS_STORE.endpoint)||'';
   }
   if(e.target.id==='merisSaveEndpoint'){
-    const value=document.getElementById('merisEndpoint').value.trim();
+    const value=document.getElementById('merisEndpoint').value.trim().replace(/\/$/,'');
     if(value)localStorage.setItem(MERIS_STORE.endpoint,value);
     else localStorage.removeItem(MERIS_STORE.endpoint);
+    document.getElementById('merisEndpoint').value=value;
     document.getElementById('merisConnectionStatus').textContent=value?'Endpoint saved in this browser.':'No endpoint configured.';
     merisSetStatus(value?'Ready for secure AI connection':'Local knowledge mode');
+  }
+  if(e.target.id==='merisTestEndpoint'){
+    merisTestEndpoint();
   }
   if(e.target.id==='merisClearKnowledge'){
     if(confirm('Remove all Meris knowledge files from this browser?')){
