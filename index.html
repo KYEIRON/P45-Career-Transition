@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6f7f5">
 <meta name="description" content="Project 45 Career Transition OS">
-<title>Project 45 · Career Transition OS · V12</title>
+<title>Project 45 · Career Transition OS · V13</title>
 <style>
 :root{
   --bg:#f5f6f4; --panel:#fff; --panel2:#f8faf9; --ink:#17212b; --muted:#68737d;
@@ -54,7 +54,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px 10p
 <body>
 <div class="app">
 <aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="brand-title">Project 45</div><div class="brand-sub">CAREER TRANSITION OS · V11</div></div>
+  <div class="brand"><div class="brand-title">Project 45</div><div class="brand-sub">CAREER TRANSITION OS · V13</div></div>
   <nav class="nav" id="nav">
     <div class="nav-label">Workspace</div>
     <button data-view="dashboard" class="active"><span class="icon">⌂</span>Dashboard</button>
@@ -193,7 +193,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px 10p
           Meris uses a server-side endpoint for live AI. Never put an OpenAI API key in this HTML file. The endpoint should accept POST /api/meris and return { "output": "..." }.
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <input id="merisEndpoint" placeholder="https://your-secure-backend.example/api/meris"
+          <input id="merisEndpoint" placeholder="https://meris-ai.kyei-ronald.workers.dev/api/meris"
                  style="flex:1;min-width:260px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none">
           <button class="btn primary" id="merisSaveEndpoint">Save connection</button>
           <button class="btn" id="merisTestEndpoint">Test connection</button>
@@ -268,7 +268,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px 10p
 <div class="toast" id="toast"></div>
 
 <script>
-const KEY='p45_v9_state';
+const KEY='p45_v13_state';
 const defaultState={
  tasks:[
   {id:1,title:'Define top 3 target roles',priority:'High',status:'Open',due:'This week'},
@@ -310,6 +310,7 @@ const defaultState={
   {id:3,title:'Reach Project 45 financial freedom objective',area:'Life',progress:20}
  ]
 };
+(function migrateProject45State(){try{if(!localStorage.getItem('p45_v13_state')){const legacy=localStorage.getItem('p45_v9_state');if(legacy)localStorage.setItem('p45_v13_state',legacy);}}catch(e){}})();
 let state=load();
 let modalType=null;
 
@@ -402,7 +403,7 @@ function renderAll(){renderDashboard();renderRoles();renderMarket();renderSkills
 function seedPlan(){const titles=['Choose 3 target roles and score them','Complete one AI for operations learning module','Research 10 relevant hybrid vacancies','Update CV headline and core achievements','Create one practical portfolio project','Have 2 networking conversations'];titles.forEach(title=>state.tasks.push({id:uid(state.tasks),title,priority:'Medium',status:'Open',due:'90 day plan'}));save();toast('Starter actions added')}
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function safeUrl(u){try{const x=new URL(u);return ['http:','https:'].includes(x.protocol)?x.href:'#'}catch{return '#'}}
-function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Project_45_Career_Transition_V9_Backup.json';a.click();URL.revokeObjectURL(a.href);toast('Backup exported')}
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Project_45_Career_Transition_V13_Backup.json';a.click();URL.revokeObjectURL(a.href);toast('Backup exported')}
 document.getElementById('globalSearch').addEventListener('input',e=>{
  const q=e.target.value.trim().toLowerCase();if(!q)return;
  const hits=[
@@ -417,10 +418,11 @@ document.getElementById('globalSearch').addEventListener('input',e=>{
 
 
 /* ---------------- Meris AI: conversational career companion ---------------- */
+const MERIS_DEFAULT_ENDPOINT='https://meris-ai.kyei-ronald.workers.dev/api/meris';
 const MERIS_STORE = {
-  knowledge: 'p45_meris_knowledge_v1',
-  chat: 'p45_meris_chat_v1',
-  endpoint: 'p45_meris_endpoint_v1'
+  knowledge: 'p45_meris_knowledge_v2',
+  chat: 'p45_meris_chat_v2',
+  endpoint: 'p45_meris_endpoint_v2'
 };
 
 function merisLoad(key, fallback){
@@ -509,7 +511,7 @@ Keep advice practical and connected to Project 45's goal of a flexible, globally
 }
 async 
 async function merisTestEndpoint(){
-  const endpoint=(document.getElementById('merisEndpoint')?.value||localStorage.getItem(MERIS_STORE.endpoint)||'').trim().replace(/\/$/,'');
+  const endpoint=(document.getElementById('merisEndpoint')?.value||localStorage.getItem(MERIS_STORE.endpoint)||MERIS_DEFAULT_ENDPOINT).trim().replace(/\/$/,'');
   const status=document.getElementById('merisConnectionStatus');
   if(!endpoint){
     if(status)status.textContent='Enter your secure Meris backend endpoint first.';
@@ -551,7 +553,7 @@ async function merisAsk(question){
   merisRender();
   merisSetStatus('Thinking…');
 
-  const endpoint=localStorage.getItem(MERIS_STORE.endpoint)||'';
+  const endpoint=localStorage.getItem(MERIS_STORE.endpoint)||MERIS_DEFAULT_ENDPOINT;
   if(!endpoint){
     const response=`I have your Project 45 context and can see your approved knowledge, but the live AI connection has not been configured yet.\n\nThe conversation layer is ready. Add your secure Meris backend endpoint in Settings and I can send this conversation, your Project 45 context and your Markdown knowledge to the real AI model.\n\nI have not generated a canned answer to your question because Meris should reason with the real model rather than pretend to be an FAQ system.`;
     const next=merisChat();next.push({role:'assistant',content:response,ts:Date.now()});
